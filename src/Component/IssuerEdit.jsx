@@ -18,6 +18,7 @@ export default @observer class IssuerEdit extends React.Component  {
   }
 
   onSave () {
+    this.issuer.id = Math.round(Math.random() * 1000)
     this.props.onSave()
   }
 

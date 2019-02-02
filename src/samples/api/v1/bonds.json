@@ -1,0 +1,31 @@
+{
+  "links": {
+  },
+  "_embedded": {
+    "issuers": [
+      {
+        "id": 2,
+        "name": "РЖД"
+      }
+    ],
+    "bonds": [
+      {
+        "issuer": 2,
+        "ISIN": "RU000A0ZYX69",
+        "currency": "RUB",
+        "faceValue": 1000,
+        "quantity": 10000000,
+        "placementDate": "2018-03-07",
+        "maturity": "2028-02-23",
+        "earlyRepaymentAvailable": true,
+        "offerStart": "2024-08-22",
+        "offerEnd": "2024-08-28",
+        "redemptionDate": "2024-09-02",
+        "price": 925
+      }
+    ]
+  },
+  "total": 1,
+  "limit": 10,
+  "offset": 0
+}

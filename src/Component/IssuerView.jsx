@@ -17,7 +17,7 @@ export default class IssuerView extends React.Component {
     super(props)
 
     this.state = {
-      mode: this.issuer.name ? 'view' : 'edit',
+      mode: this.issuer.id ? 'view' : 'edit',
     }
   }
 

@@ -17,13 +17,7 @@ export default class IssuersList extends React.Component {
     this.setState(
       {
         issuers: issuers
-          .map(issuer => {
-            const i = new Issuer()
-
-            i.name = issuer.name
-
-            return {saved: true, issuer: i}
-          })
+          .map(issuer => ({saved: true, issuer: (new Issuer()).applyData(issuer)}))
           .concat([{saved: false, issuer: new Issuer()}]),
       },
     )
