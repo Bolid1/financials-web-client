@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import PageHeader from '../Styled/PageHeaderStyled'
+import IssuersList from '../Component/IssuersList'
 
 export default function IssuersPage ({title}) {
   return <>
@@ -8,6 +9,7 @@ export default function IssuersPage ({title}) {
     <article>
       В этом разделе находится информация об эмитентах.
     </article>
+    <IssuersList/>
   </>
 }
 

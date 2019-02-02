@@ -1,7 +1,9 @@
+import { observable } from 'mobx'
+
 export default class Issuer {
   /**
    * @description Название эмитента
    * @member {String}
    */
-  name
+  @observable name = ''
 }
