@@ -1,8 +1,10 @@
-import React, { Component } from 'react'
+import React  from 'react'
 import { hot } from 'react-hot-loader'
 import Loadable from 'react-loadable'
 import { BrowserRouter, Link, Route } from 'react-router-dom'
 import styled from 'styled-components'
+import Loader from './Component/Loader'
+import pages from './config/pages'
 
 const Application = styled.div`
   display: flex;
@@ -13,8 +15,8 @@ const Application = styled.div`
 
 const LeftSide = styled.aside`
   height: 100%;
-  min-width: 300px;
-  background-color: cornsilk;
+  min-width: 120px;
+  background-color: #0e0e23;
 `
 
 const paddingFromTop = '10px'
@@ -29,7 +31,7 @@ const NavItem = styled.li`
   
   a {
     text-decoration: none;
-    color: darkblue;
+    color: deepskyblue;
   }
 `
 
@@ -42,65 +44,51 @@ const Content = styled.div`
   box-sizing: border-box;
 `
 
-class App extends Component {
-  render () {
+export default hot(module)(
+  function App () {
     return (
       <BrowserRouter>
         <Application>
           <LeftSide>
             <Navigation>
-              <NavItem>
-                <Link to="/">Dashboard</Link>
-              </NavItem>
-              <NavItem>
-                <Link to="/accounts">Счета</Link>
-              </NavItem>
-              <NavItem>
-                <Link to="/stocks">Акции</Link>
-              </NavItem>
-              <NavItem>
-                <Link to="/bonds">Облигации</Link>
-              </NavItem>
+              {
+                Object.values(pages)
+                      .map(
+                        ({path, title}, key) => <NavItem key={key}>
+                          <Link to={path}>{title}</Link>
+                        </NavItem>,
+                      )
+              }
             </Navigation>
           </LeftSide>
           <Content>
-            <Route path="/" exact component={
-              Loadable(
-                {
-                  loader: () => import('./Page/Dashboard'),
-                  loading: () => <span>...</span>,
-                },
-              )
-            }/>
-            <Route path="/accounts" exact component={
-              Loadable(
-                {
-                  loader: () => import('./Page/Accounts'),
-                  loading: () => <span>...</span>,
-                },
-              )
-            }/>
-            <Route path="/stocks" exact component={
-              Loadable(
-                {
-                  loader: () => import('./Page/Stocks'),
-                  loading: () => <span>...</span>,
-                },
-              )
-            }/>
-            <Route path="/bonds" exact component={
-              Loadable(
-                {
-                  loader: () => import('./Page/Bonds'),
-                  loading: () => <span>...</span>,
-                },
-              )
-            }/>
+            {
+              Object.values(pages)
+                    .map(
+                      ({path, title, component}, key) =>
+                        <Route key={key} path={path} exact component={
+                          Loadable(
+                            {
+                              loader: () => import(`./Page/${component}`),
+                              loading: Loader,
+                              /**
+                               * @param {{default: React.Component}} loaded
+                               * @param {history, location, match} props
+                               * @returns {*}
+                               */
+                              render (loaded, props) {
+                                const Component = loaded.default
+
+                                return <Component {...{title}} {...props}/>
+                              },
+                            },
+                          )
+                        }/>,
+                    )
+            }
           </Content>
         </Application>
       </BrowserRouter>
     )
-  }
-}
-
-export default hot(module)(App)
+  },
+)
