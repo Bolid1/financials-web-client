@@ -33,7 +33,7 @@ export default class BondRepository {
       .then(
         /**
          * @param {Object} response
-         * @param {Object} response.links
+         * @param {Object} response._links
          * @param {Object} response._embedded
          * @param {ApiV1Bond[]} response._embedded.bonds
          * @param {ApiV1Issuer[]} response._embedded.issuers
