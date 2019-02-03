@@ -1,10 +1,10 @@
-import React  from 'react'
+import React from 'react'
 import { hot } from 'react-hot-loader'
 import Loadable from 'react-loadable'
 import { BrowserRouter, Link, Route } from 'react-router-dom'
 import styled from 'styled-components'
-import Loader from './Component/Loader'
 import pages from './config/pages'
+import Loader from './Element/Loader'
 
 const Application = styled.div`
   display: flex;
