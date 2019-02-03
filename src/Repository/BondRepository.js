@@ -35,6 +35,7 @@ export default class BondRepository {
          * @param {Object} response
          * @param {Object} response._links
          * @param {Object} response._embedded
+         * @param {ApiV1Currency[]} response._embedded.currencies
          * @param {ApiV1Bond[]} response._embedded.bonds
          * @param {ApiV1Issuer[]} response._embedded.issuers
          * @param {Number} response.total
@@ -48,6 +49,7 @@ export default class BondRepository {
 
           const hydrator = new EntityHydrator()
 
+          response._embedded.currencies.map(currency => hydrator.hydrate('currency', currency))
           response._embedded.issuers.map(issuer => hydrator.hydrate('issuer', issuer))
 
           return response._embedded.bonds.map(bond => hydrator.hydrate('bond', bond))

@@ -1,4 +1,5 @@
 import { observable } from 'mobx'
+import Currency from './Currency'
 import Issuer from './Issuer'
 
 export default class Bond {
@@ -17,9 +18,9 @@ export default class Bond {
 
   /**
    * @description Валюта, в которой происходят торги по данным облигациям
-   * @member {String}
+   * @member {Currency}
    */
-  @observable currency = 'RUB'
+  @observable currency
 
   /**
    * @description Номинал - это сумма, которую получит держатель облигации в день
@@ -89,7 +90,7 @@ export default class Bond {
       this.ISIN = data.ISIN
     }
 
-    if (typeof data.currency === 'string') {
+    if (data.currency instanceof Currency) {
       this.currency = data.currency
     }
 

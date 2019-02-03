@@ -2,6 +2,8 @@ import React from 'react'
 import Bond from '../Entity/Bond'
 import em from '../Infrastructure/EntityManager'
 import TilesStyled from '../Styled/TilesStyled'
+import TileStyled from '../Styled/TileStyled'
+import BondView from './BondView'
 
 export default class BondsList extends React.Component {
   state = {
@@ -12,14 +14,14 @@ export default class BondsList extends React.Component {
     em.rm.byEntityClass(Bond)
       .findBy()
       .then(
-        bonds => console.info(bonds),
+        bonds => this.setState({bonds}),
         error => console.error(error),
       )
   }
 
   render () {
     return <TilesStyled>
-
+      {this.state.bonds.map(bond => <TileStyled><BondView bond={bond}/></TileStyled>)}
     </TilesStyled>
   }
 }

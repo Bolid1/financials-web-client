@@ -2,6 +2,12 @@
   "_links": {
   },
   "_embedded": {
+    "currencies": [
+      {
+        "id": "RUB",
+        "sign": "\u20BD"
+      }
+    ],
     "issuers": [
       {
         "id": 2,

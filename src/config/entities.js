@@ -1,6 +1,8 @@
 import Bond from '../Entity/Bond'
+import Currency from '../Entity/Currency'
 import Issuer from '../Entity/Issuer'
 import BondRepository from '../Repository/BondRepository'
+import CurrencyRepository from '../Repository/CurrencyRepository'
 import IssuerRepository from '../Repository/IssuerRepository'
 
 /**
@@ -26,7 +28,8 @@ export default {
         type: 'string',
       },
       currency: {
-        type: 'string',
+        instanceOf: Currency,
+        type: 'object',
       },
       faceValue: {
         type: 'number',
@@ -71,6 +74,19 @@ export default {
         type: 'number',
       },
       name: {
+        type: 'string',
+      },
+    },
+  },
+  currency: {
+    entity: Currency,
+    repository: CurrencyRepository,
+    identifier: 'id',
+    fields: {
+      id: {
+        type: 'string',
+      },
+      sign: {
         type: 'string',
       },
     },
