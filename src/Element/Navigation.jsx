@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import Link from './Link'
 
 const NavigationContainer = styled.nav`
   padding: ${({theme: {layout: {paddingFromTop}}}) => paddingFromTop} 10px 0 10px;

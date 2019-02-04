@@ -1,11 +1,10 @@
 import React from 'react'
 import { hot } from 'react-hot-loader'
-import Loadable from 'react-loadable'
-import { BrowserRouter, Route } from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom'
 import styled, { ThemeProvider } from 'styled-components'
 import pages from './config/pages'
-import Loader from './Element/Loader'
 import Navigation from './Element/Navigation'
+import Routes from './Routes'
 import theme from './theme'
 
 const Application = styled.div`
@@ -40,30 +39,7 @@ export default hot(module)(
               <Navigation pages={pages}/>
             </LeftSide>
             <Content>
-              {
-                pages
-                  .map(
-                    ({path, title, component}, key) =>
-                      <Route key={key} path={path} exact component={
-                        Loadable(
-                          {
-                            loader: () => import(`./Page/${component}`),
-                            loading: Loader,
-                            /**
-                             * @param {{default: React.Component}} loaded
-                             * @param {history, location, match} props
-                             * @returns {*}
-                             */
-                            render (loaded, props) {
-                              const Component = loaded.default
-
-                              return <Component {...{title}} {...props}/>
-                            },
-                          },
-                        )
-                      }/>,
-                  )
-              }
+              <Routes pages={pages}/>
             </Content>
           </Application>
         </ThemeProvider>
