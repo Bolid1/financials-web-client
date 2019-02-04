@@ -37,8 +37,8 @@ class EntityManager {
           })
   }
 
-  getMeta (entityName) {
-    return this.entitiesConfig[entityName]
+  getMeta (entity) {
+    return this.entitiesConfig[this._normalizeEntity(entity)]
   }
 
   getName (entityClass) {
@@ -46,12 +46,12 @@ class EntityManager {
                  .find(name => this.getModel(name) === entityClass)
   }
 
-  getModel (entityName) {
-    return this.entitiesConfig[entityName]?.entity
+  getModel (entity) {
+    return this.entitiesConfig[this._normalizeEntity(entity)]?.entity
   }
 
-  getIdentifier (entityName) {
-    return this.entitiesConfig[entityName]?.identifier
+  getIdentifier (entity) {
+    return this.entitiesConfig[this._normalizeEntity(entity)]?.identifier
   }
 
   isSupported (entityClass) {
@@ -59,15 +59,48 @@ class EntityManager {
   }
 
   find (entityClass, id) {
-    return this.findLocal(entityClass, id)
-           || this.rm.byEntityClass(entityClass)
-                  .find(id)
+    const local = this.findLocal(entityClass, id)
+
+    return local
+           ? Promise.resolve(local)
+           : this.rm
+                 .byEntityClass(entityClass)
+                 .find(id)
   }
 
   findLocal (entityClass, id) {
     const identifier = this.getIdentifier(this.getName(entityClass))
 
     return this.entities.findEntity(entityClass, identifier, id)
+  }
+
+  findBy (entityClass, criteria) {
+    const local = this.findByLocal(entityClass, criteria)
+
+    return (local && local.length)
+           ? Promise.resolve(local)
+           : this.rm
+                 .byEntityClass(entityClass)
+                 .findBy(criteria)
+  }
+
+  findByLocal (entityClass, criteria) {
+    return this.entities.findEntities(entityClass, criteria)
+  }
+
+  /**
+   * @param {String|Object} entity
+   * @returns {String}
+   * @private
+   */
+  _normalizeEntity (entity) {
+    if (typeof entity === 'string') {
+      return entity
+    } else if (typeof entity === 'function') {
+      return this.getName(entity)
+    } else {
+      throw new Error(`Unexpected entity ${entity}`)
+    }
   }
 }
 

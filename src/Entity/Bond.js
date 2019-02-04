@@ -1,4 +1,4 @@
-import { observable } from 'mobx'
+import { computed, observable } from 'mobx'
 import Currency from './Currency'
 import Issuer from './Issuer'
 
@@ -81,6 +81,22 @@ export default class Bond {
    */
   @observable price
 
+  /**
+   * @description Купоны, которые будут выплачены по облигации
+   * @member {Coupon[]}
+   */
+  @observable coupons
+
+  /**
+   * @returns {Coupon|undefined}
+   */
+  @computed get closestCoupon () {
+    console.info({coupons: this.coupons})
+    return (this.coupons || [])
+      .sort((c1, c2) => c1.date.getTime() - c2.date.getTime())
+      .find(({date}) => date > new Date())
+  }
+
   applyData (data) {
     if (data.issuer instanceof Issuer) {
       this.issuer = data.issuer
@@ -128,6 +144,10 @@ export default class Bond {
 
     if (typeof data.price === 'number') {
       this.price = data.price
+    }
+
+    if (Array.isArray(data.coupons)) {
+      this.coupons = data.coupons
     }
 
     return this

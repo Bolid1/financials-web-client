@@ -14,6 +14,86 @@
         "name": "РЖД"
       }
     ],
+    "coupons": [
+      {
+        "id": 1,
+        "bond": "RU000A0ZYX69",
+        "date": "2018-09-05",
+        "value": 35.9
+      },
+      {
+        "id": 2,
+        "bond": "RU000A0ZYX69",
+        "date": "2019-03-06",
+        "value": 35.9
+      },
+      {
+        "id": 3,
+        "bond": "RU000A0ZYX69",
+        "date": "2019-09-04",
+        "value": 35.9
+      },
+      {
+        "id": 4,
+        "bond": "RU000A0ZYX69",
+        "date": "2020-03-04",
+        "value": 35.9
+      },
+      {
+        "id": 5,
+        "bond": "RU000A0ZYX69",
+        "date": "2020-09-02",
+        "value": 35.9
+      },
+      {
+        "id": 6,
+        "bond": "RU000A0ZYX69",
+        "date": "2021-03-03",
+        "value": 35.9
+      },
+      {
+        "id": 7,
+        "bond": "RU000A0ZYX69",
+        "date": "2021-09-01",
+        "value": 35.9
+      },
+      {
+        "id": 8,
+        "bond": "RU000A0ZYX69",
+        "date": "2022-03-02",
+        "value": 35.9
+      },
+      {
+        "id": 9,
+        "bond": "RU000A0ZYX69",
+        "date": "2022-08-31",
+        "value": 35.9
+      },
+      {
+        "id": 10,
+        "bond": "RU000A0ZYX69",
+        "date": "2023-03-01",
+        "value": 35.9
+      },
+      {
+        "id": 11,
+        "bond": "RU000A0ZYX69",
+        "date": "2023-08-30",
+        "value": 35.9
+      },
+      {
+        "id": 12,
+        "bond": "RU000A0ZYX69",
+        "date": "2024-02-28",
+        "value": 35.9
+      },
+      {
+        "id": 13,
+        "bond": "RU000A0ZYX69",
+        "date": "2024-08-28",
+        "value": 35.9
+      }
+    ],
     "bonds": [
       {
         "issuer": 2,

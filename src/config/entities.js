@@ -1,14 +1,17 @@
 import Bond from '../Entity/Bond'
+import Coupon from '../Entity/Coupon'
 import Currency from '../Entity/Currency'
 import Issuer from '../Entity/Issuer'
 import BondRepository from '../Repository/BondRepository'
+import CouponRepository from '../Repository/CouponRepository'
 import CurrencyRepository from '../Repository/CurrencyRepository'
 import IssuerRepository from '../Repository/IssuerRepository'
 
 /**
  * @typedef {Object} FieldMeta
  * @property {string} type
- * @property {Object} instanceOf
+ * @property {Object} [instanceOf]
+ * @property {Object} [collectionOf]
  */
 
 /**
@@ -63,6 +66,10 @@ export default {
       price: {
         type: 'number',
       },
+      coupons: {
+        collectionOf: Coupon,
+        type: 'object',
+      },
     },
   },
   issuer: {
@@ -88,6 +95,27 @@ export default {
       },
       sign: {
         type: 'string',
+      },
+    },
+  },
+  coupon: {
+    entity: Coupon,
+    repository: CouponRepository,
+    identifier: 'id',
+    fields: {
+      id: {
+        type: 'number',
+      },
+      bond: {
+        instanceOf: Bond,
+        type: 'object',
+      },
+      date: {
+        instanceOf: Date,
+        type: 'object',
+      },
+      value: {
+        type: 'number',
       },
     },
   },

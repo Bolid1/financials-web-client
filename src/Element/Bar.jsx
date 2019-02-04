@@ -32,8 +32,8 @@ export default function Bar (props) {
 }
 
 Bar.propTypes = {
-  current: PropTypes.string.isRequired,
-  total: PropTypes.string.isRequired,
+  current: PropTypes.number.isRequired,
+  total: PropTypes.number.isRequired,
 
   completeColor: PropTypes.string,
   unCompleteColor: PropTypes.string,

@@ -26,7 +26,8 @@ export default class BondView extends React.Component {
         total={this.bond.faceValue}
       >
         {`${this.bond.price}${this.bond.currency.sign}`} из {`${this.bond.faceValue}${this.bond.currency.sign}`}
-      </Bar>
+      </Bar><br/>
+      {this.bond.closestCoupon.date.getTime()}
     </div>
   }
 }

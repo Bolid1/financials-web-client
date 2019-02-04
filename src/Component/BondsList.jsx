@@ -21,7 +21,7 @@ export default class BondsList extends React.Component {
 
   render () {
     return <TilesStyled>
-      {this.state.bonds.map(bond => <TileStyled><BondView bond={bond}/></TileStyled>)}
+      {this.state.bonds.map((bond, key) => <TileStyled key={key}><BondView bond={bond}/></TileStyled>)}
     </TilesStyled>
   }
 }
