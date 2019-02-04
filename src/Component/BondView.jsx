@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+import { FormattedRelative } from 'react-intl'
 import Bar from '../Element/Bar'
 import Bond from '../Entity/Bond'
 
@@ -27,7 +28,7 @@ export default class BondView extends React.Component {
       >
         {`${this.bond.price}${this.bond.currency.sign}`} из {`${this.bond.faceValue}${this.bond.currency.sign}`}
       </Bar><br/>
-      {this.bond.closestCoupon.date.getTime()}
+      <FormattedRelative value={this.bond.closestCoupon.date}/>
     </div>
   }
 }

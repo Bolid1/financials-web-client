@@ -1,11 +1,12 @@
 import React from 'react'
 import { hot } from 'react-hot-loader'
 import { BrowserRouter } from 'react-router-dom'
-import styled, { ThemeProvider } from 'styled-components'
+import styled from 'styled-components'
 import pages from './config/pages'
 import Navigation from './Element/Navigation'
+import LanguageProvider from './Provider/LanguageProvider'
+import StyleProvider from './Provider/StyleProvider'
 import Routes from './Routes'
-import theme from './theme'
 
 const Application = styled.div`
   display: flex;
@@ -32,18 +33,20 @@ const Content = styled.div`
 export default hot(module)(
   function App () {
     return (
-      <BrowserRouter>
-        <ThemeProvider theme={theme}>
-          <Application>
-            <LeftSide>
-              <Navigation pages={pages}/>
-            </LeftSide>
-            <Content>
-              <Routes pages={pages}/>
-            </Content>
-          </Application>
-        </ThemeProvider>
-      </BrowserRouter>
+      <LanguageProvider>
+        <BrowserRouter>
+          <StyleProvider>
+            <Application>
+              <LeftSide>
+                <Navigation pages={pages}/>
+              </LeftSide>
+              <Content>
+                <Routes pages={pages}/>
+              </Content>
+            </Application>
+          </StyleProvider>
+        </BrowserRouter>
+      </LanguageProvider>
     )
   },
 )
