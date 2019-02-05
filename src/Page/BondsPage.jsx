@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import { defineMessages, FormattedMessage } from 'react-intl'
 import BondsList from '../Component/BondsList'
@@ -5,19 +6,19 @@ import PageHeader from '../Styled/PageHeaderStyled'
 
 const messages = defineMessages(
   {
-    title: 'Облигации',
+    // Описание страницы облигаций
     description: 'В этом разделе находится информация об облигациях.',
   },
 )
 
-export default function BondsPage () {
+export default function BondsPage ({title}) {
   return <>
-    <PageHeader>
-      <FormattedMessage {...messages.title}/>
-    </PageHeader>
-    <article>
-      <FormattedMessage {...messages.description}/>
-    </article>
+    <PageHeader>{title}</PageHeader>
+    <article><FormattedMessage {...messages.description}/></article>
     <BondsList/>
   </>
+}
+
+BondsPage.propTypes = {
+  title: PropTypes.string.isRequired,
 }
