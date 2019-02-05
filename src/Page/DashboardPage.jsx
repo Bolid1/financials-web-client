@@ -18,5 +18,5 @@ export default function DashboardPage ({title}) {
 }
 
 DashboardPage.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.object/*instanceOf(FormattedMessage)*/.isRequired,
 }

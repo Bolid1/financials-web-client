@@ -20,5 +20,5 @@ export default function BondsPage ({title}) {
 }
 
 BondsPage.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.object/*instanceOf(FormattedMessage)*/.isRequired,
 }

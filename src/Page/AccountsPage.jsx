@@ -19,5 +19,5 @@ export default function AccountsPage ({title}) {
 }
 
 AccountsPage.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.object/*instanceOf(FormattedMessage)*/.isRequired,
 }

@@ -18,5 +18,5 @@ export default function StocksPage ({title}) {
 }
 
 StocksPage.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.object/*instanceOf(FormattedMessage)*/.isRequired,
 }

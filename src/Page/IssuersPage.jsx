@@ -22,5 +22,5 @@ export default function IssuersPage ({title}) {
 }
 
 IssuersPage.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.object/*instanceOf(FormattedMessage)*/.isRequired,
 }

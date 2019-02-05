@@ -39,7 +39,7 @@ Routes.propTypes = {
       PropTypes.shape(
         {
           path: PropTypes.string.isRequired,
-          title: PropTypes.string.isRequired,
+          title: PropTypes.object/*instanceOf(FormattedMessage)*/.isRequired,
         },
       ),
     )
