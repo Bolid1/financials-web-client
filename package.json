@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@babel/plugin-proposal-optional-chaining": "^7.2.0",
     "mobx": "^5.9.0",
     "mobx-react": "^5.4.3",
     "prop-types": "^15.6.2",
@@ -34,6 +33,7 @@
   ],
   "devDependencies": {
     "@babel/plugin-proposal-decorators": "^7.3.0",
+    "@babel/plugin-proposal-optional-chaining": "^7.2.0",
     "babel-plugin-react-intl-auto": "^1.6.0",
     "customize-cra": "^0.2.11"
   }
