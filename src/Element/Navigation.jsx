@@ -16,6 +16,7 @@ export default function Navigation ({pages}) {
   return <NavigationContainer>
     {
       pages
+        .filter(({showInLeftMenu}) => showInLeftMenu)
         .map(
           ({path, title}, key) => <NavItem key={key}>
             <Link to={path}>{title}</Link>
