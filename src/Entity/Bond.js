@@ -92,6 +92,7 @@ export default class Bond {
    */
   @computed get closestCoupon () {
     return (this.coupons || [])
+      .slice()
       .sort((c1, c2) => c1.date.getTime() - c2.date.getTime())
       .find(({date}) => date > new Date())
   }
