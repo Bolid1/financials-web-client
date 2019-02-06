@@ -11,6 +11,8 @@ const messages = defineMessages(
     titleStocks: 'Акции',
     // Заголовок страницы облигаций
     titleBonds: 'Облигации',
+    // Заголовок страницы добавления облигации
+    titleAddBond: 'Добавление облигации',
     // Заголовок страницы эмитентов
     titleIssuers: 'Эмитенты',
   },
@@ -40,6 +42,12 @@ export default [
     title: <FormattedMessage {...messages.titleBonds}/>,
     component: 'BondsPage',
     showInLeftMenu: true,
+  },
+  {
+    path: '/bonds/add',
+    title: <FormattedMessage {...messages.titleAddBond}/>,
+    component: 'AddBondPage',
+    showInLeftMenu: false,
   },
   {
     path: '/issuers',

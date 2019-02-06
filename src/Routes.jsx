@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import Loadable from 'react-loadable'
-import { Route } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 import Loader from './Element/Loader'
 
 export default function Routes ({pages}) {
-  return <>
+  return <Switch>
     {
       pages
         .map(
@@ -30,7 +30,7 @@ export default function Routes ({pages}) {
             }/>,
         )
     }
-  </>
+  </Switch>
 }
 
 Routes.propTypes = {
