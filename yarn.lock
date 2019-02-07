@@ -869,6 +869,13 @@
   dependencies:
     regenerator-runtime "^0.12.0"
 
+"@babel/runtime@^7.0.0":
+  version "7.3.1"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.3.1.tgz#574b03e8e8a9898eaf4a872a92ea20b7846f6f2a"
+  integrity sha512-7jGW8ppV0ant637pIqAcFfQDDH1orEPGJb8aXfUozuCU3QqX7rX4DA8iwrbPrR1hcH0FTTHz47yQnk+bl5xHQA==
+  dependencies:
+    regenerator-runtime "^0.12.0"
+
 "@babel/template@^7.1.0", "@babel/template@^7.1.2", "@babel/template@^7.2.2":
   version "7.2.2"
   resolved "https://registry.yarnpkg.com/@babel/template/-/template-7.2.2.tgz#005b3fdf0ed96e88041330379e0da9a708eb2907"
@@ -1640,6 +1647,20 @@ babel-plugin-react-intl-auto@^1.6.0:
   dependencies:
     "@babel/types" "^7.0.0"
     murmurhash3js "^3.0.1"
+
+babel-plugin-react-intl-extractor@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/babel-plugin-react-intl-extractor/-/babel-plugin-react-intl-extractor-1.0.4.tgz#e426cce2c1d0738beb4253fc58415ae29711a772"
+  integrity sha512-D5sereCJQBpOYrX8Iz2hNbzpTlWXDXaZWJPTMZRYeXsb7l1TyYfcGU9eR5tKC6+SzoFsW6L1/zKm5FFFD31Mrg==
+
+babel-plugin-react-intl@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/babel-plugin-react-intl/-/babel-plugin-react-intl-3.0.1.tgz#4abc7fff04a7bbbb7034aec0a675713f2e52181c"
+  integrity sha512-FqnEO+Tq7kJVUPKsSG3s5jaHi3pAC4RUR11IrscvjsfkOApLP2DtzNo6dtQ+tX+OzEzJx7cUms8aCw5BFyW5xg==
+  dependencies:
+    "@babel/runtime" "^7.0.0"
+    intl-messageformat-parser "^1.2.0"
+    mkdirp "^0.5.1"
 
 "babel-plugin-styled-components@>= 1":
   version "1.10.0"
@@ -4907,7 +4928,7 @@ intl-format-cache@^2.0.5:
   resolved "https://registry.yarnpkg.com/intl-format-cache/-/intl-format-cache-2.1.0.tgz#04a369fecbfad6da6005bae1f14333332dcf9316"
   integrity sha1-BKNp/sv61tpgBbrh8UMzMy3PkxY=
 
-intl-messageformat-parser@1.4.0:
+intl-messageformat-parser@1.4.0, intl-messageformat-parser@^1.2.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/intl-messageformat-parser/-/intl-messageformat-parser-1.4.0.tgz#b43d45a97468cadbe44331d74bb1e8dea44fc075"
   integrity sha1-tD1FqXRoytvkQzHXS7Ho3qRPwHU=

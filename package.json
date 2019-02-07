@@ -34,7 +34,9 @@
   "devDependencies": {
     "@babel/plugin-proposal-decorators": "^7.3.0",
     "@babel/plugin-proposal-optional-chaining": "^7.2.0",
+    "babel-plugin-react-intl": "^3.0.1",
     "babel-plugin-react-intl-auto": "^1.6.0",
+    "babel-plugin-react-intl-extractor": "^1.0.4",
     "customize-cra": "^0.2.11"
   }
 }

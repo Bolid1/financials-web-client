@@ -14,4 +14,6 @@ module.exports = override(
       },
     ],
   ),
+  addBabelPlugin(['react-intl', {enforceDescriptions: false}]),
+  addBabelPlugin('react-intl-extractor'),
 )
