@@ -1648,10 +1648,12 @@ babel-plugin-react-intl-auto@^1.6.0:
     "@babel/types" "^7.0.0"
     murmurhash3js "^3.0.1"
 
-babel-plugin-react-intl-extractor@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/babel-plugin-react-intl-extractor/-/babel-plugin-react-intl-extractor-1.0.4.tgz#e426cce2c1d0738beb4253fc58415ae29711a772"
-  integrity sha512-D5sereCJQBpOYrX8Iz2hNbzpTlWXDXaZWJPTMZRYeXsb7l1TyYfcGU9eR5tKC6+SzoFsW6L1/zKm5FFFD31Mrg==
+babel-plugin-react-intl-extractor@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/babel-plugin-react-intl-extractor/-/babel-plugin-react-intl-extractor-1.0.5.tgz#7a87428d79bf93c4120beed4831267f3cc4d7dab"
+  integrity sha512-aJe3FMEYfB4qC2OFMzyCBVLOas/LV3QK6TDlYAb7LmwQhFjng7O6Be5QsHhmnIbAFazo3cXibyAIcSRwN3j73A==
+  dependencies:
+    babel-plugin-react-intl "^3.0.1"
 
 babel-plugin-react-intl@^3.0.1:
   version "3.0.1"
