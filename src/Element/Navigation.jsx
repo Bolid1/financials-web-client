@@ -4,16 +4,17 @@ import styled from 'styled-components'
 import Link from './Link'
 
 const NavigationContainer = styled.nav`
-  padding: ${({theme: {layout: {paddingFromTop}}}) => paddingFromTop} 10px 0 10px;
+  padding: ${({theme: {layout: {paddingFromTop, leftSide: {paddingHorizontal}}}}) => `${paddingFromTop} ${paddingHorizontal} 0 ${paddingHorizontal}`};
   box-sizing: border-box;
 `
 
 const NavItem = styled.li`
   list-style: none;
+  margin-bottom: 10px;
 `
 
-export default function Navigation ({pages}) {
-  return <NavigationContainer>
+export default function Navigation ({className, pages}) {
+  return <NavigationContainer className={className}>
     {
       pages
         .filter(({showInLeftMenu}) => showInLeftMenu)

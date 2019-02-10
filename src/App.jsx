@@ -2,8 +2,8 @@ import React from 'react'
 import { hot } from 'react-hot-loader'
 import { BrowserRouter } from 'react-router-dom'
 import styled from 'styled-components'
+import LeftSide from './Component/LeftSide'
 import pages from './config/pages'
-import Navigation from './Element/Navigation'
 import LanguageProvider from './Provider/LanguageProvider'
 import StyleProvider from './Provider/StyleProvider'
 import Routes from './Routes'
@@ -13,12 +13,6 @@ const Application = styled.div`
   flex-direction: row;
   height: 100vh;
   overflow: hidden;
-`
-
-const LeftSide = styled.aside`
-  height: 100%;
-  min-width: 120px;
-  background-color: #0e0e23;
 `
 
 const Content = styled.div`
@@ -37,9 +31,7 @@ export default hot(module)(
         <BrowserRouter>
           <StyleProvider>
             <Application>
-              <LeftSide>
-                <Navigation pages={pages}/>
-              </LeftSide>
+              <LeftSide/>
               <Content>
                 <Routes pages={pages}/>
               </Content>
