@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import ThreeHorizontalLines from '../Icon/ThreeHorizontalLines'
+import Lines from '../Icon/Lines'
 
 const Button = styled.button`
   cursor: pointer;
@@ -13,11 +13,11 @@ const Button = styled.button`
   height: ${({theme: {layout: {leftSide: {iconToggle: {size}}}}}) => size};
 
   box-sizing: border-box;
-  padding: ${({theme: {layout: {paddingFromTop, leftSide: {paddingHorizontal}}}}) => `${paddingFromTop} ${paddingHorizontal} 0 ${paddingHorizontal}`};
+  padding: 0;
 `
 
 export default function ToggleNavButton (props) {
   return <Button {...props}>
-    <ThreeHorizontalLines/>
+    <Lines/>
   </Button>
 }

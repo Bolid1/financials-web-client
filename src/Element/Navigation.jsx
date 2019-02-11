@@ -4,8 +4,9 @@ import styled from 'styled-components'
 import Link from './Link'
 
 const NavigationContainer = styled.nav`
-  padding: ${({theme: {layout: {paddingFromTop, leftSide: {paddingHorizontal}}}}) => `${paddingFromTop} ${paddingHorizontal} 0 ${paddingHorizontal}`};
+  padding: 0;
   box-sizing: border-box;
+  flex-grow: 1;
 `
 
 const NavItem = styled.li`

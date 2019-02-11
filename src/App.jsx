@@ -20,7 +20,7 @@ const Content = styled.div`
   overflow: auto;
   flex-grow: 1;
   
-  padding: ${({theme: {layout: {paddingFromTop}}}) => paddingFromTop} 20px 0 20px;
+  padding: ${({theme: {layout: {paddingVertical, rightSide: {paddingHorizontal}}}}) => `${paddingVertical} ${paddingHorizontal}`};
   box-sizing: border-box;
 `
 
