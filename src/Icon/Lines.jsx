@@ -27,9 +27,10 @@ const Line = styled.span`
 
 export default function Lines ({count, mode, color}) {
   const style = modeToLineStyle(mode, `${100 / (count * 2 - 1)}%`)
+  let key = 0
 
   return <Container mode={mode}>
-    {[...Array(count)].map(key => <Line {...{key, color, style}} />)}
+    {[...Array(count)].map(() => <Line {...{key: ++key, color, style}} />)}
   </Container>
 }
 
