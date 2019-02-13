@@ -96,8 +96,8 @@ const RotatedVerticalWhiteLine = styled(VerticalWhiteLine)`
   z-index: 0;
 `
 
-export default function FlagOfUnitedKingdom () {
-  return <Container>
+export default function FlagOfUnitedKingdom (props) {
+  return <Container {...props}>
     <RotatedHorizontalWhiteLine/>
     <RotatedVerticalWhiteLine/>
     <RotatedHorizontalRedLine/>

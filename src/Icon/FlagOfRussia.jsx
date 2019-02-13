@@ -14,8 +14,8 @@ const Line = styled.span`
   display: block;
 `
 
-export default function FlagOfRussia () {
-  return <Container>
+export default function FlagOfRussia (props) {
+  return <Container {...props}>
     <Line color="#ffffff"/>
     <Line color="#d52b1e"/>
     <Line color="#0039a6"/>

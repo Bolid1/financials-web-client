@@ -4,8 +4,7 @@ import media from '../config/media'
 import pages from '../config/pages'
 import Navigation from '../Element/Navigation'
 import ToggleNavButton from '../Element/ToggleNavButton'
-import FlagOfRussia from '../Icon/FlagOfRussia'
-import FlagOfUnitedKingdom from '../Icon/FlagOfUnitedKingdom'
+import LanguageSelector from './LanguageSelector'
 
 const LeftSideStyled = styled.aside`
   height: 100%;
@@ -16,18 +15,6 @@ const LeftSideStyled = styled.aside`
   margin: 0;
   box-sizing: border-box;
   padding: ${({theme: {layout: {paddingVertical, leftSide: {paddingHorizontal}}}}) => `${paddingVertical} ${paddingHorizontal}`};
-  
-  .select-language {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    > * {
-      width: 30px;
-      height: 20px;
-      display: inline-block;
-    }
-  }
   
   .toggle-nav-button {
     display: none;
@@ -61,10 +48,7 @@ export default class LeftSide extends Component {
     return <LeftSideStyled minimized={this.state.minimized}>
       <ToggleNavButton className="toggle-nav-button" onClick={() => this.setState({minimized: !this.state.minimized})}/>
       <Navigation className="nav-menu" pages={pages}/>
-      <div className="select-language">
-        <FlagOfRussia/>
-        <FlagOfUnitedKingdom/>
-      </div>
+      <LanguageSelector className="select-language"/>
     </LeftSideStyled>
   }
 }
