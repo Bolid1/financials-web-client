@@ -22,8 +22,9 @@ const LeftSideStyled = styled.aside`
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    svg {
-      width: 40%;
+    > * {
+      width: 30px;
+      height: 20px;
       display: inline-block;
     }
   }
