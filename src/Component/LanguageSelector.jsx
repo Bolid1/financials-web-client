@@ -1,7 +1,10 @@
+import { inject } from 'mobx-react'
+import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
 import FlagOfRussia from '../Icon/FlagOfRussia'
 import FlagOfUnitedKingdom from '../Icon/FlagOfUnitedKingdom'
+import LanguageStore from '../Store/LanguageStore'
 
 const Container = styled.div`
     width: 100%;
@@ -16,9 +19,15 @@ const Container = styled.div`
     }
 `
 
-export default function LanguageSelector () {
+function LanguageSelector ({languageStore}) {
   return <Container>
-    <FlagOfRussia onClick={() => console.info('select ru')}/>
-    <FlagOfUnitedKingdom onClick={() => console.info('select en')}/>
+    <FlagOfRussia onClick={() => languageStore.setLang('ru')}/>
+    <FlagOfUnitedKingdom onClick={() => languageStore.setLang('en')}/>
   </Container>
 }
+
+LanguageSelector.propTypes = {
+  languageStore: PropTypes.instanceOf(LanguageStore).isRequired,
+}
+
+export default inject('languageStore')(LanguageSelector)

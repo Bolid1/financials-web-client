@@ -1,17 +1,18 @@
+import { observer, Provider } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { addLocaleData, IntlProvider } from 'react-intl'
-import enLocaleData from 'react-intl/locale-data/en'
-import ruLocaleData from 'react-intl/locale-data/ru'
-import ruMessages from '../translations/ru'
+import LanguageStore from '../Store/LanguageStore'
 
-addLocaleData(ruLocaleData)
-addLocaleData(enLocaleData)
+const languageStore = new LanguageStore()
+LanguageStore.supportedLanguages.forEach(lang => addLocaleData(require('react-intl/locale-data/' + lang)))
 
-export default function LanguageProvider ({children}) {
-  return <IntlProvider locale="ru" messages={ruMessages}>
-    {children}
-  </IntlProvider>
+function LanguageProvider ({children}) {
+  return <Provider languageStore={languageStore}>
+    <IntlProvider locale={languageStore.lang} messages={languageStore.messages}>
+      {children}
+    </IntlProvider>
+  </Provider>
 }
 
 LanguageProvider.propTypes = {
@@ -22,3 +23,5 @@ LanguageProvider.propTypes = {
     ],
   ).isRequired,
 }
+
+export default observer(LanguageProvider)
