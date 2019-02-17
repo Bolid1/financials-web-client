@@ -19,8 +19,8 @@ const Container = styled.div`
     }
 `
 
-function LanguageSelector ({languageStore}) {
-  return <Container>
+function LanguageSelector ({languageStore, className}) {
+  return <Container className={className}>
     <FlagOfRussia onClick={() => languageStore.setLang('ru')}/>
     <FlagOfUnitedKingdom onClick={() => languageStore.setLang('en')}/>
   </Container>
@@ -28,6 +28,7 @@ function LanguageSelector ({languageStore}) {
 
 LanguageSelector.propTypes = {
   languageStore: PropTypes.instanceOf(LanguageStore).isRequired,
+  className: PropTypes.string,
 }
 
 export default inject('languageStore')(LanguageSelector)
