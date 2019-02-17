@@ -1,6 +1,6 @@
 import { action, computed, observable } from 'mobx'
 
-const defaultLang = 'en'
+const defaultLang = 'ru'
 
 export default class LanguageStore {
   static supportedLanguages = ['ru', 'en']
