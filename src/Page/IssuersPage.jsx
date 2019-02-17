@@ -1,8 +1,12 @@
+import { Provider } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { defineMessages, FormattedMessage } from 'react-intl'
 import IssuersList from '../Component/IssuersList'
+import IssuersStore from '../Store/IssuersStore'
 import PageHeader from '../Styled/PageHeaderStyled'
+
+const issuersStore = new IssuersStore()
 
 const messages = defineMessages(
   {
@@ -12,13 +16,15 @@ const messages = defineMessages(
 )
 
 export default function IssuersPage ({title}) {
-  return <>
-    <PageHeader>{title}</PageHeader>
-    <article>
-      <FormattedMessage {...messages.description}/>
-    </article>
-    <IssuersList/>
-  </>
+  return <Provider issuersStore={issuersStore}>
+    <div>
+      <PageHeader>{title}</PageHeader>
+      <article>
+        <FormattedMessage {...messages.description}/>
+      </article>
+      <IssuersList issuersStore={issuersStore}/>
+    </div>
+  </Provider>
 }
 
 IssuersPage.propTypes = {

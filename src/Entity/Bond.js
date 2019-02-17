@@ -12,9 +12,15 @@ export default class Bond {
 
   /**
    * @description Международный идентификационный код ценной бумаги
-   * @member {String}
+   * @member {string}
    */
   @observable ISIN
+
+  /**
+   * @description Название облигации
+   * @member {string}
+   */
+  @observable name
 
   /**
    * @description Валюта, в которой происходят торги по данным облигациям
@@ -25,13 +31,13 @@ export default class Bond {
   /**
    * @description Номинал - это сумма, которую получит держатель облигации в день
    *   выкупа облигации эмитентом {@see issuer}.
-   * @member {Number}
+   * @member {number}
    */
   @observable faceValue
 
   /**
    * @description Количество выпущенных облигаций
-   * @member {Number}
+   * @member {number}
    */
   @observable quantity
 
@@ -49,7 +55,7 @@ export default class Bond {
 
   /**
    * @description Доступна ли возможность досрочного погашения
-   * @member {Boolean}
+   * @member {boolean}
    */
   @observable earlyRepaymentAvailable
 
@@ -77,7 +83,7 @@ export default class Bond {
 
   /**
    * @description Текущая стоимость облигации
-   * @member {Number}
+   * @member {number}
    */
   @observable price
 
@@ -104,6 +110,10 @@ export default class Bond {
 
     if (typeof data.ISIN === 'string') {
       this.ISIN = data.ISIN
+    }
+
+    if (typeof data.name === 'string') {
+      this.name = data.name
     }
 
     if (data.currency instanceof Currency) {

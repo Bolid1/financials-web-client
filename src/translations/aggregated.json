@@ -1,0 +1,115 @@
+[
+  {
+    "id": "Component.BondEdit.ISINDescription",
+    "defaultMessage": "Международный идентификационный код ценной бумаги"
+  },
+  {
+    "id": "Component.BondEdit.currencyDescription",
+    "defaultMessage": "Валюта, в которой происходят торги по данным облигациям"
+  },
+  {
+    "id": "Component.BondEdit.earlyRepaymentAvailableDescription",
+    "defaultMessage": "Доступна ли возможность досрочного погашения"
+  },
+  {
+    "id": "Component.BondEdit.faceValueDescription",
+    "defaultMessage": "Номинал - это сумма, которую получит держатель облигации в день выкупа облигации эмитентом."
+  },
+  {
+    "id": "Component.BondEdit.issuerDescription",
+    "defaultMessage": "Эмитент – это юридическое лицо или орган государственной исполнительной или местной власти, который от своего имени и в рамках своей деятельности выпускает в обращение ценные бумаги или иные платежные средства."
+  },
+  {
+    "id": "Component.BondEdit.maturityDescription",
+    "defaultMessage": "Срок погашения - это дата, в которую эмитент выкупит облигацию по цене номинала"
+  },
+  {
+    "id": "Component.BondEdit.offerEndDescription",
+    "defaultMessage": "В дату оферты инвестор может по желанию предъявить облигацию к погашению по заранее оговорённой стоимости или оставить её до следующей оферты. Соответственно, эмитент обязан выкупить все предъявленные инвесторами облигации."
+  },
+  {
+    "id": "Component.BondEdit.offerStartDescription",
+    "defaultMessage": "Дата, с которой принимаются заявки на выкуп облигаций по номинальной стоимости"
+  },
+  {
+    "id": "Component.BondEdit.placementDateDescription",
+    "defaultMessage": "Срок размещения - это дата, в которую эмитент выпустил бумаги на рынок"
+  },
+  {
+    "id": "Component.BondEdit.priceDescription",
+    "defaultMessage": "Текущая стоимость облигации"
+  },
+  {
+    "id": "Component.BondEdit.quantityDescription",
+    "defaultMessage": "Количество выпущенных облигаций"
+  },
+  {
+    "id": "Component.BondEdit.redemptionDateDescription",
+    "defaultMessage": "В дату оферты инвестор может по желанию предъявить облигацию к погашению по заранее оговорённой стоимости или оставить её до следующей оферты. Соответственно, эмитент обязан выкупить все предъявленные инвесторами облигации."
+  },
+  {
+    "id": "Component.BondsList.addNew",
+    "description": "Добавить новую облигацию",
+    "defaultMessage": "Добавить"
+  },
+  {
+    "id": "Page.AccountsPage.description",
+    "description": "Описание страницы счетов",
+    "defaultMessage": "В этом разделе находится информация о счетах.\n      Кредитные карты и наличные."
+  },
+  {
+    "id": "Page.AddBondPage.description",
+    "description": "Описание страницы добавления облигации",
+    "defaultMessage": "Вы добавляете новую облигацию."
+  },
+  {
+    "id": "Page.BondsPage.description",
+    "description": "Описание страницы облигаций",
+    "defaultMessage": "В этом разделе находится информация об облигациях."
+  },
+  {
+    "id": "Page.DashboardPage.description",
+    "description": "Описание рабочего стола",
+    "defaultMessage": "Что-то о рабочем столе"
+  },
+  {
+    "id": "Page.IssuersPage.description",
+    "description": "Описание страницы эмитентов",
+    "defaultMessage": "В этом разделе находится информация об эмитентах."
+  },
+  {
+    "id": "Page.StocksPage.description",
+    "description": "Описание страницы акций",
+    "defaultMessage": "В этом разделе находится информация об акциях"
+  },
+  {
+    "id": "config.pages.titleAccounts",
+    "description": "Заголовок страницы счетов",
+    "defaultMessage": "Счета"
+  },
+  {
+    "id": "config.pages.titleAddBond",
+    "description": "Заголовок страницы добавления облигации",
+    "defaultMessage": "Добавление облигации"
+  },
+  {
+    "id": "config.pages.titleBonds",
+    "description": "Заголовок страницы облигаций",
+    "defaultMessage": "Облигации"
+  },
+  {
+    "id": "config.pages.titleDashboard",
+    "description": "Заголовок рабочего стола",
+    "defaultMessage": "Dashboard"
+  },
+  {
+    "id": "config.pages.titleIssuers",
+    "description": "Заголовок страницы эмитентов",
+    "defaultMessage": "Эмитенты"
+  },
+  {
+    "id": "config.pages.titleStocks",
+    "description": "Заголовок страницы акций",
+    "defaultMessage": "Акции"
+  }
+]

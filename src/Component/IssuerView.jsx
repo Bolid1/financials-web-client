@@ -6,7 +6,7 @@ import IssuerEdit from './IssuerEdit'
 export default class IssuerView extends React.Component {
   static propTypes = {
     issuer: PropTypes.instanceOf(Issuer).isRequired,
-    onSave: PropTypes.func,
+    onSave: PropTypes.func.isRequired,
   }
 
   state = {

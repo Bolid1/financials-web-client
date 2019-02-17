@@ -1,26 +1,27 @@
+import { observer } from 'mobx-react'
+import PropTypes from 'prop-types'
 import React from 'react'
 import Issuer from '../Entity/Issuer'
-import issuers from '../samples/issuers'
+import IssuersStore from '../Store/IssuersStore'
 import TilesStyled from '../Styled/TilesStyled'
 import TileStyled from '../Styled/TileStyled'
 import IssuerView from './IssuerView'
 
-export default class IssuersList extends React.Component {
+export default @observer
+class IssuersList extends React.Component {
+  static propTypes = {
+    issuersStore: PropTypes.instanceOf(IssuersStore).isRequired,
+  }
+
   /**
-   * @type {{issuers: {saved: boolean, issuer: Issuer}[]}}
+   * @returns {IssuersStore}
    */
-  state = {
-    issuers: [],
+  get issuersStore () {
+    return this.props.issuersStore
   }
 
   componentDidMount () {
-    this.setState(
-      {
-        issuers: issuers
-          .map(issuer => ({saved: true, issuer: (new Issuer()).applyData(issuer)}))
-          .concat([{saved: false, issuer: new Issuer()}]),
-      },
-    )
+    this.issuersStore.loadIssuers()
   }
 
   /**
@@ -41,9 +42,9 @@ export default class IssuersList extends React.Component {
   render () {
     return <TilesStyled>
       {
-        this.state.issuers
+        this.issuersStore.entities
             .map(
-              ({saved, issuer}, key) => <TileStyled key={key}>
+              (issuer, key) => <TileStyled key={key}>
                 <IssuerView onSave={this.onIssuerSave.bind(this, issuer)} issuer={issuer}/>
               </TileStyled>,
             )

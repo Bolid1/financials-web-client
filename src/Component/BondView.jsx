@@ -20,6 +20,7 @@ export default class BondView extends React.Component {
     return <div>
       {this.bond.issuer.name}<br/>
       {this.bond.ISIN}<br/>
+      {this.bond.name}<br/>
       <Bar
         current={this.bond.price}
         completeColor="rgba(255, 0, 0, 0.2)"
@@ -28,7 +29,7 @@ export default class BondView extends React.Component {
       >
         {`${this.bond.price}${this.bond.currency.sign}`} из {`${this.bond.faceValue}${this.bond.currency.sign}`}
       </Bar><br/>
-      <FormattedRelative value={this.bond.closestCoupon.date}/>
+      {this.bond.closestCoupon && <FormattedRelative value={this.bond.closestCoupon.date}/>}
     </div>
   }
 }
