@@ -732,12 +732,17 @@ export default {
           .map(
             ({label}) => label
               .split(', ')
-              .filter(p => p.indexOf(' ') !== -1 || p.length > 4)
+              .filter(p => p.indexOf(' ') !== -1 || p.length > 5)
+              .slice(0, 1)
               .join(', '),
           )
           .map(name => ({
             id: ++id,
-            name,
+            name: name
+              .replace('«', '')
+              .replace('»', '')
+              .replace(/\s*Публичное акционерное общество\s*/ui, '')
+              .replace('()', ''),
             type: 'corporate',
           })),
       ),
