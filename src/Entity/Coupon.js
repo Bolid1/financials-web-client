@@ -4,6 +4,10 @@ import Bond from './Bond'
  * @implements {AbstractEntity}
  */
 export default class Coupon {
+  get identifier () {
+    return this.id
+  }
+
   /**
    * @description Идентификатор купона в БД
    * @member {Number}

@@ -45,6 +45,19 @@ export default class AbstractEntityStore {
    * @return {AbstractEntity[]}
    */
   fromJSON (...data) {
-    return this.entities = data.map(this._model.fromJSON)
+    const entities = data
+      .map(this._model.fromJSON)
+      .filter(entity => {
+        const identifier = entity.identifier
+        const existing = this.entities.find(e => e.identifier === identifier)
+
+        if (existing) {
+          existing.applyData(entity)
+        }
+
+        return !existing
+      })
+
+    return this.entities = this.entities.concat(entities)
   }
 }

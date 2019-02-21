@@ -26,7 +26,9 @@ class IssuersPage extends Component {
   @observable loaded
 
   componentDidMount () {
-    this.props.store.findBy('issuers')
+    this.props.store
+        .clear()
+        .then(() => this.props.store.findBy('issuers'))
         .then(() => this.loaded = true)
   }
 

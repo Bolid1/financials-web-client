@@ -1,4 +1,4 @@
-import { computed } from 'mobx'
+import { computed, observable } from 'mobx'
 import AbstractEntity from './AbstractEntity'
 import Currency from './Currency'
 import Issuer from './Issuer'
@@ -16,25 +16,26 @@ export default class Bond extends AbstractEntity {
    *   от своего имени и в рамках своей деятельности выпускает в обращение ценные бумаги или иные платежные средства.
    * @member {Issuer}
    */
-  issuer
-
+  @observable issuer
   /**
    * @description Международный идентификационный код ценной бумаги
    * @member {string}
    */
-  ISIN
-
+  @observable ISIN
   /**
    * @description Название облигации
    * @member {string}
    */
-  name
-
+  @observable name
   /**
    * @description Валюта, в которой происходят торги по данным облигациям
    * @member {Currency}
    */
-  currency
+  @observable currency
+
+  get identifier () {
+    return this.ISIN
+  }
 
   /**
    * @description Номинал - это сумма, которую получит держатель облигации в день
@@ -136,28 +137,28 @@ export default class Bond extends AbstractEntity {
       this.quantity = data.quantity
     }
 
-    if (data.placementDate instanceof Date) {
-      this.placementDate = data.placementDate
+    if (data.placementDate) {
+      this.placementDate = new Date(data.placementDate)
     }
 
-    if (data.maturity instanceof Date) {
-      this.maturity = data.maturity
+    if (data.maturity) {
+      this.maturity = new Date(data.maturity)
     }
 
     if (typeof data.earlyRepaymentAvailable === 'boolean') {
       this.earlyRepaymentAvailable = data.earlyRepaymentAvailable
     }
 
-    if (data.offerStart instanceof Date) {
-      this.offerStart = data.offerStart
+    if (data.offerStart) {
+      this.offerStart = new Date(data.offerStart)
     }
 
-    if (data.offerEnd instanceof Date) {
-      this.offerEnd = data.offerEnd
+    if (data.offerEnd) {
+      this.offerEnd = new Date(data.offerEnd)
     }
 
-    if (data.redemptionDate instanceof Date) {
-      this.redemptionDate = data.redemptionDate
+    if (data.redemptionDate) {
+      this.redemptionDate = new Date(data.redemptionDate)
     }
 
     if (typeof data.price === 'number') {

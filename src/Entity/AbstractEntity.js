@@ -5,6 +5,13 @@ import { action } from 'mobx'
  */
 export default class AbstractEntity {
   /**
+   * @abstract
+   */
+  get identifier () {
+    throw new Error('Must be implemented by subclass')
+  }
+
+  /**
    * @param {Object} data
    * @returns {AbstractEntity}
    */

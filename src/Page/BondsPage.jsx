@@ -26,7 +26,9 @@ class BondsPage extends Component {
   @observable loaded
 
   componentDidMount () {
-    this.props.store.findBy('bonds')
+    this.props.store
+        .clear()
+        .then(() => this.props.store.findBy('bonds'))
         .then(() => this.loaded = true)
   }
 

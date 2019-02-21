@@ -4,6 +4,10 @@ import AbstractEntity from './AbstractEntity'
  * @implements {AbstractEntity}
  */
 export default class Currency extends AbstractEntity {
+  get identifier () {
+    return this.id
+  }
+
   /**
    * @description Идентификатор валюты в БД
    * @member {String}

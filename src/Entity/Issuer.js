@@ -4,6 +4,10 @@ import AbstractEntity from './AbstractEntity'
  * @implements {AbstractEntity}
  */
 export default class Issuer extends AbstractEntity {
+  get identifier () {
+    return this.id
+  }
+
   /**
    * @description Идентификатор эмитента в БД
    * @member {number}

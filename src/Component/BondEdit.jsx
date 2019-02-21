@@ -1,10 +1,18 @@
+import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { defineMessages, FormattedMessage } from 'react-intl'
+import styled from 'styled-components'
+import CheckBox from '../Element/CheckBox'
+import FieldInfo from '../Element/FieldInfo'
 import InputDate from '../Element/InputDate'
 import InputNumber from '../Element/InputNumber'
 import InputText from '../Element/InputText'
+import Select from '../Element/Select'
 import Bond from '../Entity/Bond'
+import Currency from '../Entity/Currency'
+import Issuer from '../Entity/Issuer'
+import DateTimeHelper from '../Helper/DateTimeHelper'
 
 const messages = defineMessages(
   {
@@ -23,82 +31,139 @@ const messages = defineMessages(
   },
 )
 
-export default function BondEdit ({bond}) {
-  return <form>
+const Container = styled.form`
+  padding: 0 0 20px 0;
+`
+
+/**
+ * @param {Bond} bond
+ * @param {Issuer[]} issuers
+ * @param {Currency[]} currencies
+ * @returns {*}
+ * @constructor
+ */
+function BondEdit ({bond, issuers, currencies}) {
+  return <Container>
     <div>
-      <FormattedMessage {...messages.issuerDescription}/>
-      typeof 'Issuer'
-      issuer
+      <FormattedMessage {...messages.issuerDescription}>
+        {text => <FieldInfo>{text}</FieldInfo>}
+      </FormattedMessage>
+      <Select
+        value={bond.issuer.identifier}
+        onChange={
+          event => bond.issuer = issuers.find(
+            issuer => issuer.identifier === Number(event.target.value),
+          )
+        }
+      >
+        {
+          issuers.map(
+            issuer => <option key={issuer.identifier} value={issuer.identifier}>
+              {issuer.name}
+            </option>,
+          )
+        }
+      </Select>
     </div>
 
     <div>
-      <FormattedMessage {...messages.ISINDescription}/>
-      typeof 'String'
-      <InputText value={bond.ISIN} readOnly={true}/>
+      <FormattedMessage {...messages.ISINDescription}>
+        {text => <FieldInfo>{text}</FieldInfo>}
+      </FormattedMessage>
+      <InputText value={bond.ISIN} onChange={event => bond.ISIN = event.target.value}/>
     </div>
 
     <div>
-      <FormattedMessage {...messages.currencyDescription}/>
-      typeof 'Currency'
-      currency
+      <FormattedMessage {...messages.currencyDescription}>
+        {text => <FieldInfo>{text}</FieldInfo>}
+      </FormattedMessage>
+      <Select
+        value={bond.currency.identifier}
+        onChange={
+          event => bond.currency = currencies.find(
+            currency => currency.identifier === Number(event.target.value),
+          )
+        }
+      >
+        {
+          currencies.map(
+            currency => <option key={currency.identifier} value={currency.identifier}>
+              {currency.sign}
+            </option>,
+          )
+        }
+      </Select>
     </div>
 
     <div>
-      <FormattedMessage {...messages.faceValueDescription}/>
-      faceValue
-      <InputNumber/>
+      <FormattedMessage {...messages.faceValueDescription}>
+        {text => <FieldInfo>{text}</FieldInfo>}
+      </FormattedMessage>
+      <InputNumber value={bond.faceValue} readOnly={true}/>
     </div>
 
     <div>
-      <FormattedMessage {...messages.quantityDescription}/>
-      quantity
-      <InputNumber/>
+      <FormattedMessage {...messages.quantityDescription}>
+        {text => <FieldInfo>{text}</FieldInfo>}
+      </FormattedMessage>
+      <InputNumber value={bond.quantity} readOnly={true}/>
     </div>
 
     <div>
-      <FormattedMessage {...messages.placementDateDescription}/>
-      placementDate
-      <InputDate/>
+      <FormattedMessage {...messages.placementDateDescription}>
+        {text => <FieldInfo>{text}</FieldInfo>}
+      </FormattedMessage>
+      <InputDate value={bond.placementDate} readOnly={true}/>
     </div>
 
     <div>
-      <FormattedMessage {...messages.maturityDescription}/>
-      maturity
-      <InputDate/>
+      <FormattedMessage {...messages.maturityDescription}>
+        {text => <FieldInfo>{text}</FieldInfo>}
+      </FormattedMessage>
+      <InputDate value={DateTimeHelper.toSQL(bond.maturity)} readOnly={true}/>
     </div>
 
     <div>
-      <FormattedMessage {...messages.earlyRepaymentAvailableDescription}/>
-      typeof 'Boolean'
-      earlyRepaymentAvailable
+      <FormattedMessage {...messages.earlyRepaymentAvailableDescription}>
+        {text => <FieldInfo>{text}</FieldInfo>}
+      </FormattedMessage>
+      <CheckBox checked={bond.earlyRepaymentAvailable} disabled={true}/>
     </div>
 
     <div>
-      <FormattedMessage {...messages.offerStartDescription}/>
-      offerStart
-      <InputDate/>
+      <FormattedMessage {...messages.offerStartDescription}>
+        {text => <FieldInfo>{text}</FieldInfo>}
+      </FormattedMessage>
+      <InputDate value={bond.offerStart} readOnly={true}/>
     </div>
 
     <div>
-      <FormattedMessage {...messages.offerEndDescription}/>
-      offerEnd
-      <InputDate/>
+      <FormattedMessage {...messages.offerEndDescription}>
+        {text => <FieldInfo>{text}</FieldInfo>}
+      </FormattedMessage>
+      <InputDate value={bond.offerEnd} readOnly={true}/>
     </div>
 
     <div>
-      <FormattedMessage {...messages.redemptionDateDescription}/>
-      redemptionDate
-      <InputDate/>
+      <FormattedMessage {...messages.redemptionDateDescription}>
+        {text => <FieldInfo>{text}</FieldInfo>}
+      </FormattedMessage>
+      <InputDate value={bond.redemptionDate} readOnly={true}/>
     </div>
 
     <div>
-      <FormattedMessage {...messages.priceDescription}/>
-      price
-      <InputNumber/>
+      <FormattedMessage {...messages.priceDescription}>
+        {text => <FieldInfo>{text}</FieldInfo>}
+      </FormattedMessage>
+      <InputNumber value={bond.price} readOnly={true}/>
     </div>
-  </form>
+  </Container>
 }
 
 BondEdit.propTypes = {
   bond: PropTypes.instanceOf(Bond).isRequired,
+  issuers: PropTypes.arrayOf(PropTypes.instanceOf(Issuer)).isRequired,
+  currencies: PropTypes.arrayOf(PropTypes.instanceOf(Currency)).isRequired,
 }
+
+export default observer(BondEdit)

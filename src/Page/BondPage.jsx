@@ -33,18 +33,24 @@ class BondPage extends Component {
   @observable loaded
 
   componentDidMount () {
-    this.props.store.find('bond', this.props.match.params.id)
+    this.props.store
+        .clear()
+        .then(() => this.props.store.find('bond', this.props.match.params.id))
+        .then(() => this.props.store.findBy('issuers'))
+        // .then(() => this.props.store.findBy('currencies'))
         .then(() => this.loaded = true)
   }
 
   render () {
     const bond = this.props.store.bondsStore.first
+    const currencies = this.props.store.currenciesStore.entities
+    const issuers = this.props.store.issuersStore.entities
 
     return <PageContainer>
       <PageHeader>{this.props.title}</PageHeader>
       <article><FormattedMessage {...messages.description}/></article>
       {!this.loaded && <LoaderFlex/>}
-      {this.loaded && bond && <BondEdit bond={bond}/>}
+      {this.loaded && bond && <BondEdit {...{bond, issuers, currencies}}/>}
     </PageContainer>
   }
 }

@@ -29,6 +29,26 @@ export default class RootStore {
     }
   }
 
+  /**
+   * @param {string} entity
+   * @returns {string}
+   */
+  getEmebeddedKey (entity) {
+    switch (entity) {
+      case 'currency':
+      case 'currencies':
+        return 'currencies'
+      case 'issuer':
+      case 'issuers':
+        return 'issuers'
+      case 'bond':
+      case 'bonds':
+        return 'bonds'
+      default:
+        throw new Error(`Unknown entity ${entity}`)
+    }
+  }
+
   applyEmbedded (_embedded) {
     if (_embedded.hasOwnProperty('currencies')) {
       this.currenciesStore.fromJSON(..._embedded.currencies)
@@ -44,10 +64,10 @@ export default class RootStore {
           .bonds
           .map(bond => {
             bond.issuer = this.issuersStore.entities.find(
-              issuer => issuer.id === bond.issuer,
+              issuer => issuer.identifier === bond.issuer,
             )
             bond.currency = this.currenciesStore.entities.find(
-              currency => currency.id === bond.currency,
+              currency => currency.identifier === bond.currency,
             )
 
             return bond
@@ -58,18 +78,21 @@ export default class RootStore {
 
   @action find (entity, id) {
     const store = this.getStoreByEntity(entity)
+    const key = this.getEmebeddedKey(entity)
 
-    return this
-      .clear()
-      .then(() => API.find(entity, id))
+    return API.find(entity, id)
       .then(
         /**
          * @param {Object} data
          */
         (data) => {
-          this.applyEmbedded(data._embedded)
+          if (!data._embedded.hasOwnProperty(key)) {
+            data._embedded[key] = []
+          }
 
-          store.fromJSON(data)
+          data._embedded[key].push(data)
+
+          this.applyEmbedded(data._embedded)
 
           return store.entities[0]
         },
@@ -80,10 +103,8 @@ export default class RootStore {
   @action findBy (entity) {
     const store = this.getStoreByEntity(entity)
 
-    return this
-      .clear()
-      .then(() => API.findBy(entity))
-      .then(
+    return API.findBy(entity)
+              .then(
         /**
          * @param {Object} _embedded
          */

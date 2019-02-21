@@ -1,4 +1,7 @@
 const theme = {
+  color: {
+    gray: 'gray',
+  },
   layout: {
     paddingVertical: '10px',
     leftSide: {
