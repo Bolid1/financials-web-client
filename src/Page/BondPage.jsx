@@ -1,3 +1,4 @@
+import { observable } from 'mobx'
 import { inject, observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
@@ -29,19 +30,21 @@ class BondPage extends Component {
     ).isRequired,
   }
 
+  @observable loaded
+
   componentDidMount () {
     this.props.store.find('bond', this.props.match.params.id)
+        .then(() => this.loaded = true)
   }
 
   render () {
-    const progress = this.props.store.loadInProgress
     const bond = this.props.store.bondsStore.first
 
     return <PageContainer>
       <PageHeader>{this.props.title}</PageHeader>
       <article><FormattedMessage {...messages.description}/></article>
-      {progress && <LoaderFlex/>}
-      {!progress && bond && <BondEdit bond={bond}/>}
+      {!this.loaded && <LoaderFlex/>}
+      {this.loaded && bond && <BondEdit bond={bond}/>}
     </PageContainer>
   }
 }

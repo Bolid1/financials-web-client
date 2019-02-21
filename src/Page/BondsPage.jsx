@@ -1,3 +1,4 @@
+import { observable } from 'mobx'
 import { inject, observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
@@ -22,18 +23,19 @@ class BondsPage extends Component {
     store: PropTypes.instanceOf(RootStore).isRequired,
   }
 
+  @observable loaded
+
   componentDidMount () {
     this.props.store.findBy('bonds')
+        .then(() => this.loaded = true)
   }
 
   render () {
-    const progress = this.props.store.loadInProgress
-
     return <PageContainer>
       <PageHeader>{this.props.title}</PageHeader>
       <article><FormattedMessage {...messages.description}/></article>
-      {progress && <LoaderFlex/>}
-      {!progress && <BondsList bonds={this.props.store.bondsStore.entities}/>}
+      {!this.loaded && <LoaderFlex/>}
+      {this.loaded && <BondsList bonds={this.props.store.bondsStore.entities}/>}
     </PageContainer>
   }
 }

@@ -1,4 +1,4 @@
-import { action, observable } from 'mobx'
+import { action } from 'mobx'
 import API from '../Infrastructure/API'
 import BondsStore from './BondsStore'
 import CurrenciesStore from './CurrenciesStore'
@@ -8,8 +8,6 @@ export default class RootStore {
   bondsStore = new BondsStore(this)
   currenciesStore = new CurrenciesStore(this)
   issuersStore = new IssuersStore(this)
-
-  @observable loadInProgress = false
 
   /**
    * @param {string} entity
@@ -61,8 +59,7 @@ export default class RootStore {
   @action find (entity, id) {
     const store = this.getStoreByEntity(entity)
 
-    this.loadInProgress = true
-    this
+    return this
       .clear()
       .then(() => API.find(entity, id))
       .then(
@@ -74,8 +71,6 @@ export default class RootStore {
 
           store.fromJSON(data)
 
-          this.loadInProgress = false
-
           return store.entities[0]
         },
       )
@@ -85,8 +80,7 @@ export default class RootStore {
   @action findBy (entity) {
     const store = this.getStoreByEntity(entity)
 
-    this.loadInProgress = true
-    this
+    return this
       .clear()
       .then(() => API.findBy(entity))
       .then(
@@ -95,8 +89,6 @@ export default class RootStore {
          */
         ({_embedded}) => {
           this.applyEmbedded(_embedded)
-
-          this.loadInProgress = false
 
           return store.entities
         },

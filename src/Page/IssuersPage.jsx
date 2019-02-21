@@ -1,3 +1,4 @@
+import { observable } from 'mobx'
 import { inject, observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
@@ -22,20 +23,21 @@ class IssuersPage extends Component {
     store: PropTypes.instanceOf(RootStore).isRequired,
   }
 
+  @observable loaded
+
   componentDidMount () {
     this.props.store.findBy('issuers')
+        .then(() => this.loaded = true)
   }
 
   render () {
-    const progress = this.props.store.loadInProgress
-
     return <PageContainer>
       <PageHeader>{this.props.title}</PageHeader>
       <article>
         <FormattedMessage {...messages.description}/>
       </article>
-      {progress && <LoaderFlex/>}
-      {!progress && <IssuersList issuers={this.props.store.issuersStore.entities}/>}
+      {!this.loaded && <LoaderFlex/>}
+      {this.loaded && <IssuersList issuers={this.props.store.issuersStore.entities}/>}
     </PageContainer>
   }
 }
