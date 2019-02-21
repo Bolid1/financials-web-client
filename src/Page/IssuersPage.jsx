@@ -3,7 +3,8 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { defineMessages, FormattedMessage } from 'react-intl'
 import IssuersList from '../Component/IssuersList'
-import Loader from '../Element/Loader'
+import LoaderFlex from '../Element/LoaderFlex'
+import PageContainer from '../Element/PageContainer'
 import RootStore from '../Store/RootStore'
 import PageHeader from '../Styled/PageHeaderStyled'
 
@@ -28,14 +29,14 @@ class IssuersPage extends Component {
   render () {
     const progress = this.props.store.loadInProgress
 
-    return <div>
+    return <PageContainer>
       <PageHeader>{this.props.title}</PageHeader>
       <article>
         <FormattedMessage {...messages.description}/>
       </article>
-      {progress && <Loader/>}
+      {progress && <LoaderFlex/>}
       {!progress && <IssuersList issuers={this.props.store.issuersStore.entities}/>}
-    </div>
+    </PageContainer>
   }
 }
 

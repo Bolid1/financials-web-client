@@ -1,33 +1,21 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import Loadable from 'react-loadable'
 import { Route, Switch } from 'react-router-dom'
-import Loader from './Element/Loader'
+import LoaderFlex from './Element/LoaderFlex'
 
 export default function Routes ({pages}) {
   return <Switch>
     {
       pages
         .map(
-          ({path, title, component}, key) =>
-            <Route key={key} path={path} exact component={
-              Loadable(
-                {
-                  loader: () => import(`./Page/${component}`),
-                  loading: Loader,
-                  /**
-                   * @param {{default: React.Component}} loaded
-                   * @param {history, location, match} props
-                   * @returns {*}
-                   */
-                  render (loaded, props) {
-                    const Component = loaded.default
+          ({path, title, component}, key) => {
+            const Page = React.lazy(() => import(`./Page/${component}`))
+            const PageAsync = props => <React.Suspense fallback={<LoaderFlex/>}>
+              <Page {...props} title={title}/>
+            </React.Suspense>
 
-                    return <Component {...{title}} {...props}/>
-                  },
-                },
-              )
-            }/>,
+            return <Route key={key} path={path} exact component={PageAsync}/>
+          },
         )
     }
   </Switch>

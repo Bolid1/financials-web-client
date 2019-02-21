@@ -3,7 +3,8 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { defineMessages, FormattedMessage } from 'react-intl'
 import BondEdit from '../Component/BondEdit'
-import Loader from '../Element/Loader'
+import LoaderFlex from '../Element/LoaderFlex'
+import PageContainer from '../Element/PageContainer'
 import RootStore from '../Store/RootStore'
 import PageHeader from '../Styled/PageHeaderStyled'
 
@@ -36,11 +37,11 @@ class BondPage extends Component {
     const progress = this.props.store.loadInProgress
     const bond = this.props.store.bondsStore.first
 
-    return <>
+    return <PageContainer>
       <PageHeader>{this.props.title}</PageHeader>
       <article><FormattedMessage {...messages.description}/></article>
-      {progress && <Loader/>}
+      {progress && <LoaderFlex/>}
       {!progress && bond && <BondEdit bond={bond}/>}
-    </>
+    </PageContainer>
   }
 }
