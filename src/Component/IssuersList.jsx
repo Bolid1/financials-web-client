@@ -19,5 +19,5 @@ export default function IssuersList (props) {
 }
 
 IssuersList.propTypes = {
-  issuers: PropTypes.arrayOf(Issuer).isRequired,
+  issuers: PropTypes.arrayOf(PropTypes.instanceOf(Issuer)).isRequired,
 }

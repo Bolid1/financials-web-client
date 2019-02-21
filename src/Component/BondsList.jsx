@@ -22,5 +22,5 @@ export default function BondsList (props) {
 }
 
 BondsList.propTypes = {
-  bonds: PropTypes.arrayOf(Bond).isRequired,
+  bonds: PropTypes.arrayOf(PropTypes.instanceOf(Bond)).isRequired,
 }
