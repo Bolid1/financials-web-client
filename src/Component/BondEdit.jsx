@@ -1,7 +1,10 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import { defineMessages, FormattedMessage } from 'react-intl'
 import InputDate from '../Element/InputDate'
 import InputNumber from '../Element/InputNumber'
+import InputText from '../Element/InputText'
+import Bond from '../Entity/Bond'
 
 const messages = defineMessages(
   {
@@ -20,7 +23,7 @@ const messages = defineMessages(
   },
 )
 
-export default function BondEdit () {
+export default function BondEdit ({bond}) {
   return <form>
     <div>
       <FormattedMessage {...messages.issuerDescription}/>
@@ -31,7 +34,7 @@ export default function BondEdit () {
     <div>
       <FormattedMessage {...messages.ISINDescription}/>
       typeof 'String'
-      ISIN
+      <InputText value={bond.ISIN} readOnly={true}/>
     </div>
 
     <div>
@@ -94,4 +97,8 @@ export default function BondEdit () {
       <InputNumber/>
     </div>
   </form>
+}
+
+BondEdit.propTypes = {
+  bond: PropTypes.instanceOf(Bond).isRequired,
 }

@@ -1,12 +1,11 @@
-import { Provider } from 'mobx-react'
+import { inject, observer } from 'mobx-react'
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { Component } from 'react'
 import { defineMessages, FormattedMessage } from 'react-intl'
 import IssuersList from '../Component/IssuersList'
-import IssuersStore from '../Store/IssuersStore'
+import Loader from '../Element/Loader'
+import RootStore from '../Store/RootStore'
 import PageHeader from '../Styled/PageHeaderStyled'
-
-const issuersStore = new IssuersStore()
 
 const messages = defineMessages(
   {
@@ -15,18 +14,28 @@ const messages = defineMessages(
   },
 )
 
-export default function IssuersPage ({title}) {
-  return <Provider issuersStore={issuersStore}>
-    <div>
-      <PageHeader>{title}</PageHeader>
+export default @inject('store') @observer
+class IssuersPage extends Component {
+  static propTypes = {
+    title: PropTypes.object/*instanceOf(FormattedMessage)*/.isRequired,
+    store: PropTypes.instanceOf(RootStore).isRequired,
+  }
+
+  componentDidMount () {
+    this.props.store.findBy('issuers')
+  }
+
+  render () {
+    const progress = this.props.store.loadInProgress
+
+    return <div>
+      <PageHeader>{this.props.title}</PageHeader>
       <article>
         <FormattedMessage {...messages.description}/>
       </article>
-      <IssuersList issuersStore={issuersStore}/>
+      {progress && <Loader/>}
+      {!progress && <IssuersList issuers={this.props.store.issuersStore.entities}/>}
     </div>
-  </Provider>
+  }
 }
 
-IssuersPage.propTypes = {
-  title: PropTypes.object/*instanceOf(FormattedMessage)*/.isRequired,
-}

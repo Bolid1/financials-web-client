@@ -1,6 +1,9 @@
-import { observable } from 'mobx'
+import AbstractEntity from './AbstractEntity'
 
-export default class Issuer {
+/**
+ * @implements {AbstractEntity}
+ */
+export default class Issuer extends AbstractEntity {
   /**
    * @description Идентификатор эмитента в БД
    * @member {number}
@@ -11,13 +14,13 @@ export default class Issuer {
    * @description Название эмитента
    * @member {string}
    */
-  @observable name = ''
+  name = ''
 
   /**
    * @description Тип эмитента: частная компания, муниципальное образование, государство
    * @member {Issuer.types}
    */
-  @observable type = Issuer.types.corporate
+  type = Issuer.types.corporate
 
   applyData (data) {
     if (typeof data.id === 'number') {

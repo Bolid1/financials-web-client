@@ -1,3 +1,5 @@
+import { observable } from 'mobx'
+import { observer } from 'mobx-react'
 import React, { Component } from 'react'
 import styled, { css } from 'styled-components'
 import media from '../config/media'
@@ -39,14 +41,13 @@ const LeftSideStyled = styled.aside`
   }
 `
 
-export default class LeftSide extends Component {
-  state = {
-    minimized: true,
-  }
+export default @observer
+class LeftSide extends Component {
+  @observable minimized = true
 
   render () {
-    return <LeftSideStyled minimized={this.state.minimized}>
-      <ToggleNavButton className="toggle-nav-button" onClick={() => this.setState({minimized: !this.state.minimized})}/>
+    return <LeftSideStyled minimized={this.minimized}>
+      <ToggleNavButton className="toggle-nav-button" onClick={() => this.minimized = !this.minimized}/>
       <Navigation className="nav-menu" pages={pages}/>
       <LanguageSelector className="select-language"/>
     </LeftSideStyled>

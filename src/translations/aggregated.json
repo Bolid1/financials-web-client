@@ -58,9 +58,9 @@
     "defaultMessage": "В этом разделе находится информация о счетах.\n      Кредитные карты и наличные."
   },
   {
-    "id": "Page.AddBondPage.description",
+    "id": "Page.BondPage.description",
     "description": "Описание страницы добавления облигации",
-    "defaultMessage": "Вы добавляете новую облигацию."
+    "defaultMessage": "Страница облигации"
   },
   {
     "id": "Page.BondsPage.description",
@@ -88,9 +88,9 @@
     "defaultMessage": "Счета"
   },
   {
-    "id": "config.pages.titleAddBond",
+    "id": "config.pages.titleBond",
     "description": "Заголовок страницы добавления облигации",
-    "defaultMessage": "Добавление облигации"
+    "defaultMessage": "Облигация"
   },
   {
     "id": "config.pages.titleBonds",

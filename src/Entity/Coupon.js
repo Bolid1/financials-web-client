@@ -1,6 +1,8 @@
-import { observable } from 'mobx'
 import Bond from './Bond'
 
+/**
+ * @implements {AbstractEntity}
+ */
 export default class Coupon {
   /**
    * @description Идентификатор купона в БД
@@ -18,13 +20,13 @@ export default class Coupon {
    * @description Дата выплаты купона
    * @member {Date}
    */
-  @observable date
+  date
 
   /**
    * @description сколько будет выплачено по купону
    * @member {Number}
    */
-  @observable value
+  value
 
   applyData (data) {
     if (typeof data.id === 'number') {

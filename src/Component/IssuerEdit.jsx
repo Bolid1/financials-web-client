@@ -6,7 +6,7 @@ import Issuer from '../Entity/Issuer'
 export default @observer class IssuerEdit extends React.Component  {
   static propTypes = {
     issuer: PropTypes.instanceOf(Issuer),
-    onSave: PropTypes.func,
+    onSave: PropTypes.func.isRequired,
   }
 
   /**

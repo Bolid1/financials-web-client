@@ -1,69 +1,77 @@
-import { computed, observable } from 'mobx'
+import { computed } from 'mobx'
+import AbstractEntity from './AbstractEntity'
 import Currency from './Currency'
 import Issuer from './Issuer'
 
-export default class Bond {
+/**
+ * @typedef {Object} BondJSON
+ */
+
+/**
+ * Описание облигации
+ */
+export default class Bond extends AbstractEntity {
   /**
    * @description Эмитент – это юридическое лицо или орган государственной исполнительной или местной власти, который
    *   от своего имени и в рамках своей деятельности выпускает в обращение ценные бумаги или иные платежные средства.
    * @member {Issuer}
    */
-  @observable issuer
+  issuer
 
   /**
    * @description Международный идентификационный код ценной бумаги
    * @member {string}
    */
-  @observable ISIN
+  ISIN
 
   /**
    * @description Название облигации
    * @member {string}
    */
-  @observable name
+  name
 
   /**
    * @description Валюта, в которой происходят торги по данным облигациям
    * @member {Currency}
    */
-  @observable currency
+  currency
 
   /**
    * @description Номинал - это сумма, которую получит держатель облигации в день
    *   выкупа облигации эмитентом {@see issuer}.
    * @member {number}
    */
-  @observable faceValue
+  faceValue
 
   /**
    * @description Количество выпущенных облигаций
    * @member {number}
    */
-  @observable quantity
+  quantity
 
   /**
    * @description Срок размещения - это дата, в которую эмитент выпустил бумаги на рынок
    * @member {Date}
    */
-  @observable placementDate
+  placementDate
 
   /**
    * @description Срок погашения - это дата, в которую эмитент выкупит облигацию по цене номинала {@see faceValue}
    * @member {Date}
    */
-  @observable maturity
+  maturity
 
   /**
    * @description Доступна ли возможность досрочного погашения
    * @member {boolean}
    */
-  @observable earlyRepaymentAvailable
+  earlyRepaymentAvailable
 
   /**
    * @description Дата, с которой принимаются заявки на выкуп облигаций по номинальной стоимости {@see faceValue}
    * @member {Date}
    */
-  @observable offerStart
+  offerStart
 
   /**
    * @description В дату оферты инвестор может по желанию предъявить облигацию к погашению по заранее оговорённой
@@ -71,7 +79,7 @@ export default class Bond {
    *   предъявленные инвесторами облигации.
    * @member {Date}
    */
-  @observable offerEnd
+  offerEnd
 
   /**
    * @description В дату оферты инвестор может по желанию предъявить облигацию к погашению по заранее оговорённой
@@ -79,19 +87,19 @@ export default class Bond {
    *   предъявленные инвесторами облигации.
    * @member {Date}
    */
-  @observable redemptionDate
+  redemptionDate
 
   /**
    * @description Текущая стоимость облигации
    * @member {number}
    */
-  @observable price
+  price
 
   /**
    * @description Купоны, которые будут выплачены по облигации
    * @member {Coupon[]}
    */
-  @observable coupons
+  coupons
 
   /**
    * @returns {Coupon|undefined}

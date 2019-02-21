@@ -1,6 +1,9 @@
-import { observable } from 'mobx'
+import AbstractEntity from './AbstractEntity'
 
-export default class Currency {
+/**
+ * @implements {AbstractEntity}
+ */
+export default class Currency extends AbstractEntity {
   /**
    * @description Идентификатор валюты в БД
    * @member {String}
@@ -11,7 +14,7 @@ export default class Currency {
    * @description Значок валюты
    * @member {String}
    */
-  @observable sign = ''
+  sign = ''
 
   applyData (data) {
     if (typeof data.id === 'string') {

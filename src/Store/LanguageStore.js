@@ -29,7 +29,7 @@ export default class LanguageStore {
    * @param {string} lang
    * @returns {void}
    */
-  @action.bound setLang (lang) {
+  @action setLang (lang) {
     if (LanguageStore.supportedLanguages.indexOf(lang) === -1) {
       throw new Error(`Unsupported language "${lang}"`)
     }

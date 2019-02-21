@@ -12,7 +12,7 @@ const messages = defineMessages(
     // Заголовок страницы облигаций
     titleBonds: 'Облигации',
     // Заголовок страницы добавления облигации
-    titleAddBond: 'Добавление облигации',
+    titleBond: 'Облигация',
     // Заголовок страницы эмитентов
     titleIssuers: 'Эмитенты',
   },
@@ -44,9 +44,9 @@ export default [
     showInLeftMenu: true,
   },
   {
-    path: '/bonds/add',
-    title: <FormattedMessage {...messages.titleAddBond}/>,
-    component: 'AddBondPage',
+    path: '/bonds/:id',
+    title: <FormattedMessage {...messages.titleBond}/>,
+    component: 'BondPage',
     showInLeftMenu: false,
   },
   {

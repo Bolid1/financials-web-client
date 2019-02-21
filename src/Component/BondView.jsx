@@ -1,35 +1,31 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import { FormattedRelative } from 'react-intl'
+import { Link } from 'react-router-dom'
 import Bar from '../Element/Bar'
 import Bond from '../Entity/Bond'
+import Gear from '../Icon/Gear'
 
-export default class BondView extends React.Component {
-  static propTypes = {
-    bond: PropTypes.instanceOf(Bond).isRequired,
-  }
+export default function BondView (props) {
+  const bond = props.bond
 
-  /**
-   * @returns {Bond}
-   */
-  get bond () {
-    return this.props.bond
-  }
+  return <div>
+    <Link to={`/bonds/${bond.ISIN}`}><Gear/></Link>
+    {bond.issuer.name}<br/>
+    {bond.ISIN}<br/>
+    {bond.name}<br/>
+    <Bar
+      current={bond.price}
+      completeColor="rgba(255, 0, 0, 0.2)"
+      unCompleteColor="rgba(0, 255, 0, 0.2)"
+      total={bond.faceValue}
+    >
+      {`${bond.price}${bond.currency.sign}`} из {`${bond.faceValue}${bond.currency.sign}`}
+    </Bar><br/>
+    {bond.closestCoupon && <FormattedRelative value={bond.closestCoupon.date}/>}
+  </div>
+}
 
-  render () {
-    return <div>
-      {this.bond.issuer.name}<br/>
-      {this.bond.ISIN}<br/>
-      {this.bond.name}<br/>
-      <Bar
-        current={this.bond.price}
-        completeColor="rgba(255, 0, 0, 0.2)"
-        unCompleteColor="rgba(0, 255, 0, 0.2)"
-        total={this.bond.faceValue}
-      >
-        {`${this.bond.price}${this.bond.currency.sign}`} из {`${this.bond.faceValue}${this.bond.currency.sign}`}
-      </Bar><br/>
-      {this.bond.closestCoupon && <FormattedRelative value={this.bond.closestCoupon.date}/>}
-    </div>
-  }
+BondView.propTypes = {
+  bond: PropTypes.instanceOf(Bond).isRequired,
 }

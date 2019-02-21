@@ -1,16 +1,17 @@
 {
+  "Page.BondPage.description": "Страница облигации",
   "config.pages.titleAccounts": "Счета",
-  "config.pages.titleAddBond": "Добавление облигации",
+  "config.pages.titleBond": "Облигация",
   "config.pages.titleBonds": "Облигации",
   "config.pages.titleDashboard": "Dashboard",
   "config.pages.titleIssuers": "Эмитенты",
   "config.pages.titleStocks": "Акции",
   "Page.AccountsPage.description": "В этом разделе находится информация о счетах.\n      Кредитные карты и наличные.",
-  "Page.AddBondPage.description": "Вы добавляете новую облигацию.",
   "Page.BondsPage.description": "В этом разделе находится информация об облигациях.",
   "Page.DashboardPage.description": "Что-то о рабочем столе",
   "Page.IssuersPage.description": "В этом разделе находится информация об эмитентах.",
   "Page.StocksPage.description": "В этом разделе находится информация об акциях",
+  "Component.BondsList.addNew": "Добавить",
   "Component.BondEdit.ISINDescription": "Международный идентификационный код ценной бумаги",
   "Component.BondEdit.currencyDescription": "Валюта, в которой происходят торги по данным облигациям",
   "Component.BondEdit.earlyRepaymentAvailableDescription": "Доступна ли возможность досрочного погашения",
@@ -22,6 +23,5 @@
   "Component.BondEdit.placementDateDescription": "Срок размещения - это дата, в которую эмитент выпустил бумаги на рынок",
   "Component.BondEdit.priceDescription": "Текущая стоимость облигации",
   "Component.BondEdit.quantityDescription": "Количество выпущенных облигаций",
-  "Component.BondEdit.redemptionDateDescription": "В дату оферты инвестор может по желанию предъявить облигацию к погашению по заранее оговорённой стоимости или оставить её до следующей оферты. Соответственно, эмитент обязан выкупить все предъявленные инвесторами облигации.",
-  "Component.BondsList.addNew": "Добавить"
+  "Component.BondEdit.redemptionDateDescription": "В дату оферты инвестор может по желанию предъявить облигацию к погашению по заранее оговорённой стоимости или оставить её до следующей оферты. Соответственно, эмитент обязан выкупить все предъявленные инвесторами облигации."
 }

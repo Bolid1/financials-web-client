@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom'
 import styled from 'styled-components'
 import LeftSide from './Component/LeftSide'
 import pages from './config/pages'
+import EntitiesProvider from './Provider/EntitiesProvider'
 import LanguageProvider from './Provider/LanguageProvider'
 import StyleProvider from './Provider/StyleProvider'
 import Routes from './Routes'
@@ -30,12 +31,14 @@ export default hot(module)(
       <LanguageProvider>
         <BrowserRouter>
           <StyleProvider>
-            <Application>
-              <LeftSide/>
-              <Content>
-                <Routes pages={pages}/>
-              </Content>
-            </Application>
+            <EntitiesProvider>
+              <Application>
+                <LeftSide/>
+                <Content>
+                  <Routes pages={pages}/>
+                </Content>
+              </Application>
+            </EntitiesProvider>
           </StyleProvider>
         </BrowserRouter>
       </LanguageProvider>

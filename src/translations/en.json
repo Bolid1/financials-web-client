@@ -1,16 +1,17 @@
 {
+  "Page.BondPage.description": "",
   "config.pages.titleAccounts": "",
-  "config.pages.titleAddBond": "",
+  "config.pages.titleBond": "",
   "config.pages.titleBonds": "",
   "config.pages.titleDashboard": "",
   "config.pages.titleIssuers": "",
   "config.pages.titleStocks": "",
   "Page.AccountsPage.description": "",
-  "Page.AddBondPage.description": "",
   "Page.BondsPage.description": "",
   "Page.DashboardPage.description": "",
   "Page.IssuersPage.description": "",
   "Page.StocksPage.description": "",
+  "Component.BondsList.addNew": "",
   "Component.BondEdit.ISINDescription": "",
   "Component.BondEdit.currencyDescription": "",
   "Component.BondEdit.earlyRepaymentAvailableDescription": "",
@@ -22,6 +23,5 @@
   "Component.BondEdit.placementDateDescription": "",
   "Component.BondEdit.priceDescription": "",
   "Component.BondEdit.quantityDescription": "",
-  "Component.BondEdit.redemptionDateDescription": "",
-  "Component.BondsList.addNew": ""
+  "Component.BondEdit.redemptionDateDescription": ""
 }
