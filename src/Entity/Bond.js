@@ -1,4 +1,5 @@
 import { computed, observable } from 'mobx'
+import DateTimeHelper from '../Helper/DateTimeHelper'
 import AbstractEntity from './AbstractEntity'
 import Currency from './Currency'
 import Issuer from './Issuer'
@@ -38,63 +39,55 @@ export default class Bond extends AbstractEntity {
   }
 
   /**
+   * @description Срок размещения - это дата, в которую эмитент выпустил бумаги на рынок
+   * @member {Date}
+   */
+  @observable placementDate
+  /**
+   * @description Срок погашения - это дата, в которую эмитент выкупит облигацию по цене номинала {@see _faceValue}
+   * @member {Date}
+   */
+  @observable maturity
+  /**
+   * @description Дата, с которой принимаются заявки на выкуп облигаций по номинальной стоимости {@see _faceValue}
+   * @member {Date}
+   */
+  @observable offerStart
+  /**
+   * @description В дату оферты инвестор может по желанию предъявить облигацию к погашению по заранее оговорённой
+   *   стоимости {@see _faceValue} или оставить её до следующей оферты. Соответственно, эмитент обязан выкупить все
+   *   предъявленные инвесторами облигации.
+   * @member {Date}
+   */
+  @observable offerEnd
+  /**
+   * @description В дату оферты инвестор может по желанию предъявить облигацию к погашению по заранее оговорённой
+   *   стоимости {@see _faceValue} или оставить её до следующей оферты. Соответственно, эмитент обязан выкупить все
+   *   предъявленные инвесторами облигации.
+   * @member {Date}
+   */
+  @observable redemptionDate
+
+  /**
    * @description Номинал - это сумма, которую получит держатель облигации в день
    *   выкупа облигации эмитентом {@see issuer}.
    * @member {number}
    */
-  faceValue
+  @observable _faceValue
+
+  get faceValue () {
+    return this._faceValue
+  }
+
+  set faceValue (value) {
+    this._faceValue = Number(value)
+  }
 
   /**
    * @description Количество выпущенных облигаций
    * @member {number}
    */
-  quantity
-
-  /**
-   * @description Срок размещения - это дата, в которую эмитент выпустил бумаги на рынок
-   * @member {Date}
-   */
-  placementDate
-
-  /**
-   * @description Срок погашения - это дата, в которую эмитент выкупит облигацию по цене номинала {@see faceValue}
-   * @member {Date}
-   */
-  maturity
-
-  /**
-   * @description Доступна ли возможность досрочного погашения
-   * @member {boolean}
-   */
-  earlyRepaymentAvailable
-
-  /**
-   * @description Дата, с которой принимаются заявки на выкуп облигаций по номинальной стоимости {@see faceValue}
-   * @member {Date}
-   */
-  offerStart
-
-  /**
-   * @description В дату оферты инвестор может по желанию предъявить облигацию к погашению по заранее оговорённой
-   *   стоимости {@see faceValue} или оставить её до следующей оферты. Соответственно, эмитент обязан выкупить все
-   *   предъявленные инвесторами облигации.
-   * @member {Date}
-   */
-  offerEnd
-
-  /**
-   * @description В дату оферты инвестор может по желанию предъявить облигацию к погашению по заранее оговорённой
-   *   стоимости {@see faceValue} или оставить её до следующей оферты. Соответственно, эмитент обязан выкупить все
-   *   предъявленные инвесторами облигации.
-   * @member {Date}
-   */
-  redemptionDate
-
-  /**
-   * @description Текущая стоимость облигации
-   * @member {number}
-   */
-  price
+  @observable _quantity
 
   /**
    * @description Купоны, которые будут выплачены по облигации
@@ -110,6 +103,55 @@ export default class Bond extends AbstractEntity {
       .slice()
       .sort((c1, c2) => c1.date.getTime() - c2.date.getTime())
       .find(({date}) => date > new Date())
+  }
+
+  get quantity () {
+    return this._quantity
+  }
+
+  set quantity (value) {
+    this._quantity = Number(value)
+  }
+
+  /**
+   * @description Доступна ли возможность досрочного погашения
+   * @member {boolean}
+   */
+  @observable _earlyRepaymentAvailable
+
+  get earlyRepaymentAvailable () {
+    return this._earlyRepaymentAvailable || false
+  }
+
+  set earlyRepaymentAvailable (value) {
+    this._earlyRepaymentAvailable = Boolean(value)
+  }
+
+  /**
+   * @description Текущая стоимость облигации
+   * @member {number}
+   */
+  @observable _price
+
+  get price () {
+    return this._price
+  }
+
+  set price (value) {
+    this._price = Number(value)
+  }
+
+  toJSON () {
+    const data = Object.assign({}, this)
+    data.issuer = this.issuer.identifier
+    data.currency = this.currency.identifier
+    data.placementDate = DateTimeHelper.toSQL(this.placementDate)
+    data.maturity = DateTimeHelper.toSQL(this.maturity)
+    data.offerStart = DateTimeHelper.toSQL(this.offerStart)
+    data.offerEnd = DateTimeHelper.toSQL(this.offerEnd)
+    data.redemptionDate = DateTimeHelper.toSQL(this.redemptionDate)
+
+    return data
   }
 
   applyData (data) {
@@ -130,39 +172,39 @@ export default class Bond extends AbstractEntity {
     }
 
     if (typeof data.faceValue === 'number') {
-      this.faceValue = data.faceValue
+      this._faceValue = data.faceValue
     }
 
-    if (typeof data.quantity === 'number') {
-      this.quantity = data.quantity
+    if (typeof data._quantity === 'number') {
+      this._quantity = data._quantity
     }
 
     if (data.placementDate) {
-      this.placementDate = new Date(data.placementDate)
+      this.placementDate = DateTimeHelper.fromSQL(data.placementDate)
     }
 
     if (data.maturity) {
-      this.maturity = new Date(data.maturity)
+      this.maturity = DateTimeHelper.fromSQL(data.maturity)
     }
 
-    if (typeof data.earlyRepaymentAvailable === 'boolean') {
-      this.earlyRepaymentAvailable = data.earlyRepaymentAvailable
+    if (typeof data._earlyRepaymentAvailable === 'boolean') {
+      this._earlyRepaymentAvailable = data._earlyRepaymentAvailable
     }
 
     if (data.offerStart) {
-      this.offerStart = new Date(data.offerStart)
+      this.offerStart = DateTimeHelper.fromSQL(data.offerStart)
     }
 
     if (data.offerEnd) {
-      this.offerEnd = new Date(data.offerEnd)
+      this.offerEnd = DateTimeHelper.fromSQL(data.offerEnd)
     }
 
     if (data.redemptionDate) {
-      this.redemptionDate = new Date(data.redemptionDate)
+      this.redemptionDate = DateTimeHelper.fromSQL(data.redemptionDate)
     }
 
     if (typeof data.price === 'number') {
-      this.price = data.price
+      this._price = data.price
     }
 
     if (Array.isArray(data.coupons)) {

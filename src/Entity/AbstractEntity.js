@@ -11,6 +11,10 @@ export default class AbstractEntity {
     throw new Error('Must be implemented by subclass')
   }
 
+  toJSON () {
+    return Object.assign({}, this)
+  }
+
   /**
    * @param {Object} data
    * @returns {AbstractEntity}

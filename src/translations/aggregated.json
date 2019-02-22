@@ -48,6 +48,14 @@
     "defaultMessage": "В дату оферты инвестор может по желанию предъявить облигацию к погашению по заранее оговорённой стоимости или оставить её до следующей оферты. Соответственно, эмитент обязан выкупить все предъявленные инвесторами облигации."
   },
   {
+    "id": "Component.BondEdit.reset",
+    "defaultMessage": "Сбросить"
+  },
+  {
+    "id": "Component.BondEdit.save",
+    "defaultMessage": "Сохранить"
+  },
+  {
     "id": "Component.BondsList.addNew",
     "description": "Добавить новую облигацию",
     "defaultMessage": "Добавить"

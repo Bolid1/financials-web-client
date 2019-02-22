@@ -23,5 +23,7 @@
   "Component.BondEdit.placementDateDescription": "",
   "Component.BondEdit.priceDescription": "",
   "Component.BondEdit.quantityDescription": "",
-  "Component.BondEdit.redemptionDateDescription": ""
+  "Component.BondEdit.redemptionDateDescription": "",
+  "Component.BondEdit.save": "",
+  "Component.BondEdit.reset": ""
 }

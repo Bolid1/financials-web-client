@@ -4,6 +4,7 @@ import React from 'react'
 import { defineMessages, FormattedMessage } from 'react-intl'
 import styled from 'styled-components'
 import CheckBox from '../Element/CheckBox'
+import FieldGroup from '../Element/FieldGroup'
 import FieldInfo from '../Element/FieldInfo'
 import InputDate from '../Element/InputDate'
 import InputNumber from '../Element/InputNumber'
@@ -28,6 +29,7 @@ const messages = defineMessages(
     offerEndDescription: 'В дату оферты инвестор может по желанию предъявить облигацию к погашению по заранее оговорённой стоимости или оставить её до следующей оферты. Соответственно, эмитент обязан выкупить все предъявленные инвесторами облигации.',
     redemptionDateDescription: 'В дату оферты инвестор может по желанию предъявить облигацию к погашению по заранее оговорённой стоимости или оставить её до следующей оферты. Соответственно, эмитент обязан выкупить все предъявленные инвесторами облигации.',
     priceDescription: 'Текущая стоимость облигации',
+    save: 'Сохранить',
   },
 )
 
@@ -43,8 +45,14 @@ const Container = styled.form`
  * @constructor
  */
 function BondEdit ({bond, issuers, currencies}) {
-  return <Container>
-    <div>
+  return <Container onSubmit={
+    event => {
+      console.info(event.target)
+      event.preventDefault()
+      console.debug(bond.toJSON(), JSON.stringify(bond.toJSON()))
+    }
+  }>
+    <FieldGroup>
       <FormattedMessage {...messages.issuerDescription}>
         {text => <FieldInfo>{text}</FieldInfo>}
       </FormattedMessage>
@@ -64,16 +72,16 @@ function BondEdit ({bond, issuers, currencies}) {
           )
         }
       </Select>
-    </div>
+    </FieldGroup>
 
-    <div>
+    <FieldGroup>
       <FormattedMessage {...messages.ISINDescription}>
         {text => <FieldInfo>{text}</FieldInfo>}
       </FormattedMessage>
       <InputText value={bond.ISIN} onChange={event => bond.ISIN = event.target.value}/>
-    </div>
+    </FieldGroup>
 
-    <div>
+    <FieldGroup>
       <FormattedMessage {...messages.currencyDescription}>
         {text => <FieldInfo>{text}</FieldInfo>}
       </FormattedMessage>
@@ -93,70 +101,82 @@ function BondEdit ({bond, issuers, currencies}) {
           )
         }
       </Select>
-    </div>
+    </FieldGroup>
 
-    <div>
+    <FieldGroup>
       <FormattedMessage {...messages.faceValueDescription}>
         {text => <FieldInfo>{text}</FieldInfo>}
       </FormattedMessage>
-      <InputNumber value={bond.faceValue} readOnly={true}/>
-    </div>
+      <InputNumber value={bond.faceValue} onChange={event => bond.faceValue = event.target.value}/>
+    </FieldGroup>
 
-    <div>
+    <FieldGroup>
       <FormattedMessage {...messages.quantityDescription}>
         {text => <FieldInfo>{text}</FieldInfo>}
       </FormattedMessage>
-      <InputNumber value={bond.quantity} readOnly={true}/>
-    </div>
+      <InputNumber value={bond.quantity} onChange={event => bond.quantity = event.target.value}/>
+    </FieldGroup>
 
-    <div>
+    <FieldGroup>
       <FormattedMessage {...messages.placementDateDescription}>
         {text => <FieldInfo>{text}</FieldInfo>}
       </FormattedMessage>
-      <InputDate value={bond.placementDate} readOnly={true}/>
-    </div>
+      <InputDate value={DateTimeHelper.toSQL(bond.placementDate)}
+                 onChange={event => bond.placementDate = new Date(event.target.value)}/>
+    </FieldGroup>
 
-    <div>
+    <FieldGroup>
       <FormattedMessage {...messages.maturityDescription}>
         {text => <FieldInfo>{text}</FieldInfo>}
       </FormattedMessage>
-      <InputDate value={DateTimeHelper.toSQL(bond.maturity)} readOnly={true}/>
-    </div>
+      <InputDate value={DateTimeHelper.toSQL(bond.maturity)}
+                 onChange={event => bond.maturity = new Date(event.target.value)}/>
+    </FieldGroup>
 
-    <div>
+    <FieldGroup>
       <FormattedMessage {...messages.earlyRepaymentAvailableDescription}>
         {text => <FieldInfo>{text}</FieldInfo>}
       </FormattedMessage>
-      <CheckBox checked={bond.earlyRepaymentAvailable} disabled={true}/>
-    </div>
+      <CheckBox checked={bond.earlyRepaymentAvailable}
+                onChange={event => bond.earlyRepaymentAvailable = event.target.checked}/>
+    </FieldGroup>
 
-    <div>
+    <FieldGroup>
       <FormattedMessage {...messages.offerStartDescription}>
         {text => <FieldInfo>{text}</FieldInfo>}
       </FormattedMessage>
-      <InputDate value={bond.offerStart} readOnly={true}/>
-    </div>
+      <InputDate value={DateTimeHelper.toSQL(bond.offerStart)}
+                 onChange={event => bond.offerStart = new Date(event.target.value)}/>
+    </FieldGroup>
 
-    <div>
+    <FieldGroup>
       <FormattedMessage {...messages.offerEndDescription}>
         {text => <FieldInfo>{text}</FieldInfo>}
       </FormattedMessage>
-      <InputDate value={bond.offerEnd} readOnly={true}/>
-    </div>
+      <InputDate value={DateTimeHelper.toSQL(bond.offerEnd)}
+                 onChange={event => bond.offerEnd = new Date(event.target.value)}/>
+    </FieldGroup>
 
-    <div>
+    <FieldGroup>
       <FormattedMessage {...messages.redemptionDateDescription}>
         {text => <FieldInfo>{text}</FieldInfo>}
       </FormattedMessage>
-      <InputDate value={bond.redemptionDate} readOnly={true}/>
-    </div>
+      <InputDate value={DateTimeHelper.toSQL(bond.redemptionDate)}
+                 onChange={event => bond.redemptionDate = new Date(event.target.value)}/>
+    </FieldGroup>
 
-    <div>
+    <FieldGroup>
       <FormattedMessage {...messages.priceDescription}>
         {text => <FieldInfo>{text}</FieldInfo>}
       </FormattedMessage>
-      <InputNumber value={bond.price} readOnly={true}/>
-    </div>
+      <InputNumber value={bond.price} onChange={event => bond.price = event.target.value}/>
+    </FieldGroup>
+
+    <FieldGroup>
+      <FormattedMessage {...messages.save}>
+        {text => <button type="submit">{text}</button>}
+      </FormattedMessage>
+    </FieldGroup>
   </Container>
 }
 
