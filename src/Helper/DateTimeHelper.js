@@ -3,7 +3,7 @@ export default class DateTimeHelper {
    * @param {Date} date
    */
   static toSQL (date) {
-    if (!date instanceof Date) {
+    if (!(date instanceof Date)) {
       throw new Error(`Invalid argument type ${typeof date}, expected Date`)
     }
 
