@@ -57,7 +57,7 @@ function BondEdit ({bond, issuers, currencies}) {
         {text => <FieldInfo>{text}</FieldInfo>}
       </FormattedMessage>
       <Select
-        value={bond.issuer.identifier}
+        value={bond.issuer?.identifier}
         onChange={
           event => bond.issuer = issuers.find(
             issuer => issuer.identifier === Number(event.target.value),
@@ -86,7 +86,7 @@ function BondEdit ({bond, issuers, currencies}) {
         {text => <FieldInfo>{text}</FieldInfo>}
       </FormattedMessage>
       <Select
-        value={bond.currency.identifier}
+        value={bond.currency?.identifier}
         onChange={
           event => bond.currency = currencies.find(
             currency => currency.identifier === Number(event.target.value),

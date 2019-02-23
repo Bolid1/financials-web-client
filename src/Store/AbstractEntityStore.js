@@ -33,6 +33,13 @@ export default class AbstractEntityStore {
     return this.entities.length ? this.entities[0] : null
   }
 
+  @action create (data = {}) {
+    const item = this._model.fromJSON(data)
+    this.entities.push(item)
+
+    return Promise.resolve(item)
+  }
+
   @action clear () {
     this.entities = []
 
@@ -44,7 +51,7 @@ export default class AbstractEntityStore {
    * @param {Object[]} data
    * @return {AbstractEntity[]}
    */
-  fromJSON (...data) {
+  @action fromJSON (...data) {
     const entities = data
       .map(this._model.fromJSON)
       .filter(entity => {

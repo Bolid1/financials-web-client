@@ -33,9 +33,14 @@ class BondPage extends Component {
   @observable loaded
 
   componentDidMount () {
+    const id = this.props.match.params.id
+
     this.props.store
         .clear()
-        .then(() => this.props.store.find('bond', this.props.match.params.id))
+        .then(() => id === 'add'
+                    ? this.props.store.bondsStore.create()
+                    : this.props.store.find('bond', id),
+        )
         .then(() => this.props.store.findBy('issuers'))
         .then(() => this.props.store.findBy('currencies'))
         .then(() => this.loaded = true)
