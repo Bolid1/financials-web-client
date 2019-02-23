@@ -1,11 +1,13 @@
 import bond from '../samples/bond'
 import bonds from '../samples/bonds'
+import currencies from '../samples/currencies'
 import issuers from '../samples/issuers'
 
 const entityMap = {
   bond,
   bonds,
   issuers,
+  currencies,
 }
 
 export default class API {
