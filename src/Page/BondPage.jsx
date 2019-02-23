@@ -32,6 +32,10 @@ class BondPage extends Component {
 
   @observable loaded
 
+  get bond () {
+    return this.props.store.bondsStore.first
+  }
+
   componentDidMount () {
     const id = this.props.match.params.id
 
@@ -44,10 +48,11 @@ class BondPage extends Component {
                     : this.props.store.find('bond', id),
         )
         .then(() => this.loaded = true)
+        .catch(console.error)
   }
 
   render () {
-    const bond = this.props.store.bondsStore.first
+    const bond = this.bond
     const currencies = this.props.store.currenciesStore.entities
     const issuers = this.props.store.issuersStore.entities
 

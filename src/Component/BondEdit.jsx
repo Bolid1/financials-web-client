@@ -8,6 +8,7 @@ import FieldGroup from '../Element/FieldGroup'
 import FieldInfo from '../Element/FieldInfo'
 import InputDate from '../Element/InputDate'
 import InputNumber from '../Element/InputNumber'
+import InputsGroup from '../Element/InputsGroup'
 import InputText from '../Element/InputText'
 import Select from '../Element/Select'
 import Bond from '../Entity/Bond'
@@ -29,6 +30,7 @@ const messages = defineMessages(
     offerEndDescription: 'В дату оферты инвестор может по желанию предъявить облигацию к погашению по заранее оговорённой стоимости или оставить её до следующей оферты. Соответственно, эмитент обязан выкупить все предъявленные инвесторами облигации.',
     redemptionDateDescription: 'В дату оферты инвестор может по желанию предъявить облигацию к погашению по заранее оговорённой стоимости или оставить её до следующей оферты. Соответственно, эмитент обязан выкупить все предъявленные инвесторами облигации.',
     priceDescription: 'Текущая стоимость облигации',
+    coupons: 'Купоны - выплаты держателяем облигаций',
     save: 'Сохранить',
   },
 )
@@ -170,6 +172,16 @@ function BondEdit ({bond, issuers, currencies}) {
         {text => <FieldInfo>{text}</FieldInfo>}
       </FormattedMessage>
       <InputNumber value={bond.price} onChange={event => bond.price = event.target.value}/>
+    </FieldGroup>
+
+    <FieldGroup>
+      <FormattedMessage {...messages.coupons}>
+        {text => <FieldInfo>{text}</FieldInfo>}
+      </FormattedMessage>
+      {bond.coupons.map(coupon => <InputsGroup key={coupon.id || 'add'}>
+        <InputDate/>
+        <InputNumber/>
+      </InputsGroup>)}
     </FieldGroup>
 
     <FieldGroup>

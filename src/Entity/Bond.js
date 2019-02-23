@@ -93,7 +93,7 @@ export default class Bond extends AbstractEntity {
    * @description Купоны, которые будут выплачены по облигации
    * @member {Coupon[]}
    */
-  coupons
+  coupons = []
 
   /**
    * @returns {Coupon|undefined}

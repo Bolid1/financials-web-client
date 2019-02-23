@@ -4,6 +4,10 @@
     "defaultMessage": "Международный идентификационный код ценной бумаги"
   },
   {
+    "id": "Component.BondEdit.coupons",
+    "defaultMessage": "Купоны - выплаты держателяем облигаций"
+  },
+  {
     "id": "Component.BondEdit.currencyDescription",
     "defaultMessage": "Валюта, в которой происходят торги по данным облигациям"
   },

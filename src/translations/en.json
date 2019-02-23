@@ -25,5 +25,6 @@
   "Component.BondEdit.quantityDescription": "",
   "Component.BondEdit.redemptionDateDescription": "",
   "Component.BondEdit.save": "",
-  "Component.BondEdit.reset": ""
+  "Component.BondEdit.reset": "",
+  "Component.BondEdit.coupons": ""
 }
