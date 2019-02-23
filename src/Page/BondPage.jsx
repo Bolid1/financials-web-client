@@ -37,12 +37,12 @@ class BondPage extends Component {
 
     this.props.store
         .clear()
-        .then(() => id === 'add'
-                    ? this.props.store.bondsStore.create()
-                    : this.props.store.find('bond', id),
-        )
         .then(() => this.props.store.findBy('issuers'))
         .then(() => this.props.store.findBy('currencies'))
+        .then(() => id === 'add'
+                    ? this.props.store.create('bond')
+                    : this.props.store.find('bond', id),
+        )
         .then(() => this.loaded = true)
   }
 

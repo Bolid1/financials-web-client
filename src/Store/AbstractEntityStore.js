@@ -27,12 +27,16 @@ export default class AbstractEntityStore {
   }
 
   /**
-   * @returns {Bond|null}
+   * @returns {AbstractEntity|null}
    */
   @computed get first () {
     return this.entities.length ? this.entities[0] : null
   }
 
+  /**
+   * @param {object} [data]
+   * @returns {Promise<AbstractEntity>}
+   */
   @action create (data = {}) {
     const item = this._model.fromJSON(data)
     this.entities.push(item)

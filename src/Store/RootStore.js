@@ -76,11 +76,35 @@ export default class RootStore {
     }
   }
 
+  @action create (entity) {
+    const store = this.getStoreByEntity(entity)
+
+    return store
+      .create()
+      .then(item => {
+        if (!item) {
+          return Promise.reject('Creation failed')
+        }
+
+        if (entity === 'bond') {
+          // noinspection JSValidateTypes
+          /** @type {Bond} */
+          const bond = item
+
+          // noinspection JSValidateTypes
+          bond.issuer = this.issuersStore.first
+          // noinspection JSValidateTypes
+          bond.currency = this.currenciesStore.first
+        }
+      })
+  }
+
   @action find (entity, id) {
     const store = this.getStoreByEntity(entity)
     const key = this.getEmebeddedKey(entity)
 
-    return API.find(entity, id)
+    return API
+      .find(entity, id)
       .then(
         /**
          * @param {Object} data
@@ -103,8 +127,9 @@ export default class RootStore {
   @action findBy (entity) {
     const store = this.getStoreByEntity(entity)
 
-    return API.findBy(entity)
-              .then(
+    return API
+      .findBy(entity)
+      .then(
         /**
          * @param {Object} _embedded
          */
