@@ -3,7 +3,7 @@ import React from 'react'
 import { Route, Switch } from 'react-router-dom'
 import LoaderFlex from './Element/LoaderFlex'
 
-export default function Routes ({pages}) {
+function Routes ({pages}) {
   return <Switch>
     {
       pages
@@ -20,6 +20,8 @@ export default function Routes ({pages}) {
     }
   </Switch>
 }
+
+export default Routes
 
 Routes.propTypes = {
   pages: PropTypes

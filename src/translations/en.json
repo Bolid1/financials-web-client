@@ -26,5 +26,6 @@
   "Component.BondEdit.redemptionDateDescription": "",
   "Component.BondEdit.save": "",
   "Component.BondEdit.reset": "",
-  "Component.BondEdit.coupons": ""
+  "Component.BondEdit.coupons": "",
+  "Component.BondEdit.nameDescription": ""
 }

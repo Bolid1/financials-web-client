@@ -1,8 +1,13 @@
 import styled from 'styled-components'
 import InputStyle from '../Style/InputStyle'
+import React from 'react'
 
-const Input = styled.input`
+const StyledInput = styled.input`
   ${InputStyle};
 `
 
-export default Input
+export default function Input (props) {
+  const newProps = typeof props.value !== 'undefined' ? props : Object.assign({}, props, {value: ''})
+
+  return <StyledInput {...newProps}/>
+}

@@ -1,34 +1,25 @@
-import AbstractEntity from './AbstractEntity'
+import { types } from 'mobx-state-tree'
 
+// noinspection JSValidateTypes
 /**
- * @implements {AbstractEntity}
+ * @class Currency
  */
-export default class Currency extends AbstractEntity {
-  get identifier () {
-    return this.id
-  }
+export default types
+  .model(
+    {
 
-  /**
-   * @description Идентификатор валюты в БД
-   * @member {String}
-   */
-  id
+      /**
+       * @description Идентификатор валюты в БД
+       * @member {string}
+       * @memberOf Currency#
+       */
+      id: types.identifier,
 
-  /**
-   * @description Значок валюты
-   * @member {String}
-   */
-  sign = ''
-
-  applyData (data) {
-    if (typeof data.id === 'string') {
-      this.id = data.id
-    }
-
-    if (typeof data.sign === 'string') {
-      this.sign = data.sign
-    }
-
-    return this
-  }
-}
+      /**
+       * @description Значок валюты
+       * @member {string}
+       * @memberOf Currency#
+       */
+      sign: types.string,
+    },
+  )

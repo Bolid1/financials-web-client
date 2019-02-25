@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import Issuer from '../Entity/Issuer'
 import TilesStyled from '../Styled/TilesStyled'
 import TileStyled from '../Styled/TileStyled'
 import IssuerView from './IssuerView'
@@ -19,5 +18,5 @@ export default function IssuersList (props) {
 }
 
 IssuersList.propTypes = {
-  issuers: PropTypes.arrayOf(PropTypes.instanceOf(Issuer)).isRequired,
+  issuers: PropTypes.arrayOf(PropTypes.object).isRequired,
 }

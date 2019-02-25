@@ -1,9 +1,21 @@
 import { Provider } from 'mobx-react'
 import React from 'react'
-import RootStore from '../Store/RootStore'
+import API from '../Infrastructure/API'
+import DomainModel from '../Store/DomainModel'
 
-const rootStore = new RootStore()
+const domainModel = DomainModel.create(
+  {
+    loaded: false
+  },
+  {
+    api: API,
+  }
+)
 
-export default function EntitiesProvider ({children}) {
-  return <Provider store={rootStore}>{children}</Provider>
+function EntitiesProvider ({children}) {
+  return <Provider domain={domainModel}>
+    {children}
+  </Provider>
 }
+
+export default EntitiesProvider

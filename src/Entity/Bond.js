@@ -1,216 +1,245 @@
-import { computed, observable } from 'mobx'
-import DateTimeHelper from '../Helper/DateTimeHelper'
-import AbstractEntity from './AbstractEntity'
+import { getParent, types } from 'mobx-state-tree'
 import Currency from './Currency'
+import DateType from '../Type/DateType'
 import Issuer from './Issuer'
+import DateTimeHelper from '../Helper/DateTimeHelper'
 
+// noinspection JSValidateTypes
 /**
- * @typedef {Object} BondJSON
+ * @class Bond
  */
+export default types
+  .model(
+    {
+      /**
+       * @description Эмитент – это юридическое лицо или орган государственной исполнительной или местной власти,
+       *   который от своего имени и в рамках своей деятельности выпускает в обращение ценные бумаги или иные платежные
+       *   средства.
+       * @member {Issuer}
+       * @memberOf Bond#
+       */
+      issuer: types.reference(Issuer),
 
-/**
- * Описание облигации
- */
-export default class Bond extends AbstractEntity {
-  /**
-   * @description Эмитент – это юридическое лицо или орган государственной исполнительной или местной власти, который
-   *   от своего имени и в рамках своей деятельности выпускает в обращение ценные бумаги или иные платежные средства.
-   * @member {Issuer}
-   */
-  @observable issuer
-  /**
-   * @description Международный идентификационный код ценной бумаги
-   * @member {string}
-   */
-  @observable ISIN
-  /**
-   * @description Название облигации
-   * @member {string}
-   */
-  @observable name
-  /**
-   * @description Валюта, в которой происходят торги по данным облигациям
-   * @member {Currency}
-   */
-  @observable currency
+      /**
+       * @description Международный идентификационный код ценной бумаги
+       * @member {string}
+       * @memberOf Bond#
+       */
+      ISIN: types.identifier,
 
-  get identifier () {
-    return this.ISIN
-  }
+      /**
+       * @description Название облигации
+       * @member {string}
+       * @memberOf Bond#
+       */
+      name: types.string,
 
-  /**
-   * @description Срок размещения - это дата, в которую эмитент выпустил бумаги на рынок
-   * @member {Date}
-   */
-  @observable placementDate
-  /**
-   * @description Срок погашения - это дата, в которую эмитент выкупит облигацию по цене номинала {@see _faceValue}
-   * @member {Date}
-   */
-  @observable maturity
-  /**
-   * @description Дата, с которой принимаются заявки на выкуп облигаций по номинальной стоимости {@see _faceValue}
-   * @member {Date}
-   */
-  @observable offerStart
-  /**
-   * @description В дату оферты инвестор может по желанию предъявить облигацию к погашению по заранее оговорённой
-   *   стоимости {@see _faceValue} или оставить её до следующей оферты. Соответственно, эмитент обязан выкупить все
-   *   предъявленные инвесторами облигации.
-   * @member {Date}
-   */
-  @observable offerEnd
-  /**
-   * @description В дату оферты инвестор может по желанию предъявить облигацию к погашению по заранее оговорённой
-   *   стоимости {@see _faceValue} или оставить её до следующей оферты. Соответственно, эмитент обязан выкупить все
-   *   предъявленные инвесторами облигации.
-   * @member {Date}
-   */
-  @observable redemptionDate
+      /**
+       * @description Валюта, в которой происходят торги по данным облигациям
+       * @member {Currency}
+       * @memberOf Bond#
+       */
+      currency: types.reference(Currency),
 
-  /**
-   * @description Номинал - это сумма, которую получит держатель облигации в день
-   *   выкупа облигации эмитентом {@see issuer}.
-   * @member {number}
-   */
-  @observable _faceValue
+      /**
+       * @description Срок размещения - это дата, в которую эмитент выпустил бумаги на рынок
+       * @member {Date}
+       * @memberOf Bond#
+       */
+      placementDate: types.maybe(DateType),
 
-  get faceValue () {
-    return this._faceValue
-  }
+      /**
+       * @description Срок погашения - это дата, в которую эмитент выкупит облигацию по цене номинала {@see Bond#faceValue}
+       * @member {Date}
+       * @memberOf Bond#
+       */
+      maturity: types.maybe(DateType),
 
-  set faceValue (value) {
-    this._faceValue = Number(value)
-  }
+      /**
+       * @description Дата, с которой принимаются заявки на выкуп облигаций по номинальной стоимости {@see Bond#faceValue}
+       * @member {Date}
+       * @memberOf Bond#
+       */
+      offerStart: types.maybe(DateType),
 
-  /**
-   * @description Количество выпущенных облигаций
-   * @member {number}
-   */
-  @observable _quantity
+      /**
+       * @description Дата, в которую завершается приём заявок на выкуп облигаций по номинальной стоимости {@see Bond#faceValue}
+       * @member {Date}
+       * @memberOf Bond#
+       */
+      offerEnd: types.maybe(DateType),
 
-  /**
-   * @description Купоны, которые будут выплачены по облигации
-   * @member {Coupon[]}
-   */
-  coupons = []
+      /**
+       * @description В дату оферты инвестор может по желанию предъявить облигацию к погашению по заранее оговорённой
+       *   стоимости {@see Bond#faceValue} или оставить её до следующей оферты. Соответственно, эмитент обязан выкупить все
+       *   предъявленные инвесторами облигации.
+       * @member {Date}
+       * @memberOf Bond#
+       */
+      redemptionDate: types.maybe(DateType),
 
-  /**
-   * @returns {Coupon|undefined}
-   */
-  @computed get closestCoupon () {
-    return (this.coupons || [])
-      .slice()
-      .sort((c1, c2) => c1.date.getTime() - c2.date.getTime())
-      .find(({date}) => date > new Date())
-  }
+      /**
+       * @description Номинал - это сумма, которую получит держатель облигации в день
+       *   выкупа облигации эмитентом {@see Bond#issuer}.
+       * @member {number}
+       * @memberOf Bond#
+       */
+      faceValue: types.number,
 
-  get quantity () {
-    return this._quantity
-  }
+      /**
+       * @description Количество выпущенных облигаций
+       * @member {number}
+       * @memberOf Bond#
+       */
+      quantity: types.number,
 
-  set quantity (value) {
-    this._quantity = Number(value)
-  }
+      /**
+       * @description Текущая стоимость облигации
+       * @member {number}
+       * @memberOf Bond#
+       */
+      price: types.number,
+    },
+  )
+  .views(
+    self => ({
+      /**
+       * @description Доступна ли возможность досрочного погашения
+       * @member {boolean}
+       * @memberOf Bond#
+       */
+      get earlyRepaymentAvailable () {
+        return Boolean(self.offerEnd && self.offerEnd !== self.maturity)
+      },
 
-  /**
-   * @description Доступна ли возможность досрочного погашения
-   * @member {boolean}
-   */
-  @observable _earlyRepaymentAvailable
+      /**
+       * @description Купоны, которые будут выплачены по облигации
+       * @member {Coupon[]}
+       * @memberOf Bond#
+       */
+      get coupons () {
+        return Array.from(getParent(getParent(self)).coupons.values())
+          .filter(coupon => coupon.bond === self)
+      },
+    }),
+  )
+  .actions(
+    self => ({
 
-  get earlyRepaymentAvailable () {
-    return this._earlyRepaymentAvailable || false
-  }
+      /**
+       * @param {Issuer} value
+       * @memberOf {Bond#}
+       */
+      setIssuer (value) {
+        self.issuer = value
+      },
 
-  set earlyRepaymentAvailable (value) {
-    this._earlyRepaymentAvailable = Boolean(value)
-  }
+      /**
+       * @param {string} value
+       * @memberOf {Bond#}
+       */
+      setISIN (value) {
+        self.ISIN = value
+      },
 
-  /**
-   * @description Текущая стоимость облигации
-   * @member {number}
-   */
-  @observable _price
+      /**
+       * @param {string} value
+       * @memberOf {Bond#}
+       */
+      setName (value) {
+        self.name = value
+      },
 
-  get price () {
-    return this._price
-  }
+      /**
+       * @param {Currency} value
+       * @memberOf {Bond#}
+       */
+      setCurrency (value) {
+        self.currency = value
+      },
 
-  set price (value) {
-    this._price = Number(value)
-  }
+      /**
+       * @param {Date|string} value
+       * @memberOf {Bond#}
+       */
+      setPlacementDate (value) {
+        if (value instanceof Date) {
+          value = DateTimeHelper.toSQL(value)
+        }
 
-  toJSON () {
-    const data = Object.assign({}, this)
-    data.issuer = this.issuer.identifier
-    data.currency = this.currency.identifier
-    data.placementDate = DateTimeHelper.toSQL(this.placementDate)
-    data.maturity = DateTimeHelper.toSQL(this.maturity)
-    data.offerStart = DateTimeHelper.toSQL(this.offerStart)
-    data.offerEnd = DateTimeHelper.toSQL(this.offerEnd)
-    data.redemptionDate = DateTimeHelper.toSQL(this.redemptionDate)
+        self.placementDate = value
+      },
 
-    return data
-  }
+      /**
+       * @param {Date|string} value
+       * @memberOf {Bond#}
+       */
+      setMaturity (value) {
+        if (value instanceof Date) {
+          value = DateTimeHelper.toSQL(value)
+        }
 
-  applyData (data) {
-    if (data.issuer instanceof Issuer) {
-      this.issuer = data.issuer
-    }
+        self.maturity = value
+      },
 
-    if (typeof data.ISIN === 'string') {
-      this.ISIN = data.ISIN
-    }
+      /**
+       * @param {Date|string} value
+       * @memberOf {Bond#}
+       */
+      setOfferStart (value) {
+        if (value instanceof Date) {
+          value = DateTimeHelper.toSQL(value)
+        }
 
-    if (typeof data.name === 'string') {
-      this.name = data.name
-    }
+        self.offerStart = value
+      },
 
-    if (data.currency instanceof Currency) {
-      this.currency = data.currency
-    }
+      /**
+       * @param {Date|string} value
+       * @memberOf {Bond#}
+       */
+      setOfferEnd (value) {
+        if (value instanceof Date) {
+          value = DateTimeHelper.toSQL(value)
+        }
 
-    if (typeof data.faceValue === 'number') {
-      this._faceValue = data.faceValue
-    }
+        self.offerEnd = value
+      },
 
-    if (typeof data._quantity === 'number') {
-      this._quantity = data._quantity
-    }
+      /**
+       * @param {Date|string} value
+       * @memberOf {Bond#}
+       */
+      setRedemptionDate (value) {
+        if (value instanceof Date) {
+          value = DateTimeHelper.toSQL(value)
+        }
 
-    if (data.placementDate) {
-      this.placementDate = DateTimeHelper.fromSQL(data.placementDate)
-    }
+        self.redemptionDate = value
+      },
 
-    if (data.maturity) {
-      this.maturity = DateTimeHelper.fromSQL(data.maturity)
-    }
+      /**
+       * @param {number} value
+       * @memberOf {Bond#}
+       */
+      setFaceValue (value) {
+        self.faceValue = Number(value)
+      },
 
-    if (typeof data._earlyRepaymentAvailable === 'boolean') {
-      this._earlyRepaymentAvailable = data._earlyRepaymentAvailable
-    }
+      /**
+       * @param {number} value
+       * @memberOf {Bond#}
+       */
+      setQuantity (value) {
+        self.quantity = Number(value)
+      },
 
-    if (data.offerStart) {
-      this.offerStart = DateTimeHelper.fromSQL(data.offerStart)
-    }
-
-    if (data.offerEnd) {
-      this.offerEnd = DateTimeHelper.fromSQL(data.offerEnd)
-    }
-
-    if (data.redemptionDate) {
-      this.redemptionDate = DateTimeHelper.fromSQL(data.redemptionDate)
-    }
-
-    if (typeof data.price === 'number') {
-      this._price = data.price
-    }
-
-    if (Array.isArray(data.coupons)) {
-      this.coupons = data.coupons
-    }
-
-    return this
-  }
-}
+      /**
+       * @param {number} value
+       * @memberOf {Bond#}
+       */
+      setPrice (value) {
+        self.price = Number(value)
+      },
+    })
+  )

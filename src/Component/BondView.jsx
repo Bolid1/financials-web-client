@@ -3,7 +3,6 @@ import React from 'react'
 import { FormattedRelative } from 'react-intl'
 import { Link } from 'react-router-dom'
 import Bar from '../Element/Bar'
-import Bond from '../Entity/Bond'
 import Gear from '../Icon/Gear'
 
 export default function BondView (props) {
@@ -27,5 +26,5 @@ export default function BondView (props) {
 }
 
 BondView.propTypes = {
-  bond: PropTypes.instanceOf(Bond).isRequired,
+  bond: PropTypes.object.isRequired,
 }

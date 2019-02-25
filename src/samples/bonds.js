@@ -10,6 +10,7 @@ export default JSON.stringify(
           ISIN: 'RU000A0ZZWR6',
           issuer: 2,
           currency: 'RUB',
+          quantity: 0,
         },
         {
           name: 'КОБР-17',
@@ -19,6 +20,7 @@ export default JSON.stringify(
           ISIN: 'RU000A1000P8',
           issuer: 2,
           currency: 'RUB',
+          quantity: 0,
         },
         {
           name: 'КОБР-18',
@@ -28,6 +30,7 @@ export default JSON.stringify(
           ISIN: 'RU000A1002Z3',
           issuer: 2,
           currency: 'RUB',
+          quantity: 0,
         },
         {
           name: 'ОФЗ 24019',
@@ -37,6 +40,7 @@ export default JSON.stringify(
           ISIN: 'SU24019RMFS0',
           issuer: 1,
           currency: 'RUB',
+          quantity: 0,
         },
         {
           name: 'ОФЗ 25083',
@@ -46,6 +50,7 @@ export default JSON.stringify(
           ISIN: 'SU25083RMFS5',
           issuer: 1,
           currency: 'RUB',
+          quantity: 0,
         },
         {
           name: 'ОФЗ 26205',
@@ -55,6 +60,7 @@ export default JSON.stringify(
           ISIN: 'SU26205RMFS3',
           issuer: 1,
           currency: 'RUB',
+          quantity: 0,
         },
         {
           name: 'ОФЗ 26207',
@@ -64,6 +70,7 @@ export default JSON.stringify(
           ISIN: 'SU26207RMFS9',
           issuer: 1,
           currency: 'RUB',
+          quantity: 0,
         },
         {
           name: 'ОФЗ 26208',
@@ -73,6 +80,7 @@ export default JSON.stringify(
           ISIN: 'SU26208RMFS7',
           issuer: 1,
           currency: 'RUB',
+          quantity: 0,
         },
         {
           name: 'ОФЗ 26209',
@@ -82,6 +90,7 @@ export default JSON.stringify(
           ISIN: 'SU26209RMFS5',
           issuer: 1,
           currency: 'RUB',
+          quantity: 0,
         },
         {
           name: 'ОФЗ 26210',
@@ -91,6 +100,7 @@ export default JSON.stringify(
           ISIN: 'SU26210RMFS3',
           issuer: 1,
           currency: 'RUB',
+          quantity: 0,
         },
         {
           name: 'ОФЗ 26211',
@@ -100,6 +110,7 @@ export default JSON.stringify(
           ISIN: 'SU26211RMFS1',
           issuer: 1,
           currency: 'RUB',
+          quantity: 0,
         },
         {
           name: 'ОФЗ 26212',
@@ -109,6 +120,7 @@ export default JSON.stringify(
           ISIN: 'SU26212RMFS9',
           issuer: 1,
           currency: 'RUB',
+          quantity: 0,
         },
         {
           name: 'ОФЗ 26214',
@@ -118,6 +130,7 @@ export default JSON.stringify(
           ISIN: 'SU26214RMFS5',
           issuer: 1,
           currency: 'RUB',
+          quantity: 0,
         },
         {
           name: 'ОФЗ 26215',
@@ -127,6 +140,7 @@ export default JSON.stringify(
           ISIN: 'SU26215RMFS2',
           issuer: 1,
           currency: 'RUB',
+          quantity: 0,
         },
         {
           name: 'ОФЗ 26216',
@@ -136,6 +150,7 @@ export default JSON.stringify(
           ISIN: 'SU26216RMFS0',
           issuer: 1,
           currency: 'RUB',
+          quantity: 0,
         },
         {
           name: 'ОФЗ 26217',
@@ -145,6 +160,7 @@ export default JSON.stringify(
           ISIN: 'SU26217RMFS8',
           issuer: 1,
           currency: 'RUB',
+          quantity: 0,
         },
         {
           name: 'ОФЗ 26218',
@@ -154,6 +170,7 @@ export default JSON.stringify(
           ISIN: 'SU26218RMFS6',
           issuer: 1,
           currency: 'RUB',
+          quantity: 0,
         },
         {
           name: 'ОФЗ 26219',
@@ -163,6 +180,7 @@ export default JSON.stringify(
           ISIN: 'SU26219RMFS4',
           issuer: 1,
           currency: 'RUB',
+          quantity: 0,
         },
         {
           name: 'ОФЗ 26220',
@@ -172,6 +190,7 @@ export default JSON.stringify(
           ISIN: 'SU26220RMFS2',
           issuer: 1,
           currency: 'RUB',
+          quantity: 0,
         },
         {
           name: 'ОФЗ 26221',
@@ -181,6 +200,7 @@ export default JSON.stringify(
           ISIN: 'SU26221RMFS0',
           issuer: 1,
           currency: 'RUB',
+          quantity: 0,
         },
         {
           name: 'ОФЗ 26222',
@@ -190,6 +210,7 @@ export default JSON.stringify(
           ISIN: 'SU26222RMFS8',
           issuer: 1,
           currency: 'RUB',
+          quantity: 0,
         },
         {
           name: 'ОФЗ 26223',
@@ -199,6 +220,7 @@ export default JSON.stringify(
           ISIN: 'SU26223RMFS6',
           issuer: 1,
           currency: 'RUB',
+          quantity: 0,
         },
         {
           name: 'ОФЗ 26224',
@@ -208,6 +230,7 @@ export default JSON.stringify(
           ISIN: 'SU26224RMFS4',
           issuer: 1,
           currency: 'RUB',
+          quantity: 0,
         },
         {
           name: 'ОФЗ 26225',
@@ -217,6 +240,7 @@ export default JSON.stringify(
           ISIN: 'SU26225RMFS1',
           issuer: 1,
           currency: 'RUB',
+          quantity: 0,
         },
         {
           name: 'ОФЗ 26226',
@@ -226,6 +250,7 @@ export default JSON.stringify(
           ISIN: 'SU26226RMFS9',
           issuer: 1,
           currency: 'RUB',
+          quantity: 0,
         },
         {
           name: 'ОФЗ 29006',
@@ -235,6 +260,7 @@ export default JSON.stringify(
           ISIN: 'SU29006RMFS2',
           issuer: 1,
           currency: 'RUB',
+          quantity: 0,
         },
         {
           name: 'ОФЗ 29007',
@@ -244,6 +270,7 @@ export default JSON.stringify(
           ISIN: 'SU29007RMFS0',
           issuer: 1,
           currency: 'RUB',
+          quantity: 0,
         },
         {
           name: 'ОФЗ 29008',
@@ -253,6 +280,7 @@ export default JSON.stringify(
           ISIN: 'SU29008RMFS8',
           issuer: 1,
           currency: 'RUB',
+          quantity: 0,
         },
         {
           name: 'ОФЗ 29009',
@@ -262,6 +290,7 @@ export default JSON.stringify(
           ISIN: 'SU29009RMFS6',
           issuer: 1,
           currency: 'RUB',
+          quantity: 0,
         },
         {
           name: 'ОФЗ 29010',
@@ -271,6 +300,7 @@ export default JSON.stringify(
           ISIN: 'SU29010RMFS4',
           issuer: 1,
           currency: 'RUB',
+          quantity: 0,
         },
         {
           name: 'ОФЗ 29011',
@@ -280,6 +310,7 @@ export default JSON.stringify(
           ISIN: 'SU29011RMFS2',
           issuer: 1,
           currency: 'RUB',
+          quantity: 0,
         },
         {
           name: 'ОФЗ 29012',
@@ -289,6 +320,7 @@ export default JSON.stringify(
           ISIN: 'SU29012RMFS0',
           issuer: 1,
           currency: 'RUB',
+          quantity: 0,
         },
         {
           name: 'ОФЗ 46011',
@@ -298,6 +330,7 @@ export default JSON.stringify(
           ISIN: 'SU46011RMFS1',
           issuer: 1,
           currency: 'RUB',
+          quantity: 0,
         },
         {
           name: 'ОФЗ 46012',
@@ -307,6 +340,7 @@ export default JSON.stringify(
           ISIN: 'SU46012RMFS9',
           issuer: 1,
           currency: 'RUB',
+          quantity: 0,
         },
         {
           name: 'ОФЗ 46018',
@@ -316,6 +350,7 @@ export default JSON.stringify(
           ISIN: 'SU46018RMFS6',
           issuer: 1,
           currency: 'RUB',
+          quantity: 0,
         },
         {
           name: 'ОФЗ 46019',
@@ -325,6 +360,7 @@ export default JSON.stringify(
           ISIN: 'SU46019RMFS4',
           issuer: 1,
           currency: 'RUB',
+          quantity: 0,
         },
         {
           name: 'ОФЗ 46020',
@@ -334,6 +370,7 @@ export default JSON.stringify(
           ISIN: 'SU46020RMFS2',
           issuer: 1,
           currency: 'RUB',
+          quantity: 0,
         },
         {
           name: 'ОФЗ 46022',
@@ -343,6 +380,7 @@ export default JSON.stringify(
           ISIN: 'SU46022RMFS8',
           issuer: 1,
           currency: 'RUB',
+          quantity: 0,
         },
         {
           name: 'ОФЗ 46023',
@@ -352,6 +390,7 @@ export default JSON.stringify(
           ISIN: 'SU46023RMFS6',
           issuer: 1,
           currency: 'RUB',
+          quantity: 0,
         },
         {
           name: 'ОФЗ 52001',
@@ -361,6 +400,7 @@ export default JSON.stringify(
           ISIN: 'SU52001RMFS3',
           issuer: 1,
           currency: 'RUB',
+          quantity: 0,
         },
         {
           name: 'ОФЗ 52002',
@@ -370,6 +410,7 @@ export default JSON.stringify(
           ISIN: 'SU52002RMFS1',
           issuer: 1,
           currency: 'RUB',
+          quantity: 0,
         },
       ],
       coupons: [

@@ -1,67 +1,53 @@
-import AbstractEntity from './AbstractEntity'
+import { getParent, types } from 'mobx-state-tree'
 
+// noinspection JSValidateTypes
 /**
- * @implements {AbstractEntity}
+ * @class Issuer
  */
-export default class Issuer extends AbstractEntity {
-  get identifier () {
-    return this.id
-  }
+export default types
+  .model(
+    {
+      /**
+       * @description Идентификатор эмитента в БД
+       * @member {number}
+       * @memberOf Issuer#
+       */
+      id: types.identifierNumber,
 
-  /**
-   * @description Идентификатор эмитента в БД
-   * @member {number}
-   */
-  id
+      /**
+       * @description Название эмитента
+       * @member {string}
+       * @memberOf Issuer#
+       */
+      name: types.string,
 
-  /**
-   * @description Название эмитента
-   * @member {string}
-   */
-  name = ''
-
-  /**
-   * @description Тип эмитента: частная компания, муниципальное образование, государство
-   * @member {Issuer.types}
-   */
-  type = Issuer.types.corporate
-
-  applyData (data) {
-    if (typeof data.id === 'number') {
-      this.id = data.id
-    }
-
-    if (typeof data.name === 'string') {
-      this.name = data.name
-    }
-
-    if (typeof data.type === 'string') {
-      this.type = data.type
-    }
-
-    return this
-  }
-}
-
-/**
- * Enum для типов эмитентов
- * @readonly
- * @enum {string}
- */
-Issuer.types = {
-  /**
-   * @description Частная компания
-   * @member {string}
-   */
-  corporate: 'corporate',
-  /**
-   * @description Муниципальное образование
-   * @member {string}
-   */
-  municipal: 'municipal',
-  /**
-   * @description Государство
-   * @member {string}
-   */
-  state: 'state',
-}
+      /**
+       * @description Тип эмитента: частная компания, муниципальное образование, государство
+       * @member {string}
+       * @memberOf Issuer#
+       */
+      type: types.enumeration('Type', ['corporate', 'municipal', 'state']),
+    },
+  )
+  .views(
+    self => ({
+      /**
+       * @description Облигации эмитента
+       * @member {Bond[]}
+       * @memberOf Issuer#
+       */
+      get bonds () {
+        return Array.from(getParent(getParent(self)).bonds.values())
+          .filter(bond => bond.issuer === self)
+      },
+      /**
+       * @description Акции эмитента
+       * @member {Share[]}
+       * @memberOf Issuer#
+       */
+      get shares () {
+        return Array.from(getParent(getParent(self)).shares.values())
+          .filter(share => share.issuer === self)
+      },
+    }),
+  )

@@ -2,7 +2,6 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { defineMessages, FormattedMessage } from 'react-intl'
 import Link from '../Element/Link'
-import Bond from '../Entity/Bond'
 import TilesStyled from '../Styled/TilesStyled'
 import TileStyled from '../Styled/TileStyled'
 import BondView from './BondView'
@@ -22,5 +21,5 @@ export default function BondsList (props) {
 }
 
 BondsList.propTypes = {
-  bonds: PropTypes.arrayOf(PropTypes.instanceOf(Bond)).isRequired,
+  bonds: PropTypes.arrayOf(PropTypes.object).isRequired,
 }

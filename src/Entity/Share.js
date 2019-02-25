@@ -1,24 +1,27 @@
-import AbstractEntity from './AbstractEntity'
+import { types } from 'mobx-state-tree'
 import Issuer from './Issuer'
 
-export default class Share extends AbstractEntity {
-  get identifier () {
-    // @TODO: Implement this method
-    return null
-  }
+// noinspection JSValidateTypes
+/**
+ * @class Share
+ */
+export default types
+  .model(
+    {
+      /**
+       * @description Эмитент – это юридическое лицо или орган государственной исполнительной или местной власти,
+       *   который от своего имени и в рамках своей деятельности выпускает в обращение ценные бумаги или иные платежные
+       *   средства.
+       * @member {Issuer}
+       * @memberOf Share#
+       */
+      issuer: types.reference(Issuer),
 
-  /**
-   * @description Эмитент – это юридическое лицо или орган государственной исполнительной или местной власти, который
-   *   от своего имени и в рамках своей деятельности выпускает в обращение ценные бумаги или иные платежные средства.
-   * @member {Issuer}
-   */
-  issuer
-
-  applyData (data) {
-    if (data.issuer instanceof Issuer) {
-      this.issuer = data.issuer
-    }
-
-    return this
-  }
-}
+      /**
+       * @description Международный идентификационный код ценной бумаги
+       * @member {string}
+       * @memberOf Share#
+       */
+      ticker: types.identifier,
+    },
+  )

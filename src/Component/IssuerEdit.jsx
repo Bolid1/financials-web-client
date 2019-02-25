@@ -1,11 +1,10 @@
 import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
-import Issuer from '../Entity/Issuer'
 
 export default @observer class IssuerEdit extends React.Component  {
   static propTypes = {
-    issuer: PropTypes.instanceOf(Issuer),
+    issuer: PropTypes.object,
     onSave: PropTypes.func.isRequired,
   }
 

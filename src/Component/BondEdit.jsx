@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { defineMessages, FormattedMessage } from 'react-intl'
 import styled from 'styled-components'
+import CurrencySelector from '../Control/CurrencySelector'
 import CheckBox from '../Element/CheckBox'
 import FieldGroup from '../Element/FieldGroup'
 import FieldInfo from '../Element/FieldInfo'
@@ -10,16 +11,13 @@ import InputDate from '../Element/InputDate'
 import InputNumber from '../Element/InputNumber'
 import InputsGroup from '../Element/InputsGroup'
 import InputText from '../Element/InputText'
-import Select from '../Element/Select'
-import Bond from '../Entity/Bond'
-import Currency from '../Entity/Currency'
-import Issuer from '../Entity/Issuer'
-import DateTimeHelper from '../Helper/DateTimeHelper'
+import IssuerSelector from '../Control/IssuerSelector'
 
 const messages = defineMessages(
   {
     issuerDescription: 'Эмитент – это юридическое лицо или орган государственной исполнительной или местной власти, который от своего имени и в рамках своей деятельности выпускает в обращение ценные бумаги или иные платежные средства.',
     ISINDescription: 'Международный идентификационный код ценной бумаги',
+    nameDescription: 'Название облигации',
     currencyDescription: 'Валюта, в которой происходят торги по данным облигациям',
     faceValueDescription: 'Номинал - это сумма, которую получит держатель облигации в день выкупа облигации эмитентом.',
     quantityDescription: 'Количество выпущенных облигаций',
@@ -27,7 +25,7 @@ const messages = defineMessages(
     maturityDescription: 'Срок погашения - это дата, в которую эмитент выкупит облигацию по цене номинала',
     earlyRepaymentAvailableDescription: 'Доступна ли возможность досрочного погашения',
     offerStartDescription: 'Дата, с которой принимаются заявки на выкуп облигаций по номинальной стоимости',
-    offerEndDescription: 'В дату оферты инвестор может по желанию предъявить облигацию к погашению по заранее оговорённой стоимости или оставить её до следующей оферты. Соответственно, эмитент обязан выкупить все предъявленные инвесторами облигации.',
+    offerEndDescription: 'Дата, в которую завершается приём заявок на выкуп облигаций по номинальной стоимости',
     redemptionDateDescription: 'В дату оферты инвестор может по желанию предъявить облигацию к погашению по заранее оговорённой стоимости или оставить её до следующей оферты. Соответственно, эмитент обязан выкупить все предъявленные инвесторами облигации.',
     priceDescription: 'Текущая стоимость облигации',
     coupons: 'Купоны - выплаты держателяем облигаций',
@@ -41,137 +39,111 @@ const Container = styled.form`
 
 /**
  * @param {Bond} bond
- * @param {Issuer[]} issuers
- * @param {Currency[]} currencies
  * @returns {*}
  * @constructor
  */
-function BondEdit ({bond, issuers, currencies}) {
+function BondEdit ({bond}) {
   return <Container onSubmit={
     event => {
-      console.info(event.target)
       event.preventDefault()
-      console.debug(bond.toJSON(), JSON.stringify(bond.toJSON()))
+      console.debug(bond.toJSON())
     }
   }>
     <FieldGroup>
       <FormattedMessage {...messages.issuerDescription}>
         {text => <FieldInfo>{text}</FieldInfo>}
       </FormattedMessage>
-      <Select
-        value={bond.issuer?.identifier}
-        onChange={
-          event => bond.issuer = issuers.find(
-            issuer => issuer.identifier === Number(event.target.value),
-          )
-        }
-      >
-        {
-          issuers.map(
-            issuer => <option key={issuer.identifier} value={issuer.identifier}>
-              {issuer.name}
-            </option>,
-          )
-        }
-      </Select>
+      <IssuerSelector selected={bond.issuer} onChange={issuer => bond.setIssuer(issuer)}/>
     </FieldGroup>
 
     <FieldGroup>
       <FormattedMessage {...messages.ISINDescription}>
         {text => <FieldInfo>{text}</FieldInfo>}
       </FormattedMessage>
-      <InputText value={bond.ISIN} onChange={event => bond.ISIN = event.target.value}/>
+      <InputText value={bond.ISIN} onChange={event => bond.setISIN(event.target.value)}/>
+    </FieldGroup>
+
+    <FieldGroup>
+      <FormattedMessage {...messages.nameDescription}>
+        {text => <FieldInfo>{text}</FieldInfo>}
+      </FormattedMessage>
+      <InputText value={bond.name} onChange={event => bond.setName(event.target.value)}/>
     </FieldGroup>
 
     <FieldGroup>
       <FormattedMessage {...messages.currencyDescription}>
         {text => <FieldInfo>{text}</FieldInfo>}
       </FormattedMessage>
-      <Select
-        value={bond.currency?.identifier}
-        onChange={
-          event => bond.currency = currencies.find(
-            currency => currency.identifier === Number(event.target.value),
-          )
-        }
-      >
-        {
-          currencies.map(
-            currency => <option key={currency.identifier} value={currency.identifier}>
-              {currency.sign}
-            </option>,
-          )
-        }
-      </Select>
+      <CurrencySelector selected={bond.currency} onChange={currency => bond.setCurrency(currency)}/>
     </FieldGroup>
 
     <FieldGroup>
       <FormattedMessage {...messages.faceValueDescription}>
         {text => <FieldInfo>{text}</FieldInfo>}
       </FormattedMessage>
-      <InputNumber value={bond.faceValue} onChange={event => bond.faceValue = event.target.value}/>
+      <InputNumber value={bond.faceValue} step={0.01} min={0}
+                   onChange={event => bond.setFaceValue(event.target.value)}/>
     </FieldGroup>
 
     <FieldGroup>
       <FormattedMessage {...messages.quantityDescription}>
         {text => <FieldInfo>{text}</FieldInfo>}
       </FormattedMessage>
-      <InputNumber value={bond.quantity} onChange={event => bond.quantity = event.target.value}/>
+      <InputNumber value={bond.quantity} min={0} onChange={event => bond.setQuantity(event.target.value)}/>
     </FieldGroup>
 
     <FieldGroup>
       <FormattedMessage {...messages.placementDateDescription}>
         {text => <FieldInfo>{text}</FieldInfo>}
       </FormattedMessage>
-      <InputDate value={DateTimeHelper.toSQL(bond.placementDate)}
-                 onChange={event => bond.placementDate = new Date(event.target.value)}/>
+      <InputDate value={bond.placementDate}
+                 onChange={event => bond.setPlacementDate(new Date(event.target.value))}/>
     </FieldGroup>
 
     <FieldGroup>
       <FormattedMessage {...messages.maturityDescription}>
         {text => <FieldInfo>{text}</FieldInfo>}
       </FormattedMessage>
-      <InputDate value={DateTimeHelper.toSQL(bond.maturity)}
-                 onChange={event => bond.maturity = new Date(event.target.value)}/>
+      <InputDate value={bond.maturity}
+                 onChange={event => bond.setMaturity(new Date(event.target.value))}/>
     </FieldGroup>
 
     <FieldGroup>
       <FormattedMessage {...messages.earlyRepaymentAvailableDescription}>
         {text => <FieldInfo>{text}</FieldInfo>}
       </FormattedMessage>
-      <CheckBox checked={bond.earlyRepaymentAvailable}
-                onChange={event => bond.earlyRepaymentAvailable = event.target.checked}/>
+      <CheckBox checked={bond.earlyRepaymentAvailable} disabled={true}/>
     </FieldGroup>
 
     <FieldGroup>
       <FormattedMessage {...messages.offerStartDescription}>
         {text => <FieldInfo>{text}</FieldInfo>}
       </FormattedMessage>
-      <InputDate value={DateTimeHelper.toSQL(bond.offerStart)}
-                 onChange={event => bond.offerStart = new Date(event.target.value)}/>
+      <InputDate value={bond.offerStart}
+                 onChange={event => bond.setOfferStart(new Date(event.target.value))}/>
     </FieldGroup>
 
     <FieldGroup>
       <FormattedMessage {...messages.offerEndDescription}>
         {text => <FieldInfo>{text}</FieldInfo>}
       </FormattedMessage>
-      <InputDate value={DateTimeHelper.toSQL(bond.offerEnd)}
-                 onChange={event => bond.offerEnd = new Date(event.target.value)}/>
+      <InputDate value={bond.offerEnd}
+                 onChange={event => bond.setOfferEnd(new Date(event.target.value))}/>
     </FieldGroup>
 
     <FieldGroup>
       <FormattedMessage {...messages.redemptionDateDescription}>
         {text => <FieldInfo>{text}</FieldInfo>}
       </FormattedMessage>
-      <InputDate value={DateTimeHelper.toSQL(bond.redemptionDate)}
-                 onChange={event => bond.redemptionDate = new Date(event.target.value)}/>
+      <InputDate value={bond.redemptionDate}
+                 onChange={event => bond.setRedemptionDate(new Date(event.target.value))}/>
     </FieldGroup>
 
     <FieldGroup>
       <FormattedMessage {...messages.priceDescription}>
         {text => <FieldInfo>{text}</FieldInfo>}
       </FormattedMessage>
-      <InputNumber value={bond.price} onChange={event => bond.price = event.target.value}/>
+      <InputNumber value={bond.price} step={0.01} min={0} onChange={event => bond.setPrice(event.target.value)}/>
     </FieldGroup>
 
     <FieldGroup>
@@ -179,8 +151,8 @@ function BondEdit ({bond, issuers, currencies}) {
         {text => <FieldInfo>{text}</FieldInfo>}
       </FormattedMessage>
       {bond.coupons.map(coupon => <InputsGroup key={coupon.id || 'add'}>
-        <InputDate/>
-        <InputNumber/>
+        <InputDate readOnly={true}/>
+        <InputNumber readOnly={true}/>
       </InputsGroup>)}
     </FieldGroup>
 
@@ -193,9 +165,7 @@ function BondEdit ({bond, issuers, currencies}) {
 }
 
 BondEdit.propTypes = {
-  bond: PropTypes.instanceOf(Bond).isRequired,
-  issuers: PropTypes.arrayOf(PropTypes.instanceOf(Issuer)).isRequired,
-  currencies: PropTypes.arrayOf(PropTypes.instanceOf(Currency)).isRequired,
+  bond: PropTypes.object.isRequired,
 }
 
 export default observer(BondEdit)

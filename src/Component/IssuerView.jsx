@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import Issuer from '../Entity/Issuer'
 import IssuerEdit from './IssuerEdit'
 
 export default function IssuerView (props) {
@@ -16,5 +15,5 @@ export default function IssuerView (props) {
 }
 
 IssuerView.propTypes = {
-  issuer: PropTypes.instanceOf(Issuer).isRequired,
+  issuer: PropTypes.object.isRequired,
 }

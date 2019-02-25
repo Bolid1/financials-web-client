@@ -1,54 +1,40 @@
+import { types } from 'mobx-state-tree'
+import DateType from '../Type/DateType'
 import Bond from './Bond'
 
+// noinspection JSValidateTypes
 /**
- * @implements {AbstractEntity}
+ * @class Coupon
  */
-export default class Coupon {
-  get identifier () {
-    return this.id
-  }
+export default types
+  .model(
+    {
+      /**
+       * @description Идентификатор купона в БД
+       * @member {number}
+       * @memberOf Coupon#
+       */
+      id: types.identifierNumber,
 
-  /**
-   * @description Идентификатор купона в БД
-   * @member {Number}
-   */
-  id
+      /**
+       * @description Облигация, к которой принадлежит купон
+       * @member {Bond}
+       * @memberOf Coupon#
+       */
+      bond: types.reference(Bond),
 
-  /**
-   * @description Облигация, к которой принадлежит купон
-   * @member {Bond}
-   */
-  bond
+      /**
+       * @description Дата выплаты купона
+       * @member {Date}
+       * @memberOf Coupon#
+       */
+      date: types.maybe(DateType),
 
-  /**
-   * @description Дата выплаты купона
-   * @member {Date}
-   */
-  date
-
-  /**
-   * @description сколько будет выплачено по купону
-   * @member {Number}
-   */
-  value
-
-  applyData (data) {
-    if (typeof data.id === 'number') {
-      this.id = data.id
-    }
-
-    if (data.bond instanceof Bond) {
-      this.bond = data.bond
-    }
-
-    if (data.date instanceof Date) {
-      this.date = data.date
-    }
-
-    if (typeof data.value === 'number') {
-      this.value = data.value
-    }
-
-    return this
-  }
-}
+      /**
+       * @description сколько будет выплачено по купону
+       * @member {number}
+       * @memberOf Coupon#
+       */
+      value: types.number,
+    },
+  )
