@@ -1,11 +1,12 @@
+import { Formik } from 'formik'
 import { inject, observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { defineMessages, FormattedMessage } from 'react-intl'
 import BondEdit from '../Component/BondEdit'
+import LoaderFlex from '../Element/LoaderFlex'
 import PageContainer from '../Element/PageContainer'
 import PageHeader from '../Styled/PageHeaderStyled'
-import LoaderFlex from '../Element/LoaderFlex'
 
 const messages = defineMessages(
   {
@@ -16,19 +17,20 @@ const messages = defineMessages(
 
 function BondPage (props) {
   const id = props.match.params.id
-  const domain = props.domain
   const bond = props.domain.bonds.get(id)
-  const currencies = Array.from(domain.currencies.values())
-  const issuers = Array.from(domain.issuers.values())
 
   if (!bond) {
     return <LoaderFlex/>
   }
 
+  const initialValues = bond.toForm()
+
   return <PageContainer>
     <PageHeader>{props.title}</PageHeader>
     <article><FormattedMessage {...messages.description}/></article>
-    <BondEdit {...{bond, issuers, currencies}}/>
+    <Formik initialValues={initialValues} onSubmit={console.info}>
+      <BondEdit bond={bond}/>
+    </Formik>
   </PageContainer>
 }
 

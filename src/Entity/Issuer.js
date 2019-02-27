@@ -3,6 +3,7 @@ import { getParent, types } from 'mobx-state-tree'
 // noinspection JSValidateTypes
 /**
  * @class Issuer
+ * @extends ObservableMap
  */
 export default types
   .model(

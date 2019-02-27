@@ -1,12 +1,12 @@
 import { getParent, types } from 'mobx-state-tree'
-import Currency from './Currency'
 import DateType from '../Type/DateType'
+import Currency from './Currency'
 import Issuer from './Issuer'
-import DateTimeHelper from '../Helper/DateTimeHelper'
 
-// noinspection JSValidateTypes
+// noinspection JSValidateTypes, JSCheckFunctionSignatures
 /**
  * @class Bond
+ * @extends ObservableMap
  */
 export default types
   .model(
@@ -102,7 +102,26 @@ export default types
     },
   )
   .views(
+    /**
+     * @param {Bond} self
+     * @return {{toForm(): Object, coupons: Coupon[], earlyRepaymentAvailable: boolean}}
+     */
     self => ({
+      /**
+       * @description Представление для формы
+       * @memberOf Bond#
+       */
+      toForm () {
+        const result = self.toJSON()
+
+        return Object.keys(result)
+          .reduce((prev, key) => {
+            prev[key] = typeof result[key] === 'undefined' ? '' : result[key]
+
+            return prev
+          }, {})
+      },
+
       /**
        * @description Доступна ли возможность досрочного погашения
        * @member {boolean}
@@ -122,124 +141,4 @@ export default types
           .filter(coupon => coupon.bond === self)
       },
     }),
-  )
-  .actions(
-    self => ({
-
-      /**
-       * @param {Issuer} value
-       * @memberOf {Bond#}
-       */
-      setIssuer (value) {
-        self.issuer = value
-      },
-
-      /**
-       * @param {string} value
-       * @memberOf {Bond#}
-       */
-      setISIN (value) {
-        self.ISIN = value
-      },
-
-      /**
-       * @param {string} value
-       * @memberOf {Bond#}
-       */
-      setName (value) {
-        self.name = value
-      },
-
-      /**
-       * @param {Currency} value
-       * @memberOf {Bond#}
-       */
-      setCurrency (value) {
-        self.currency = value
-      },
-
-      /**
-       * @param {Date|string} value
-       * @memberOf {Bond#}
-       */
-      setPlacementDate (value) {
-        if (value instanceof Date) {
-          value = DateTimeHelper.toSQL(value)
-        }
-
-        self.placementDate = value
-      },
-
-      /**
-       * @param {Date|string} value
-       * @memberOf {Bond#}
-       */
-      setMaturity (value) {
-        if (value instanceof Date) {
-          value = DateTimeHelper.toSQL(value)
-        }
-
-        self.maturity = value
-      },
-
-      /**
-       * @param {Date|string} value
-       * @memberOf {Bond#}
-       */
-      setOfferStart (value) {
-        if (value instanceof Date) {
-          value = DateTimeHelper.toSQL(value)
-        }
-
-        self.offerStart = value
-      },
-
-      /**
-       * @param {Date|string} value
-       * @memberOf {Bond#}
-       */
-      setOfferEnd (value) {
-        if (value instanceof Date) {
-          value = DateTimeHelper.toSQL(value)
-        }
-
-        self.offerEnd = value
-      },
-
-      /**
-       * @param {Date|string} value
-       * @memberOf {Bond#}
-       */
-      setRedemptionDate (value) {
-        if (value instanceof Date) {
-          value = DateTimeHelper.toSQL(value)
-        }
-
-        self.redemptionDate = value
-      },
-
-      /**
-       * @param {number} value
-       * @memberOf {Bond#}
-       */
-      setFaceValue (value) {
-        self.faceValue = Number(value)
-      },
-
-      /**
-       * @param {number} value
-       * @memberOf {Bond#}
-       */
-      setQuantity (value) {
-        self.quantity = Number(value)
-      },
-
-      /**
-       * @param {number} value
-       * @memberOf {Bond#}
-       */
-      setPrice (value) {
-        self.price = Number(value)
-      },
-    })
   )

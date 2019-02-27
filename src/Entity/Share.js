@@ -4,6 +4,7 @@ import Issuer from './Issuer'
 // noinspection JSValidateTypes
 /**
  * @class Share
+ * @extends ObservableMap
  */
 export default types
   .model(

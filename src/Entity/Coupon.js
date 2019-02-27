@@ -5,6 +5,7 @@ import Bond from './Bond'
 // noinspection JSValidateTypes
 /**
  * @class Coupon
+ * @extends ObservableMap
  */
 export default types
   .model(

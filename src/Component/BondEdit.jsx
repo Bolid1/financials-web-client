@@ -1,17 +1,12 @@
-import { observer } from 'mobx-react'
-import PropTypes from 'prop-types'
+import { Field, Form } from 'formik'
 import React from 'react'
 import { defineMessages, FormattedMessage } from 'react-intl'
 import styled from 'styled-components'
 import CurrencySelector from '../Control/CurrencySelector'
-import CheckBox from '../Element/CheckBox'
+import IssuerSelector from '../Control/IssuerSelector'
 import FieldGroup from '../Element/FieldGroup'
 import FieldInfo from '../Element/FieldInfo'
-import InputDate from '../Element/InputDate'
-import InputNumber from '../Element/InputNumber'
-import InputsGroup from '../Element/InputsGroup'
-import InputText from '../Element/InputText'
-import IssuerSelector from '../Control/IssuerSelector'
+import Input from '../Element/Input'
 
 const messages = defineMessages(
   {
@@ -33,128 +28,112 @@ const messages = defineMessages(
   },
 )
 
-const Container = styled.form`
+const Container = styled(Form)`
   padding: 0 0 20px 0;
 `
 
-/**
- * @param {Bond} bond
- * @returns {*}
- * @constructor
- */
-function BondEdit ({bond}) {
-  return <Container onSubmit={
-    event => {
-      event.preventDefault()
-      console.debug(bond.toJSON())
-    }
-  }>
+function BondEdit () {
+  return <Container>
     <FieldGroup>
       <FormattedMessage {...messages.issuerDescription}>
         {text => <FieldInfo>{text}</FieldInfo>}
       </FormattedMessage>
-      <IssuerSelector selected={bond.issuer} onChange={issuer => bond.setIssuer(issuer)}/>
+      <IssuerSelector name="issuer"/>
     </FieldGroup>
 
     <FieldGroup>
       <FormattedMessage {...messages.ISINDescription}>
         {text => <FieldInfo>{text}</FieldInfo>}
       </FormattedMessage>
-      <InputText value={bond.ISIN} onChange={event => bond.setISIN(event.target.value)}/>
+      <Field component={Input} type="text" name="ISIN"/>
     </FieldGroup>
 
     <FieldGroup>
       <FormattedMessage {...messages.nameDescription}>
         {text => <FieldInfo>{text}</FieldInfo>}
       </FormattedMessage>
-      <InputText value={bond.name} onChange={event => bond.setName(event.target.value)}/>
+      <Field component={Input} type="text" name="name"/>
     </FieldGroup>
 
     <FieldGroup>
       <FormattedMessage {...messages.currencyDescription}>
         {text => <FieldInfo>{text}</FieldInfo>}
       </FormattedMessage>
-      <CurrencySelector selected={bond.currency} onChange={currency => bond.setCurrency(currency)}/>
+      <CurrencySelector name="currency"/>
     </FieldGroup>
 
     <FieldGroup>
       <FormattedMessage {...messages.faceValueDescription}>
         {text => <FieldInfo>{text}</FieldInfo>}
       </FormattedMessage>
-      <InputNumber value={bond.faceValue} step={0.01} min={0}
-                   onChange={event => bond.setFaceValue(event.target.value)}/>
+      <Field component={Input} type="number" name="faceValue" step={0.01} min={0}/>
     </FieldGroup>
 
     <FieldGroup>
       <FormattedMessage {...messages.quantityDescription}>
         {text => <FieldInfo>{text}</FieldInfo>}
       </FormattedMessage>
-      <InputNumber value={bond.quantity} min={0} onChange={event => bond.setQuantity(event.target.value)}/>
+      <Field component={Input} type="number" name="quantity" min={0}/>
     </FieldGroup>
 
     <FieldGroup>
       <FormattedMessage {...messages.placementDateDescription}>
         {text => <FieldInfo>{text}</FieldInfo>}
       </FormattedMessage>
-      <InputDate value={bond.placementDate}
-                 onChange={event => bond.setPlacementDate(new Date(event.target.value))}/>
+      <Field component={Input} type="date" name="placementDate"/>
     </FieldGroup>
 
     <FieldGroup>
       <FormattedMessage {...messages.maturityDescription}>
         {text => <FieldInfo>{text}</FieldInfo>}
       </FormattedMessage>
-      <InputDate value={bond.maturity}
-                 onChange={event => bond.setMaturity(new Date(event.target.value))}/>
+      <Field component={Input} type="date" name="maturity"/>
     </FieldGroup>
 
     <FieldGroup>
       <FormattedMessage {...messages.earlyRepaymentAvailableDescription}>
         {text => <FieldInfo>{text}</FieldInfo>}
       </FormattedMessage>
-      <CheckBox checked={bond.earlyRepaymentAvailable} disabled={true}/>
+      <Field component={Input} type="checkbox" name="earlyRepaymentAvailable" disabled={true}/>
     </FieldGroup>
 
     <FieldGroup>
       <FormattedMessage {...messages.offerStartDescription}>
         {text => <FieldInfo>{text}</FieldInfo>}
       </FormattedMessage>
-      <InputDate value={bond.offerStart}
-                 onChange={event => bond.setOfferStart(new Date(event.target.value))}/>
+      <Field component={Input} type="date" name="offerStart"/>
     </FieldGroup>
 
     <FieldGroup>
       <FormattedMessage {...messages.offerEndDescription}>
         {text => <FieldInfo>{text}</FieldInfo>}
       </FormattedMessage>
-      <InputDate value={bond.offerEnd}
-                 onChange={event => bond.setOfferEnd(new Date(event.target.value))}/>
+      <Field component={Input} type="date" name="offerEnd"/>
     </FieldGroup>
 
     <FieldGroup>
       <FormattedMessage {...messages.redemptionDateDescription}>
         {text => <FieldInfo>{text}</FieldInfo>}
       </FormattedMessage>
-      <InputDate value={bond.redemptionDate}
-                 onChange={event => bond.setRedemptionDate(new Date(event.target.value))}/>
+      <Field component={Input} type="date" name="redemptionDate"/>
     </FieldGroup>
 
     <FieldGroup>
       <FormattedMessage {...messages.priceDescription}>
         {text => <FieldInfo>{text}</FieldInfo>}
       </FormattedMessage>
-      <InputNumber value={bond.price} step={0.01} min={0} onChange={event => bond.setPrice(event.target.value)}/>
+      <Field component={Input} type="number" name="price" step={0.01} min={0}/>
     </FieldGroup>
 
-    <FieldGroup>
+    {/*<FieldGroup>
       <FormattedMessage {...messages.coupons}>
         {text => <FieldInfo>{text}</FieldInfo>}
       </FormattedMessage>
       {bond.coupons.map(coupon => <InputsGroup key={coupon.id || 'add'}>
-        <InputDate readOnly={true}/>
-        <InputNumber readOnly={true}/>
+        <Field component={Input} type="date" readOnly={true}/>
+        <Field component={Input} type="number" readOnly={true}/>
       </InputsGroup>)}
-    </FieldGroup>
+    </FieldGroup>*/}
 
     <FieldGroup>
       <FormattedMessage {...messages.save}>
@@ -164,8 +143,4 @@ function BondEdit ({bond}) {
   </Container>
 }
 
-BondEdit.propTypes = {
-  bond: PropTypes.object.isRequired,
-}
-
-export default observer(BondEdit)
+export default BondEdit

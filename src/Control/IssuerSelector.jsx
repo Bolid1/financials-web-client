@@ -1,8 +1,9 @@
+import { Field } from 'formik'
 import { inject, observer } from 'mobx-react'
+import { getIdentifier } from 'mobx-state-tree'
 import React from 'react'
 import Select from '../Element/Select'
 import ObservableMapHelper from '../Helper/ObservableMapHelper'
-import { getIdentifier } from 'mobx-state-tree'
 
 /**
  * @param {Issuer} issuer
@@ -12,22 +13,21 @@ import { getIdentifier } from 'mobx-state-tree'
 const IssuerOption = issuer => {
   const id = getIdentifier(issuer)
 
-  return <option key={id} value={id}>
+  return <option key={id} value={id} label={issuer.name}>
     {issuer.name}
   </option>
 }
 
-/**
- * @param {DomainModel} domain
- * @param {Issuer} selected
- * @param {function} onChange
- * @returns {*}
- * @constructor
- */
-function IssuerSelector ({domain, selected, onChange}) {
-  return <Select value={getIdentifier(selected)} onChange={event => onChange(domain.issuers.get(event.target.value))}>
-    {ObservableMapHelper.map(domain.issuers, IssuerOption)}
-  </Select>
-}
-
-export default inject('domain')(observer(IssuerSelector))
+export default inject('domain')(observer(
+  /**
+   * @param {DomainModel} domain
+   * @param {Object} props
+   * @returns {*}
+   * @constructor
+   */
+  function IssuerSelector ({domain, ...props}) {
+    return <Field component={Select} {...props}>
+      {ObservableMapHelper.map(domain.issuers, IssuerOption)}
+    </Field>
+  }
+))

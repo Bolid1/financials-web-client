@@ -3,6 +3,7 @@ import { types } from 'mobx-state-tree'
 // noinspection JSValidateTypes
 /**
  * @class Currency
+ * @extends ObservableMap
  */
 export default types
   .model(
