@@ -8,11 +8,11 @@ export default function IssuersList (props) {
   return <TilesStyled>
     {
       props.issuers
-           .map(
-             (issuer, key) => <TileStyled key={key}>
-               <IssuerView issuer={issuer}/>
-             </TileStyled>,
-           )
+        .map(
+          (issuer, key) => <TileStyled key={key}>
+            <IssuerView issuer={issuer}/>
+          </TileStyled>,
+        )
     }
   </TilesStyled>
 }

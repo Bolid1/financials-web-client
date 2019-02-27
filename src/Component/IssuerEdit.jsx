@@ -2,7 +2,8 @@ import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-export default @observer class IssuerEdit extends React.Component  {
+export default @observer
+class IssuerEdit extends React.Component {
   static propTypes = {
     issuer: PropTypes.object,
     onSave: PropTypes.func.isRequired,
@@ -21,8 +22,8 @@ export default @observer class IssuerEdit extends React.Component  {
     this.props.onSave()
   }
 
-  onChange (prop, {target:{value}}) {
-    this.issuer[prop] = value;
+  onChange (prop, {target: {value}}) {
+    this.issuer[prop] = value
   }
 
   render () {

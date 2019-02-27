@@ -55,4 +55,4 @@ export default [
     component: 'IssuersPage',
     showInLeftMenu: true,
   },
-];
+]

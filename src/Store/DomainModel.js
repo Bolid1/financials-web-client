@@ -1,8 +1,8 @@
 import { getEnv, types } from 'mobx-state-tree'
-import Currency from '../Entity/Currency'
-import Issuer from '../Entity/Issuer'
 import Bond from '../Entity/Bond'
 import Coupon from '../Entity/Coupon'
+import Currency from '../Entity/Currency'
+import Issuer from '../Entity/Issuer'
 import Share from '../Entity/Share'
 
 // noinspection JSValidateTypes
