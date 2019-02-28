@@ -1,4 +1,4 @@
-import { Field, Form } from 'formik'
+import { Form } from 'formik'
 import React from 'react'
 import { defineMessages, FormattedMessage } from 'react-intl'
 import styled from 'styled-components'
@@ -45,14 +45,14 @@ function BondEdit () {
       <FormattedMessage {...messages.ISINDescription}>
         {text => <FieldInfo>{text}</FieldInfo>}
       </FormattedMessage>
-      <Field component={Input} type="text" name="ISIN"/>
+      <Input type="text" name="ISIN"/>
     </FieldGroup>
 
     <FieldGroup>
       <FormattedMessage {...messages.nameDescription}>
         {text => <FieldInfo>{text}</FieldInfo>}
       </FormattedMessage>
-      <Field component={Input} type="text" name="name"/>
+      <Input type="text" name="name"/>
     </FieldGroup>
 
     <FieldGroup>
@@ -66,63 +66,63 @@ function BondEdit () {
       <FormattedMessage {...messages.faceValueDescription}>
         {text => <FieldInfo>{text}</FieldInfo>}
       </FormattedMessage>
-      <Field component={Input} type="number" name="faceValue" step={0.01} min={0}/>
+      <Input type="number" name="faceValue" step={0.01} min={0}/>
     </FieldGroup>
 
     <FieldGroup>
       <FormattedMessage {...messages.quantityDescription}>
         {text => <FieldInfo>{text}</FieldInfo>}
       </FormattedMessage>
-      <Field component={Input} type="number" name="quantity" min={0}/>
+      <Input type="number" name="quantity" min={0}/>
     </FieldGroup>
 
     <FieldGroup>
       <FormattedMessage {...messages.placementDateDescription}>
         {text => <FieldInfo>{text}</FieldInfo>}
       </FormattedMessage>
-      <Field component={Input} type="date" name="placementDate"/>
+      <Input type="date" name="placementDate"/>
     </FieldGroup>
 
     <FieldGroup>
       <FormattedMessage {...messages.maturityDescription}>
         {text => <FieldInfo>{text}</FieldInfo>}
       </FormattedMessage>
-      <Field component={Input} type="date" name="maturity"/>
+      <Input type="date" name="maturity"/>
     </FieldGroup>
 
     <FieldGroup>
       <FormattedMessage {...messages.earlyRepaymentAvailableDescription}>
         {text => <FieldInfo>{text}</FieldInfo>}
       </FormattedMessage>
-      <Field component={Input} type="checkbox" name="earlyRepaymentAvailable" disabled={true}/>
+      <Input type="checkbox" name="earlyRepaymentAvailable" disabled={true}/>
     </FieldGroup>
 
     <FieldGroup>
       <FormattedMessage {...messages.offerStartDescription}>
         {text => <FieldInfo>{text}</FieldInfo>}
       </FormattedMessage>
-      <Field component={Input} type="date" name="offerStart"/>
+      <Input type="date" name="offerStart"/>
     </FieldGroup>
 
     <FieldGroup>
       <FormattedMessage {...messages.offerEndDescription}>
         {text => <FieldInfo>{text}</FieldInfo>}
       </FormattedMessage>
-      <Field component={Input} type="date" name="offerEnd"/>
+      <Input type="date" name="offerEnd"/>
     </FieldGroup>
 
     <FieldGroup>
       <FormattedMessage {...messages.redemptionDateDescription}>
         {text => <FieldInfo>{text}</FieldInfo>}
       </FormattedMessage>
-      <Field component={Input} type="date" name="redemptionDate"/>
+      <Input type="date" name="redemptionDate"/>
     </FieldGroup>
 
     <FieldGroup>
       <FormattedMessage {...messages.priceDescription}>
         {text => <FieldInfo>{text}</FieldInfo>}
       </FormattedMessage>
-      <Field component={Input} type="number" name="price" step={0.01} min={0}/>
+      <Input type="number" name="price" step={0.01} min={0}/>
     </FieldGroup>
 
     {/*<FieldGroup>
@@ -130,8 +130,8 @@ function BondEdit () {
         {text => <FieldInfo>{text}</FieldInfo>}
       </FormattedMessage>
       {bond.coupons.map(coupon => <InputsGroup key={coupon.id || 'add'}>
-        <Field component={Input} type="date" readOnly={true}/>
-        <Field component={Input} type="number" readOnly={true}/>
+        <Input type="date" readOnly={true}/>
+        <Input type="number" readOnly={true}/>
       </InputsGroup>)}
     </FieldGroup>*/}
 
