@@ -45,14 +45,14 @@ function BondEdit () {
       <FormattedMessage {...messages.ISINDescription}>
         {text => <FieldInfo>{text}</FieldInfo>}
       </FormattedMessage>
-      <Input type="text" name="ISIN"/>
+      <Input name="ISIN"/>
     </FieldGroup>
 
     <FieldGroup>
       <FormattedMessage {...messages.nameDescription}>
         {text => <FieldInfo>{text}</FieldInfo>}
       </FormattedMessage>
-      <Input type="text" name="name"/>
+      <Input name="name"/>
     </FieldGroup>
 
     <FieldGroup>
