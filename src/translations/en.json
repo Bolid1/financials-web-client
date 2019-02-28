@@ -19,13 +19,9 @@
   "Component.BondEdit.issuerDescription": "",
   "Component.BondEdit.maturityDescription": "",
   "Component.BondEdit.offerEndDescription": "",
-  "Component.BondEdit.offerStartDescription": "",
-  "Component.BondEdit.placementDateDescription": "",
   "Component.BondEdit.priceDescription": "",
   "Component.BondEdit.quantityDescription": "",
-  "Component.BondEdit.redemptionDateDescription": "",
   "Component.BondEdit.save": "",
-  "Component.BondEdit.reset": "",
   "Component.BondEdit.coupons": "",
   "Component.BondEdit.nameDescription": ""
 }

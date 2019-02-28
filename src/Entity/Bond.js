@@ -42,13 +42,6 @@ export default types
       currency: types.reference(Currency),
 
       /**
-       * @description Срок размещения - это дата, в которую эмитент выпустил бумаги на рынок
-       * @member {Date}
-       * @memberOf Bond#
-       */
-      placementDate: types.maybe(DateType),
-
-      /**
        * @description Срок погашения - это дата, в которую эмитент выкупит облигацию по цене номинала {@see Bond#faceValue}
        * @member {Date}
        * @memberOf Bond#
@@ -56,27 +49,11 @@ export default types
       maturity: types.maybe(DateType),
 
       /**
-       * @description Дата, с которой принимаются заявки на выкуп облигаций по номинальной стоимости {@see Bond#faceValue}
-       * @member {Date}
-       * @memberOf Bond#
-       */
-      offerStart: types.maybe(DateType),
-
-      /**
-       * @description Дата, в которую завершается приём заявок на выкуп облигаций по номинальной стоимости {@see Bond#faceValue}
+       * @description Дата, в которую завершается приём заявок на досрочный выкуп облигаций по номинальной стоимости {@see Bond#faceValue}
        * @member {Date}
        * @memberOf Bond#
        */
       offerEnd: types.maybe(DateType),
-
-      /**
-       * @description В дату оферты инвестор может по желанию предъявить облигацию к погашению по заранее оговорённой
-       *   стоимости {@see Bond#faceValue} или оставить её до следующей оферты. Соответственно, эмитент обязан выкупить все
-       *   предъявленные инвесторами облигации.
-       * @member {Date}
-       * @memberOf Bond#
-       */
-      redemptionDate: types.maybe(DateType),
 
       /**
        * @description Номинал - это сумма, которую получит держатель облигации в день
@@ -87,7 +64,7 @@ export default types
       faceValue: types.number,
 
       /**
-       * @description Количество выпущенных облигаций
+       * @description Количество облигаций в обращении
        * @member {number}
        * @memberOf Bond#
        */
