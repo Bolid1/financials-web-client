@@ -90,13 +90,16 @@ export default types
        */
       toForm () {
         const result = self.toJSON()
+        const initialValue = {
+          coupons: self.coupons.map(coupon => coupon.toJSON())
+        }
 
         return Object.keys(result)
           .reduce((prev, key) => {
             prev[key] = typeof result[key] === 'undefined' ? '' : result[key]
 
             return prev
-          }, {})
+          }, initialValue)
       },
 
       /**

@@ -8,6 +8,14 @@
     "quotes": [
       "warn",
       "single"
+    ],
+    "linebreak-style": [
+      "warn",
+      "unix"
+    ],
+    "eol-last": [
+      "warn",
+      "always"
     ]
   }
 }

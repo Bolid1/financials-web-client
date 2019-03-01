@@ -1,4 +1,4 @@
-import { Form } from 'formik'
+import { FieldArray, Form } from 'formik'
 import React from 'react'
 import { defineMessages, FormattedMessage } from 'react-intl'
 import styled from 'styled-components'
@@ -7,6 +7,7 @@ import IssuerSelector from '../Control/IssuerSelector'
 import FieldGroup from '../Element/FieldGroup'
 import FieldInfo from '../Element/FieldInfo'
 import Input from '../Element/Input'
+import CouponsList from './CouponsList'
 
 const messages = defineMessages(
   {
@@ -99,6 +100,16 @@ function BondEdit () {
         {text => <FieldInfo>{text}</FieldInfo>}
       </FormattedMessage>
       <Input type="number" name="price" step={0.01} min={0}/>
+    </FieldGroup>
+
+    <FieldGroup>
+      <FormattedMessage {...messages.coupons}>
+        {text => <FieldInfo>{text}</FieldInfo>}
+      </FormattedMessage>
+      <FieldArray
+        name="coupons"
+        component={CouponsList}
+      />
     </FieldGroup>
 
     <FieldGroup>

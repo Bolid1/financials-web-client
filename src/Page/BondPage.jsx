@@ -29,7 +29,7 @@ function BondPage (props) {
     <PageHeader>{props.title}</PageHeader>
     <article><FormattedMessage {...messages.description}/></article>
     <Formik initialValues={initialValues} onSubmit={console.info}>
-      <BondEdit bond={bond}/>
+      <BondEdit/>
     </Formik>
   </PageContainer>
 }
