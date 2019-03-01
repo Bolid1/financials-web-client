@@ -1,3 +1,4 @@
+import { Field } from 'formik'
 import { inject, observer } from 'mobx-react'
 import { getIdentifier } from 'mobx-state-tree'
 import React from 'react'
@@ -25,8 +26,8 @@ export default inject('domain')(observer(
    * @constructor
    */
   function CurrencySelector ({domain, ...props}) {
-    return <Select component={Select} {...props}>
+    return <Field component={Select} {...props}>
       {ObservableMapHelper.map(domain.currencies, CurrencyOption)}
-    </Select>
+    </Field>
   }
 ))

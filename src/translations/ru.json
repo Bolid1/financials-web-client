@@ -24,5 +24,13 @@
   "Component.BondEdit.coupons": "Купоны - выплаты держателяем облигаций",
   "Component.BondEdit.nameDescription": "Название облигации",
   "Component.BondEdit.amortizationsDescription": "Даты постепенного погашения облигации",
-  "Component.BondEdit.couponsDescription": "Купоны - выплаты держателяем облигаций"
+  "Component.BondEdit.couponsDescription": "Купоны - выплаты держателяем облигаций",
+  "Page.IssuerPage.description": "Страница облигации",
+  "config.pages.titleIssuer": "Эмитент",
+  "Component.IssuerEdit.nameDescription": "Название облигации",
+  "Component.IssuerEdit.save": "Сохранить",
+  "Component.IssuerEdit.typeDescription": "Тип эмитента",
+  "Component.IssuerEdit.typeCorporate": "Компания",
+  "Component.IssuerEdit.typeMunicipal": "Муниципалитет",
+  "Component.IssuerEdit.typeState": "Государство"
 }

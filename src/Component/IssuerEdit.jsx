@@ -1,35 +1,59 @@
-import { observer } from 'mobx-react'
-import PropTypes from 'prop-types'
+import { Field, Form } from 'formik'
 import React from 'react'
+import { defineMessages, FormattedMessage } from 'react-intl'
+import styled from 'styled-components'
+import FieldGroup from '../Element/FieldGroup'
+import FieldInfo from '../Element/FieldInfo'
+import Input from '../Element/Input'
+import Select from '../Element/Select'
 
-export default @observer
-class IssuerEdit extends React.Component {
-  static propTypes = {
-    issuer: PropTypes.object,
-    onSave: PropTypes.func.isRequired,
-  }
+const messages = defineMessages(
+  {
+    nameDescription: 'Название облигации',
+    typeDescription: 'Тип эмитента',
+    typeCorporate: 'Компания',
+    typeMunicipal: 'Муниципалитет',
+    typeState: 'Государство',
+    save: 'Сохранить',
+  },
+)
 
-  /**
-   * Эмитент, за которого отвечает данный класс
-   * @returns {Issuer}
-   */
-  get issuer () {
-    return this.props.issuer
-  }
+const Container = styled(Form)`
+  padding: 0 0 20px 0;
+`
 
-  onSave () {
-    this.issuer.id = Math.round(Math.random() * 1000)
-    this.props.onSave()
-  }
+function IssuerEdit () {
+  return <Container>
+    <FieldGroup>
+      <FormattedMessage {...messages.nameDescription}>
+        {text => <FieldInfo>{text}</FieldInfo>}
+      </FormattedMessage>
+      <Input name="name"/>
+    </FieldGroup>
 
-  onChange (prop, {target: {value}}) {
-    this.issuer[prop] = value
-  }
+    <FieldGroup>
+      <FormattedMessage {...messages.typeDescription}>
+        {text => <FieldInfo>{text}</FieldInfo>}
+      </FormattedMessage>
+      <Field component={Select} name="type">
+        <FormattedMessage {...messages.typeCorporate}>
+          {text => <option value="corporate">{text}</option>}
+        </FormattedMessage>
+        <FormattedMessage {...messages.typeMunicipal}>
+          {text => <option value="municipal">{text}</option>}
+        </FormattedMessage>
+        <FormattedMessage {...messages.typeState}>
+          {text => <option value="state">{text}</option>}
+        </FormattedMessage>
+      </Field>
+    </FieldGroup>
 
-  render () {
-    return <form onSubmit={this.onSave.bind(this)}>
-      <input type="text" value={this.issuer.name} onChange={this.onChange.bind(this, 'name')}/>
-      <button type="submit">Сохранить</button>
-    </form>
-  }
+    <FieldGroup>
+      <FormattedMessage {...messages.save}>
+        {text => <button type="submit">{text}</button>}
+      </FormattedMessage>
+    </FieldGroup>
+  </Container>
 }
+
+export default IssuerEdit

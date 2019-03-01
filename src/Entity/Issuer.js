@@ -1,4 +1,5 @@
 import { getParent, types } from 'mobx-state-tree'
+import ObservableMapHelper from '../Helper/ObservableMapHelper'
 
 // noinspection JSValidateTypes
 /**
@@ -31,7 +32,14 @@ export default types
     },
   )
   .views(
+    /**
+     * @param {Issuer} self
+     */
     self => ({
+      toForm () {
+        return ObservableMapHelper.toForm(self)
+      },
+
       /**
        * @description Облигации эмитента
        * @member {Bond[]}

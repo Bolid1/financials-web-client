@@ -24,5 +24,13 @@
   "Component.BondEdit.coupons": "",
   "Component.BondEdit.nameDescription": "",
   "Component.BondEdit.amortizationsDescription": "",
-  "Component.BondEdit.couponsDescription": ""
+  "Component.BondEdit.couponsDescription": "",
+  "Page.IssuerPage.description": "",
+  "config.pages.titleIssuer": "",
+  "Component.IssuerEdit.nameDescription": "",
+  "Component.IssuerEdit.save": "",
+  "Component.IssuerEdit.typeDescription": "",
+  "Component.IssuerEdit.typeCorporate": "",
+  "Component.IssuerEdit.typeMunicipal": "",
+  "Component.IssuerEdit.typeState": ""
 }

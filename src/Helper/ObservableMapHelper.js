@@ -18,4 +18,20 @@ export default class ObservableMapHelper {
   static map (items, func) {
     return Array.from(items.values()).map(func)
   }
+
+  /**
+   * @param {ObservableMap} entity
+   * @param {object} [initialValue = {}]
+   * @return {object}
+   */
+  static toForm (entity, initialValue = {}) {
+    const result = entity.toJSON()
+
+    return Object.keys(result)
+      .reduce((prev, key) => {
+        prev[key] = typeof result[key] === 'undefined' ? '' : result[key]
+
+        return prev
+      }, initialValue)
+  }
 }

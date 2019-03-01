@@ -1,16 +1,17 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import IssuerEdit from './IssuerEdit'
+import { Link } from 'react-router-dom'
+import Gear from '../Icon/Gear'
 
-export default function IssuerView (props) {
-  const mode = props.issuer.id ? 'view' : 'edit'
-
-  if (mode === 'edit') {
-    return <IssuerEdit onSave={() => {}} issuer={props.issuer}/>
-  }
-
+/**
+ * @param {Issuer} issuer
+ * @return {*}
+ * @constructor
+ */
+export default function IssuerView ({issuer}) {
   return <span>
-      {props.issuer.name}
+    <Link to={`/issuers/${issuer.id}`}><Gear/></Link>
+    {issuer.name}
     </span>
 }
 

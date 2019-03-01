@@ -1,4 +1,5 @@
 import { getParent, types } from 'mobx-state-tree'
+import ObservableMapHelper from '../Helper/ObservableMapHelper'
 import DateType from '../Type/DateType'
 import Currency from './Currency'
 import Issuer from './Issuer'
@@ -81,7 +82,6 @@ export default types
   .views(
     /**
      * @param {Bond} self
-     * @return {{toForm(): Object, coupons: Coupon[], earlyRepaymentAvailable: boolean}}
      */
     self => ({
       /**
@@ -89,18 +89,12 @@ export default types
        * @memberOf Bond#
        */
       toForm () {
-        const result = self.toJSON()
         const initialValue = {
           coupons: self.coupons.map(coupon => coupon.toJSON()),
           amortizations: self.amortizations.map(amortization => amortization.toJSON()),
         }
 
-        return Object.keys(result)
-          .reduce((prev, key) => {
-            prev[key] = typeof result[key] === 'undefined' ? '' : result[key]
-
-            return prev
-          }, initialValue)
+        return ObservableMapHelper.toForm(self, initialValue)
       },
 
       /**
