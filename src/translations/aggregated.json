@@ -12,10 +12,6 @@
     "defaultMessage": "Валюта, в которой происходят торги по данным облигациям"
   },
   {
-    "id": "Component.BondEdit.earlyRepaymentAvailableDescription",
-    "defaultMessage": "Доступна ли возможность досрочного погашения"
-  },
-  {
     "id": "Component.BondEdit.faceValueDescription",
     "defaultMessage": "Номинал - это сумма, которую получит держатель облигации в день выкупа облигации эмитентом."
   },

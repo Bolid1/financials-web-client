@@ -14,7 +14,6 @@
   "Component.BondsList.addNew": "Добавить",
   "Component.BondEdit.ISINDescription": "Международный идентификационный код ценной бумаги",
   "Component.BondEdit.currencyDescription": "Валюта, в которой происходят торги по данным облигациям",
-  "Component.BondEdit.earlyRepaymentAvailableDescription": "Доступна ли возможность досрочного погашения",
   "Component.BondEdit.faceValueDescription": "Номинал - это сумма, которую получит держатель облигации в день выкупа облигации эмитентом.",
   "Component.BondEdit.issuerDescription": "Эмитент – это юридическое лицо или орган государственной исполнительной или местной власти, который от своего имени и в рамках своей деятельности выпускает в обращение ценные бумаги или иные платежные средства.",
   "Component.BondEdit.maturityDescription": "Срок погашения - это дата, в которую эмитент выкупит облигацию по цене номинала",

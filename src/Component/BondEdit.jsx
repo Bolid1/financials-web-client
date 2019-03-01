@@ -18,7 +18,6 @@ const messages = defineMessages(
     faceValueDescription: 'Номинал - это сумма, которую получит держатель облигации в день выкупа облигации эмитентом.',
     quantityDescription: 'Количество облигаций в обращении',
     maturityDescription: 'Срок погашения - это дата, в которую эмитент выкупит облигацию по цене номинала',
-    earlyRepaymentAvailableDescription: 'Доступна ли возможность досрочного погашения',
     offerEndDescription: 'Дата, в которую завершается приём заявок на досрочный выкуп облигаций по номинальной стоимости',
     priceDescription: 'Текущая стоимость облигации',
     coupons: 'Купоны - выплаты держателяем облигаций',
@@ -79,13 +78,6 @@ function BondEdit () {
         {text => <FieldInfo>{text}</FieldInfo>}
       </FormattedMessage>
       <Input type="date" name="maturity"/>
-    </FieldGroup>
-
-    <FieldGroup>
-      <FormattedMessage {...messages.earlyRepaymentAvailableDescription}>
-        {text => <FieldInfo>{text}</FieldInfo>}
-      </FormattedMessage>
-      <Input type="checkbox" name="earlyRepaymentAvailable"/>
     </FieldGroup>
 
     <FieldGroup>
