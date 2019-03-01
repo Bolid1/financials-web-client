@@ -1,6 +1,7 @@
 /**
  * @interface Map
  * @memberOf observable
+ * @extends observableMap
  * @implements Map
  * @implements IterableIterator
  */

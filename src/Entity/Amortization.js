@@ -4,30 +4,30 @@ import Bond from './Bond'
 
 // noinspection JSValidateTypes
 /**
- * @class Coupon
+ * @class Amortization
  * @extends ObservableMap
  */
 export default types
   .model(
     {
       /**
-       * @description Облигация, к которой принадлежит купон
+       * @description Облигация, по которой происходит погашение
        * @member {Bond}
-       * @memberOf Coupon#
+       * @memberOf Amortization#
        */
       bond: types.reference(Bond),
 
       /**
-       * @description Дата выплаты купона
+       * @description Дата погашения
        * @member {Date}
-       * @memberOf Coupon#
+       * @memberOf Amortization#
        */
       date: types.maybe(DateType),
 
       /**
-       * @description сколько будет выплачено по купону
+       * @description сколько будет погашено
        * @member {number}
-       * @memberOf Coupon#
+       * @memberOf Amortization#
        */
       value: types.number,
     },

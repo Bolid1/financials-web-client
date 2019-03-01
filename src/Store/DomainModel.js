@@ -1,4 +1,5 @@
 import { getEnv, types } from 'mobx-state-tree'
+import Amortization from '../Entity/Amortization'
 import Bond from '../Entity/Bond'
 import Coupon from '../Entity/Coupon'
 import Currency from '../Entity/Currency'
@@ -34,10 +35,15 @@ export default types
        */
       bonds: types.map(Bond),
       /**
-       * @member {observable.Map} coupons
+       * @member {observableArray} coupons
        * @memberOf DomainModel#
        */
-      coupons: types.map(Coupon),
+      coupons: types.array(Coupon),
+      /**
+       * @member {observableArray} amortizations
+       * @memberOf DomainModel#
+       */
+      amortizations: types.array(Amortization),
       /**
        * @member {observable.Map} shares
        * @memberOf DomainModel#
@@ -95,8 +101,9 @@ export default types
        */
       updateEntities (entity, entities) {
         const store = self[entity]
+        const action = store.put || store.push
 
-        entities.forEach(entity => store.put(entity))
+        entities.forEach(entity => action.call(store, entity))
       },
 
       /**

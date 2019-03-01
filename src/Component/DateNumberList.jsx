@@ -4,18 +4,21 @@ import Button from '../Element/Button'
 import Input from '../Element/Input'
 import InputsRow from '../Element/InputsRow'
 
-export default function CouponsList (props) {
+export default function DateNumberList (props) {
+  const {name, remove, push} = props
+  const values = props.form.values[name]
+
   return <>
-    {props.form.values.coupons.map((coupon, index) => <InputsRow key={index}>
-      <Input type="date" name={`coupons[${index}].date`}/>
-      <Input type="number" name={`coupons[${index}].value`}/>
-      <Button onClick={() => props.remove(index)}>Remove</Button>
+    {values.map((entity, index) => <InputsRow key={index}>
+      <Input type="date" name={`${name}[${index}].date`}/>
+      <Input type="number" name={`${name}[${index}].value`}/>
+      <Button onClick={() => remove(index)}>Remove</Button>
     </InputsRow>)}
-    <Button onClick={() => props.push({date: '', value: 0})}>Add</Button>
+    <Button onClick={() => push({date: '', value: 0})}>Add</Button>
   </>
 }
 
-CouponsList.propTypes = {
+DateNumberList.propTypes = {
   push: PropTypes.func,
   pop: PropTypes.func,
   swap: PropTypes.func,
@@ -68,5 +71,5 @@ CouponsList.propTypes = {
       validateOnBlur: PropTypes.bool,
     }
   ),
-  name: PropTypes.string,
+  name: PropTypes.string.isRequired,
 }

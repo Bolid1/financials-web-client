@@ -4,7 +4,15 @@
     "defaultMessage": "Международный идентификационный код ценной бумаги"
   },
   {
+    "id": "Component.BondEdit.amortizationsDescription",
+    "defaultMessage": "Даты постепенного погашения облигации"
+  },
+  {
     "id": "Component.BondEdit.coupons",
+    "defaultMessage": "Купоны - выплаты держателяем облигаций"
+  },
+  {
+    "id": "Component.BondEdit.couponsDescription",
     "defaultMessage": "Купоны - выплаты держателяем облигаций"
   },
   {

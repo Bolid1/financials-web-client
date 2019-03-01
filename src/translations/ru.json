@@ -22,5 +22,7 @@
   "Component.BondEdit.quantityDescription": "Количество облигаций в обращении",
   "Component.BondEdit.save": "Сохранить",
   "Component.BondEdit.coupons": "Купоны - выплаты держателяем облигаций",
-  "Component.BondEdit.nameDescription": "Название облигации"
+  "Component.BondEdit.nameDescription": "Название облигации",
+  "Component.BondEdit.amortizationsDescription": "Даты постепенного погашения облигации",
+  "Component.BondEdit.couponsDescription": "Купоны - выплаты держателяем облигаций"
 }

@@ -7,7 +7,7 @@ import IssuerSelector from '../Control/IssuerSelector'
 import FieldGroup from '../Element/FieldGroup'
 import FieldInfo from '../Element/FieldInfo'
 import Input from '../Element/Input'
-import CouponsList from './CouponsList'
+import DateNumberList from './DateNumberList'
 
 const messages = defineMessages(
   {
@@ -20,7 +20,8 @@ const messages = defineMessages(
     maturityDescription: 'Срок погашения - это дата, в которую эмитент выкупит облигацию по цене номинала',
     offerEndDescription: 'Дата, в которую завершается приём заявок на досрочный выкуп облигаций по номинальной стоимости',
     priceDescription: 'Текущая стоимость облигации',
-    coupons: 'Купоны - выплаты держателяем облигаций',
+    couponsDescription: 'Купоны - выплаты держателяем облигаций',
+    amortizationsDescription: 'Даты постепенного погашения облигации',
     save: 'Сохранить',
   },
 )
@@ -95,12 +96,22 @@ function BondEdit () {
     </FieldGroup>
 
     <FieldGroup>
-      <FormattedMessage {...messages.coupons}>
+      <FormattedMessage {...messages.couponsDescription}>
         {text => <FieldInfo>{text}</FieldInfo>}
       </FormattedMessage>
       <FieldArray
         name="coupons"
-        component={CouponsList}
+        component={DateNumberList}
+      />
+    </FieldGroup>
+
+    <FieldGroup>
+      <FormattedMessage {...messages.amortizationsDescription}>
+        {text => <FieldInfo>{text}</FieldInfo>}
+      </FormattedMessage>
+      <FieldArray
+        name="amortizations"
+        component={DateNumberList}
       />
     </FieldGroup>
 

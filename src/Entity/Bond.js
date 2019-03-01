@@ -91,7 +91,8 @@ export default types
       toForm () {
         const result = self.toJSON()
         const initialValue = {
-          coupons: self.coupons.map(coupon => coupon.toJSON())
+          coupons: self.coupons.map(coupon => coupon.toJSON()),
+          amortizations: self.amortizations.map(amortization => amortization.toJSON()),
         }
 
         return Object.keys(result)
@@ -117,8 +118,18 @@ export default types
        * @memberOf Bond#
        */
       get coupons () {
-        return Array.from(getParent(getParent(self)).coupons.values())
+        return getParent(getParent(self)).coupons
           .filter(coupon => coupon.bond === self)
+      },
+
+      /**
+       * @description Погашения, которые будут происходить в течении срока жизни облигации
+       * @member {Amortization[]}
+       * @memberOf Bond#
+       */
+      get amortizations () {
+        return getParent(getParent(self)).amortizations
+          .filter(amortization => amortization.bond === self)
       },
     }),
   )
