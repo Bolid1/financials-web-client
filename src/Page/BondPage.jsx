@@ -16,13 +16,14 @@ const messages = defineMessages(
 )
 
 function BondPage (props) {
-  const id = props.match.params.id
-  const bond = props.domain.bonds.get(id)
+  const domain = props.domain
 
-  if (!bond) {
+  if (!domain.loaded) {
     return <LoaderFlex/>
   }
 
+  const id = props.match.params.id
+  const bond = domain.bonds.get(id)
   const initialValues = bond.toForm()
 
   return <PageContainer>

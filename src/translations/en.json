@@ -32,5 +32,6 @@
   "Component.IssuerEdit.typeDescription": "",
   "Component.IssuerEdit.typeCorporate": "",
   "Component.IssuerEdit.typeMunicipal": "",
-  "Component.IssuerEdit.typeState": ""
+  "Component.IssuerEdit.typeState": "",
+  "Component.IssuersList.addNew": ""
 }

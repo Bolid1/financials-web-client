@@ -32,5 +32,6 @@
   "Component.IssuerEdit.typeDescription": "Тип эмитента",
   "Component.IssuerEdit.typeCorporate": "Компания",
   "Component.IssuerEdit.typeMunicipal": "Муниципалитет",
-  "Component.IssuerEdit.typeState": "Государство"
+  "Component.IssuerEdit.typeState": "Государство",
+  "Component.IssuersList.addNew": "Добавить"
 }

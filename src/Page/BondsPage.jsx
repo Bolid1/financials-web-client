@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { defineMessages, FormattedMessage } from 'react-intl'
 import BondsList from '../Component/BondsList'
+import LoaderFlex from '../Element/LoaderFlex'
 import PageContainer from '../Element/PageContainer'
 import PageHeader from '../Styled/PageHeaderStyled'
 
@@ -14,10 +15,16 @@ const messages = defineMessages(
 )
 
 function BondsPage (props) {
+  const domain = props.domain
+
+  if (!domain.loaded) {
+    return <LoaderFlex/>
+  }
+
   return <PageContainer>
     <PageHeader>{props.title}</PageHeader>
     <article><FormattedMessage {...messages.description}/></article>
-    <BondsList bonds={Array.from(props.domain.bonds.values())}/>
+    <BondsList bonds={Array.from(domain.bonds.values())}/>
   </PageContainer>
 }
 

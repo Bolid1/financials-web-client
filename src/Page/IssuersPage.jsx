@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { defineMessages, FormattedMessage } from 'react-intl'
 import IssuersList from '../Component/IssuersList'
+import LoaderFlex from '../Element/LoaderFlex'
 import PageContainer from '../Element/PageContainer'
 import PageHeader from '../Styled/PageHeaderStyled'
 
@@ -14,12 +15,18 @@ const messages = defineMessages(
 )
 
 function IssuersPage (props) {
+  const domain = props.domain
+
+  if (!domain.loaded) {
+    return <LoaderFlex/>
+  }
+
   return <PageContainer>
     <PageHeader>{props.title}</PageHeader>
     <article>
       <FormattedMessage {...messages.description}/>
     </article>
-    <IssuersList issuers={Array.from(props.domain.issuers.values())}/>
+    <IssuersList issuers={Array.from(domain.issuers.values())}/>
   </PageContainer>
 }
 

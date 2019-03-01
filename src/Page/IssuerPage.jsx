@@ -16,8 +16,14 @@ const messages = defineMessages(
 )
 
 function IssuerPage (props) {
+  const domain = props.domain
+
+  if (!domain.loaded) {
+    return <LoaderFlex/>
+  }
+
   const id = props.match.params.id
-  const issuer = props.domain.issuers.get(id)
+  const issuer = domain.issuers.get(id) || domain.pushIssuer()
 
   if (!issuer) {
     return <LoaderFlex/>

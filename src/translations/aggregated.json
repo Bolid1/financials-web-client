@@ -81,6 +81,11 @@
     "defaultMessage": "Государство"
   },
   {
+    "id": "Component.IssuersList.addNew",
+    "description": "Добавить нового эмитента",
+    "defaultMessage": "Добавить"
+  },
+  {
     "id": "Page.AccountsPage.description",
     "description": "Описание страницы счетов",
     "defaultMessage": "В этом разделе находится информация о счетах.\n      Кредитные карты и наличные."

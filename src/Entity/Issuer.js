@@ -60,3 +60,13 @@ export default types
       },
     }),
   )
+
+let newId = -1
+
+export function makeIssuer (props) {
+  return Object.assign({
+    id: newId--,
+    name: '',
+    type: 'corporate',
+  }, props)
+}

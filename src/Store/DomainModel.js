@@ -3,7 +3,7 @@ import Amortization from '../Entity/Amortization'
 import Bond from '../Entity/Bond'
 import Coupon from '../Entity/Coupon'
 import Currency from '../Entity/Currency'
-import Issuer from '../Entity/Issuer'
+import Issuer, { makeIssuer } from '../Entity/Issuer'
 import Share from '../Entity/Share'
 
 // noinspection JSValidateTypes
@@ -111,6 +111,10 @@ export default types
        */
       afterCreate () {
         self.load()
+      },
+
+      pushIssuer (props = {}) {
+        return self.issuers.put(makeIssuer(props))
       },
     }))
   .views(
