@@ -20,6 +20,14 @@ export default class ObservableMapHelper {
   }
 
   /**
+   * @param {observable.Map} items
+   * @return {any | null}
+   */
+  static first (items) {
+    return Array.from(items.values())[0] || null
+  }
+
+  /**
    * @param {ObservableMap} entity
    * @param {object} [initialValue = {}]
    * @return {object}

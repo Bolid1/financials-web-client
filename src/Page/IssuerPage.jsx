@@ -23,12 +23,7 @@ function IssuerPage (props) {
   }
 
   const id = props.match.params.id
-  const issuer = domain.issuers.get(id) || domain.pushIssuer()
-
-  if (!issuer) {
-    return <LoaderFlex/>
-  }
-
+  const issuer = domain.issuers.get(id) || domain.makeIssuer()
   const initialValues = issuer.toForm()
 
   return <PageContainer>

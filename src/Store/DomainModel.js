@@ -3,8 +3,9 @@ import Amortization from '../Entity/Amortization'
 import Bond from '../Entity/Bond'
 import Coupon from '../Entity/Coupon'
 import Currency from '../Entity/Currency'
-import Issuer, { makeIssuer } from '../Entity/Issuer'
+import Issuer from '../Entity/Issuer'
 import Share from '../Entity/Share'
+import ObservableMapHelper from '../Helper/ObservableMapHelper'
 
 // noinspection JSValidateTypes
 /**
@@ -14,6 +15,11 @@ export default types
   .model(
     'DomainModel',
     {
+      /**
+       * @member {Number} newId
+       * @memberOf DomainModel#
+       */
+      newId: types.number,
       /**
        * @member {Boolean} loaded
        * @memberOf DomainModel#
@@ -113,9 +119,29 @@ export default types
         self.load()
       },
 
-      pushIssuer (props = {}) {
-        return self.issuers.put(makeIssuer(props))
+      makeIssuer (props = {}) {
+        const issuer = Object.assign({
+          id: -(++self.newId),
+          name: '',
+          type: 'corporate',
+        }, props)
+
+        return self.issuers.put(issuer)
       },
+
+      makeBond (props = {}) {
+        const bond = Object.assign({
+          ISIN: `new${++self.newId}`,
+          issuer: ObservableMapHelper.first(self.issuers),
+          name: '',
+          currency: ObservableMapHelper.first(self.currencies),
+          quantity: 0,
+          price: 0,
+          faceValue: 1000,
+        }, props)
+
+        return self.bonds.put(bond)
+      }
     }))
   .views(
     self => ({

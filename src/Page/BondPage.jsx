@@ -23,7 +23,7 @@ function BondPage (props) {
   }
 
   const id = props.match.params.id
-  const bond = domain.bonds.get(id)
+  const bond = domain.bonds.get(id) || domain.makeBond()
   const initialValues = bond.toForm()
 
   return <PageContainer>

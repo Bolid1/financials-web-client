@@ -5,6 +5,7 @@ import DomainModel from '../Store/DomainModel'
 
 const domainModel = DomainModel.create(
   {
+    newId: 0,
     loaded: false
   },
   {
