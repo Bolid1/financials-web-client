@@ -10,7 +10,7 @@ import LanguageSelector from './LanguageSelector'
 
 const LeftSideStyled = styled.aside`
   height: 100%;
-  background-color: #0e0e23;
+  background: ${({theme: {layout: {leftSide: {background}}}}) => background};
   display: flex;
   justify-content: flex-start;
   flex-direction: column;

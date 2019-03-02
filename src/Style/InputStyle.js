@@ -7,6 +7,7 @@ const InputStyle = css`
   outline: none;
   padding: 0;
   margin: 0;
+  color: ${(({theme: {layout: {color}}}) => color)};
 `
 
 export default InputStyle

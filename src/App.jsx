@@ -14,6 +14,7 @@ const Application = styled.div`
   flex-direction: row;
   height: 100vh;
   overflow: hidden;
+  color: ${(({theme: {layout: {color}}}) => color)};
 `
 
 const Content = styled.div`
@@ -23,6 +24,7 @@ const Content = styled.div`
   
   padding: ${({theme: {layout: {paddingVertical, rightSide: {paddingHorizontal}}}}) => `${paddingVertical} ${paddingHorizontal}`};
   box-sizing: border-box;
+  background: ${({theme: {layout: {rightSide: {background}}}}) => background};
 `
 
 export default hot(module)(
