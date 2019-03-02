@@ -43,7 +43,7 @@ function BondEdit () {
       <FormattedMessage {...messages.ISINDescription}>
         {text => <FieldInfo>{text}</FieldInfo>}
       </FormattedMessage>
-      <Input name="ISIN"/>
+      <Input name="ISIN" pattern="[A-Z]{2}[A-Z\d]{9}\d"/>
     </FieldGroup>
 
     <FieldGroup>
