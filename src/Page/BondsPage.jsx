@@ -5,6 +5,7 @@ import { defineMessages, FormattedMessage } from 'react-intl'
 import BondsList from '../Component/BondsList'
 import LoaderFlex from '../Element/LoaderFlex'
 import PageContainer from '../Element/PageContainer'
+import ObservableMapHelper from '../Helper/ObservableMapHelper'
 import PageHeader from '../Styled/PageHeaderStyled'
 
 const messages = defineMessages(
@@ -24,7 +25,7 @@ function BondsPage (props) {
   return <PageContainer>
     <PageHeader>{props.title}</PageHeader>
     <article><FormattedMessage {...messages.description}/></article>
-    <BondsList bonds={Array.from(domain.bonds.values())}/>
+    <BondsList bonds={ObservableMapHelper.toArray(domain.bonds)}/>
   </PageContainer>
 }
 

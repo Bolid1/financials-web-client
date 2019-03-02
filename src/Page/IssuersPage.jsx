@@ -5,6 +5,7 @@ import { defineMessages, FormattedMessage } from 'react-intl'
 import IssuersList from '../Component/IssuersList'
 import LoaderFlex from '../Element/LoaderFlex'
 import PageContainer from '../Element/PageContainer'
+import ObservableMapHelper from '../Helper/ObservableMapHelper'
 import PageHeader from '../Styled/PageHeaderStyled'
 
 const messages = defineMessages(
@@ -26,7 +27,7 @@ function IssuersPage (props) {
     <article>
       <FormattedMessage {...messages.description}/>
     </article>
-    <IssuersList issuers={Array.from(domain.issuers.values())}/>
+    <IssuersList issuers={ObservableMapHelper.toArray(domain.issuers)}/>
   </PageContainer>
 }
 

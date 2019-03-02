@@ -12,11 +12,19 @@
 export default class ObservableMapHelper {
   /**
    * @param {observable.Map} items
+   * return {any[]}
+   */
+  static toArray (items) {
+    return Array.from(items.values())
+  }
+
+  /**
+   * @param {observable.Map} items
    * @param {function(value, index, array)} func
    * @return {any[]}
    */
   static map (items, func) {
-    return Array.from(items.values()).map(func)
+    return ObservableMapHelper.toArray(items).map(func)
   }
 
   /**
@@ -24,7 +32,7 @@ export default class ObservableMapHelper {
    * @return {any | null}
    */
   static first (items) {
-    return Array.from(items.values())[0] || null
+    return ObservableMapHelper.toArray(items)[0] || null
   }
 
   /**

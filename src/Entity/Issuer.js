@@ -46,7 +46,7 @@ export default types
        * @memberOf Issuer#
        */
       get bonds () {
-        return Array.from(getParent(getParent(self)).bonds.values())
+        return ObservableMapHelper.toArray(getParent(getParent(self)).bonds)
           .filter(bond => bond.issuer === self)
       },
       /**
@@ -55,7 +55,7 @@ export default types
        * @memberOf Issuer#
        */
       get shares () {
-        return Array.from(getParent(getParent(self)).shares.values())
+        return ObservableMapHelper.toArray(getParent(getParent(self)).shares)
           .filter(share => share.issuer === self)
       },
     }),
