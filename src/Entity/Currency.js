@@ -1,4 +1,5 @@
 import { types } from 'mobx-state-tree'
+import EntityStateType from '../Type/EntityStateType'
 
 // noinspection JSValidateTypes
 /**
@@ -8,6 +9,11 @@ import { types } from 'mobx-state-tree'
 export default types
   .model(
     {
+      /**
+       * @member {string}
+       * @memberOf Currency#
+       */
+      _entityState: EntityStateType,
 
       /**
        * @description Идентификатор валюты в БД

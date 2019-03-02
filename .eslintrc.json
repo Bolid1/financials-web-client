@@ -16,6 +16,10 @@
     "eol-last": [
       "warn",
       "always"
+    ],
+    "comma-dangle": [
+      "warn",
+      "always-multiline"
     ]
   }
 }

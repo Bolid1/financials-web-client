@@ -1,6 +1,7 @@
 import { getParent, types } from 'mobx-state-tree'
 import ObservableMapHelper from '../Helper/ObservableMapHelper'
 import DateType from '../Type/DateType'
+import EntityStateType from '../Type/EntityStateType'
 import Currency from './Currency'
 import Issuer from './Issuer'
 
@@ -12,6 +13,12 @@ import Issuer from './Issuer'
 export default types
   .model(
     {
+      /**
+       * @member {string}
+       * @memberOf Bond#
+       */
+      _entityState: EntityStateType,
+
       /**
        * @description Эмитент – это юридическое лицо или орган государственной исполнительной или местной власти,
        *   который от своего имени и в рамках своей деятельности выпускает в обращение ценные бумаги или иные платежные

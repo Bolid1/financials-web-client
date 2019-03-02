@@ -1,5 +1,6 @@
 import { types } from 'mobx-state-tree'
 import DateType from '../Type/DateType'
+import EntityStateType from '../Type/EntityStateType'
 import Bond from './Bond'
 
 // noinspection JSValidateTypes
@@ -10,6 +11,12 @@ import Bond from './Bond'
 export default types
   .model(
     {
+      /**
+       * @member {string}
+       * @memberOf Coupon#
+       */
+      _entityState: EntityStateType,
+
       /**
        * @description Облигация, к которой принадлежит купон
        * @member {Bond}

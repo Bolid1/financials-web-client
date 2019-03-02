@@ -5,12 +5,13 @@ import DomainModel from '../Store/DomainModel'
 
 const domainModel = DomainModel.create(
   {
+    fakeId: 1000,
     newId: 0,
-    loaded: false
+    loaded: false,
   },
   {
     api: API,
-  }
+  },
 )
 
 function EntitiesProvider ({children}) {

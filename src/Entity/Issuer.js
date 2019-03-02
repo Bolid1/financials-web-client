@@ -1,5 +1,6 @@
 import { getParent, types } from 'mobx-state-tree'
 import ObservableMapHelper from '../Helper/ObservableMapHelper'
+import EntityStateType from '../Type/EntityStateType'
 
 // noinspection JSValidateTypes
 /**
@@ -9,6 +10,12 @@ import ObservableMapHelper from '../Helper/ObservableMapHelper'
 export default types
   .model(
     {
+      /**
+       * @member {string}
+       * @memberOf Issuer#
+       */
+      _entityState: EntityStateType,
+
       /**
        * @description Идентификатор эмитента в БД
        * @member {number}
@@ -38,6 +45,22 @@ export default types
     self => ({
       toForm () {
         return ObservableMapHelper.toForm(self)
+      },
+
+      /**
+       * @member {boolean}
+       * @memberOf Issuer#
+       */
+      get new () {
+        return self._entityState === 'new'
+      },
+
+      /**
+       * @member {boolean}
+       * @memberOf Issuer#
+       */
+      get saved () {
+        return self._entityState === 'saved'
       },
 
       /**
