@@ -160,13 +160,25 @@ export default types
             const promises = []
 
             if (prev?.coupons) {
-              prev.coupons.forEach(coupon => self.remove(coupon))
-              promises.push(...data.coupons.map(coupon => self.save('coupons', coupon)))
+              prev.coupons
+                .filter(coupon => !data.coupons.find(({id}) => id === coupon.id))
+                .forEach(coupon => self.remove(coupon))
+
+              promises.push(...data.coupons.map(coupon => self.save(
+                'coupons',
+                Object.assign({id: self._getFakeId()}, coupon),
+              )))
             }
 
             if (prev?.amortizations) {
-              prev.amortizations.forEach(amortization => self.remove(amortization))
-              promises.push(...data.amortizations.map(amortization => self.save('amortizations', amortization)))
+              prev.amortizations
+                .filter(amortization => !data.amortizations.find(({id}) => id === amortization.id))
+                .forEach(amortization => self.remove(amortization))
+
+              promises.push(...data.amortizations.map(amortization => self.save(
+                'amortizations',
+                Object.assign({id: self._getFakeId()}, amortization),
+              )))
             }
 
             return promises.length
@@ -186,6 +198,22 @@ export default types
       },
 
       /**
+       * @return {number}
+       * @memberOf DomainModel#
+       */
+      _getFakeId () {
+        return ++self.fakeId
+      },
+
+      /**
+       * @return {number}
+       * @memberOf DomainModel#
+       */
+      _getNewId () {
+        return ++self.newId
+      },
+
+      /**
        * @memberOf DomainModel#
        */
       afterCreate () {
@@ -199,7 +227,7 @@ export default types
       makeIssuer (props = {}) {
         return self.issuers.put(Object.assign({
             _entityState: 'new',
-            id: -(++self.newId),
+          id: -(self._getNewId()),
             name: '',
             type: 'corporate',
           }, props),
@@ -213,7 +241,7 @@ export default types
       makeBond (props = {}) {
         return self.bonds.put(Object.assign({
             _entityState: 'new',
-            ISIN: `new${++self.newId}`,
+          ISIN: `new${self._getNewId()}`,
             issuer: ObservableMapHelper.first(self.issuers),
             name: '',
             currency: ObservableMapHelper.first(self.currencies),
