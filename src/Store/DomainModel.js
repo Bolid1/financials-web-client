@@ -190,7 +190,8 @@ export default types
 
         Object.assign(issuer, changes)
 
-        return Promise.resolve(Object.assign({}, issuer.toJSON(), {id: ++self.fakeId}))
+        const fake = issuer.new ? {id: ++self.fakeId} : {}
+        return Promise.resolve(Object.assign({}, issuer.toJSON(), fake))
           .then(data => {
             if (issuer.new) {
               self.deleteIssuer(issuer)
