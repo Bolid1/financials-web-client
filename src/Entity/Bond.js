@@ -105,6 +105,22 @@ export default types
       },
 
       /**
+       * @member {boolean}
+       * @memberOf Bond#
+       */
+      get new () {
+        return self._entityState === 'new'
+      },
+
+      /**
+       * @member {boolean}
+       * @memberOf Bond#
+       */
+      get saved () {
+        return self._entityState === 'saved'
+      },
+
+      /**
        * @description Доступна ли возможность досрочного погашения
        * @member {boolean}
        * @memberOf Bond#
@@ -119,7 +135,9 @@ export default types
        * @memberOf Bond#
        */
       get coupons () {
-        return getParent(getParent(self)).coupons
+        const coupons = getParent(getParent(self)).coupons
+
+        return ObservableMapHelper.toArray(coupons)
           .filter(coupon => coupon.bond === self)
       },
 
@@ -129,7 +147,7 @@ export default types
        * @memberOf Bond#
        */
       get amortizations () {
-        return getParent(getParent(self)).amortizations
+        return ObservableMapHelper.toArray(getParent(getParent(self)).amortizations)
           .filter(amortization => amortization.bond === self)
       },
     }),

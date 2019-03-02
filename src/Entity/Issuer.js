@@ -43,6 +43,9 @@ export default types
      * @param {Issuer} self
      */
     self => ({
+      /**
+       * @memberOf Issuer#
+       */
       toForm () {
         return ObservableMapHelper.toForm(self)
       },

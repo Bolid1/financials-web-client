@@ -1,4 +1,4 @@
-import { getEnv, getIdentifier, types } from 'mobx-state-tree'
+import { destroy, getEnv, getIdentifier, types } from 'mobx-state-tree'
 /** @type IModelType */
 import Amortization from '../Entity/Amortization'
 /** @type IModelType */
@@ -12,7 +12,6 @@ import Issuer from '../Entity/Issuer'
 /** @type IModelType */
 import Share from '../Entity/Share'
 import ObservableMapHelper from '../Helper/ObservableMapHelper'
-import StateTypeHelper from '../Helper/StateTypeHelper'
 
 // noinspection JSValidateTypes
 /**
@@ -56,12 +55,12 @@ export default types
        * @member {observableArray} coupons
        * @memberOf DomainModel#
        */
-      coupons: types.array(Coupon),
+      coupons: types.map(Coupon),
       /**
        * @member {observableArray} amortizations
        * @memberOf DomainModel#
        */
-      amortizations: types.array(Amortization),
+      amortizations: types.map(Amortization),
       /**
        * @member {observable.Map} shares
        * @memberOf DomainModel#
@@ -108,20 +107,26 @@ export default types
         if (typeof _embedded === 'object') {
           Object
             .keys(_embedded)
-            .forEach(entity => self.updateEntities(entity, _embedded[entity]))
+            .forEach(type => self.updateEntities(type, _embedded[type]))
         }
       },
 
       /**
-       * @param {string} entity
-       * @param {object[]} entities
+       * @param {string} type
+       * @param {object[]} data
        * @memberOf DomainModel#
        */
-      updateEntities (entity, entities) {
-        const store = self[entity]
-        const action = store.put || store.push
+      updateEntities (type, data) {
+        return data.map(item => self.setEntity(type, item))
+      },
 
-        entities.forEach(entity => action.call(store, self.markSaved(entity)))
+      /**
+       * @param {string} type
+       * @param {object} data
+       * @memberOf DomainModel#
+       */
+      setEntity (type, data) {
+        return self[type].put(self.markSaved(data))
       },
 
       /**
@@ -130,6 +135,54 @@ export default types
        */
       markSaved (entity) {
         return Object.assign({}, entity, {_entityState: 'saved'})
+      },
+
+      /**
+       * @property {ObservableMap} entity
+       * @memberOf DomainModel#
+       */
+      remove (entity) {
+        destroy(entity)
+      },
+
+      /**
+       * @param {string} type
+       * @param {object} data
+       * @param {string|number} [id]
+       * @memberOf DomainModel#
+       */
+      save (type, data, id) {
+        const prev = id ? self.find(type, id) : undefined
+
+        return Promise.resolve(data)
+          .then(response => self.setEntity(type, response))
+          .then(entity => {
+            const promises = []
+
+            if (prev?.coupons) {
+              prev.coupons.forEach(coupon => self.remove(coupon))
+              promises.push(...data.coupons.map(coupon => self.save('coupons', coupon)))
+            }
+
+            if (prev?.amortizations) {
+              prev.amortizations.forEach(amortization => self.remove(amortization))
+              promises.push(...data.amortizations.map(amortization => self.save('amortizations', amortization)))
+            }
+
+            return promises.length
+              ? Promise.all(promises).then(() => entity)
+              : entity
+          })
+          .then(entity => {
+            if (prev) {
+              if (prev !== entity) {
+                self.remove(prev)
+              }
+            }
+
+            return getIdentifier(entity)
+          })
+          .catch(console.error)
       },
 
       /**
@@ -144,63 +197,13 @@ export default types
        * @memberOf DomainModel#
        */
       makeIssuer (props = {}) {
-        const issuer = Object.assign({
-          _entityState: 'new',
-          id: -(++self.newId),
-          name: '',
-          type: 'corporate',
-        }, props)
-
-        return self.issuers.put(issuer)
-      },
-
-      /**
-       * @param {Issuer} issuer
-       * @memberOf DomainModel#
-       */
-      deleteIssuer (issuer) {
-        self.issuers.delete(getIdentifier(issuer))
-      },
-
-      /**
-       * @memberOf DomainModel#
-       */
-      saveIssuer (data) {
-        /**
-         * @type {Issuer}
-         */
-        const issuer = self.issuers.get(data.id)
-        if (!issuer) {
-          throw new Error(`Issuer with id ${data.id} not found`)
-        }
-
-        const changes = Object
-          .keys(Issuer.properties)
-          .filter(key => !StateTypeHelper.isIdentifier(Issuer.properties[key]))
-          .reduce((prev, key) => {
-            if (
-              typeof data[key] !== 'undefined'
-              && data[key] !== issuer[key]
-            ) {
-              prev[key] = data[key]
-            }
-
-            return prev
-          }, {})
-
-        Object.assign(issuer, changes)
-
-        const fake = issuer.new ? {id: ++self.fakeId} : {}
-        return Promise.resolve(Object.assign({}, issuer.toJSON(), fake))
-          .then(data => {
-            if (issuer.new) {
-              self.deleteIssuer(issuer)
-            }
-
-            self.updateEntities('issuers', [data])
-
-            return Promise.resolve(data.id)
-          })
+        return self.issuers.put(Object.assign({
+            _entityState: 'new',
+            id: -(++self.newId),
+            name: '',
+            type: 'corporate',
+          }, props),
+        )
       },
 
       /**
@@ -208,22 +211,30 @@ export default types
        * @memberOf DomainModel#
        */
       makeBond (props = {}) {
-        const bond = Object.assign({
-          _entityState: 'new',
-          ISIN: `new${++self.newId}`,
-          issuer: ObservableMapHelper.first(self.issuers),
-          name: '',
-          currency: ObservableMapHelper.first(self.currencies),
-          quantity: 0,
-          price: 0,
-          faceValue: 1000,
-        }, props)
-
-        return self.bonds.put(bond)
+        return self.bonds.put(Object.assign({
+            _entityState: 'new',
+            ISIN: `new${++self.newId}`,
+            issuer: ObservableMapHelper.first(self.issuers),
+            name: '',
+            currency: ObservableMapHelper.first(self.currencies),
+            quantity: 0,
+            price: 0,
+            faceValue: 1000,
+          }, props),
+        )
       },
     }))
   .views(
     self => ({
+      /**
+       * @param {string} type
+       * @param {string|number} id
+       * @memberOf DomainModel#
+       */
+      find (type, id) {
+        return self[type].get(id)
+      },
+
       /**
        * @return {API}
        * @memberOf DomainModel#

@@ -1,6 +1,7 @@
 import { Formik } from 'formik'
 import { observable } from 'mobx'
 import { inject, observer } from 'mobx-react'
+import { getIdentifier } from 'mobx-state-tree'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { defineMessages, FormattedMessage } from 'react-intl'
@@ -47,21 +48,21 @@ class IssuerPage extends Component {
   get issuer () {
     const id = this.props.match.params.id
 
-    return this.domain.issuers.get(id)
+    return this.domain.find('issuers', id)
   }
 
   componentWillUnmount () {
     const issuer = this.issuer
 
     if (issuer && !issuer.saved) {
-      this.domain.deleteIssuer(issuer)
+      this.domain.remove(issuer)
     }
   }
 
-  saveIssuer (data) {
+  saveIssuer (id, data) {
     this.saveInProgress = true
     this.domain
-      .saveIssuer(data)
+      .save('issuers', data, id)
       .then(id => {
         this.redirectTo = `/issuers/${id}`
         this.saveInProgress = false
@@ -84,7 +85,7 @@ class IssuerPage extends Component {
     if (!issuer) {
       issuer = domain.makeIssuer()
 
-      return <Redirect to={`/issuers/${issuer.id}`}/>
+      return <Redirect to={`/issuers/${getIdentifier(issuer)}`}/>
     }
 
     const initialValues = issuer.toForm()
@@ -92,7 +93,7 @@ class IssuerPage extends Component {
     return <PageContainer>
       <PageHeader>{this.props.title}</PageHeader>
       <article><FormattedMessage {...messages.description}/></article>
-      <Formik initialValues={initialValues} onSubmit={this.saveIssuer.bind(this)}>
+      <Formik initialValues={initialValues} onSubmit={this.saveIssuer.bind(this, getIdentifier(issuer))}>
         <IssuerEdit/>
       </Formik>
     </PageContainer>

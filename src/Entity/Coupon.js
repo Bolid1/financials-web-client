@@ -18,6 +18,12 @@ export default types
       _entityState: EntityStateType,
 
       /**
+       * @member {number}
+       * @memberOf Coupon#
+       */
+      id: types.identifierNumber,
+
+      /**
        * @description Облигация, к которой принадлежит купон
        * @member {Bond}
        * @memberOf Coupon#
