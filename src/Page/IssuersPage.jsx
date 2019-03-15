@@ -1,9 +1,11 @@
-import { reaction } from 'mobx'
+import { observable, reaction } from 'mobx'
 import { disposeOnUnmount, inject, observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { defineMessages, FormattedMessage } from 'react-intl'
+import styled from 'styled-components'
 import IssuersList from '../Component/IssuersList'
+import ErrorInfo, { ErrorInfoButton } from '../Element/ErrorInfo'
 import LoaderFlex from '../Element/LoaderFlex'
 import PageContainer from '../Element/PageContainer'
 import PageHeader from '../Styled/PageHeaderStyled'
@@ -12,9 +14,14 @@ import createScrollStore from '../utils/createScrollStore'
 const messages = defineMessages(
   {
     // Описание страницы эмитентов
-    description: 'В этом разделе находится информация об эмитентах',
+    description: 'В этом разделе находится информация об эмитентах.',
   },
 )
+
+const ErrorButtonContainer = styled.div`
+  margin-top: 10px;
+  text-align: center;
+`
 
 export default @inject('store') @observer
 class IssuersPage extends React.Component {
@@ -23,14 +30,32 @@ class IssuersPage extends React.Component {
   }
 
   scrollStore = createScrollStore()
+  /**
+   * @member {IErrorModel|undefined}
+   */
+  @observable error
 
   @disposeOnUnmount
   fetchOnBottom = reaction(
     () => this.scrollStore.isBottom,
     (isBottom) => {
-      console.info({isBottom})
       if (isBottom) {
         this.list.fetchNext()
+      }
+    },
+  )
+
+  @disposeOnUnmount
+  showError = reaction(
+    () => this.list.error,
+    /**
+     * @param {IErrorModel} error?
+     */
+    (error) => {
+      if (error) {
+        this.error = error
+      } else {
+        this.error = undefined
       }
     },
   )
@@ -46,8 +71,13 @@ class IssuersPage extends React.Component {
     this.scrollStore.onScroll(event.target)
   }
 
-  componentDidMount () {
+  restartFetch () {
+    this.list.clear()
     this.list.fetch()
+  }
+
+  componentDidMount () {
+    this.restartFetch()
   }
 
   render () {
@@ -60,9 +90,21 @@ class IssuersPage extends React.Component {
       <article>
         <FormattedMessage {...messages.description}/>
       </article>
-      <IssuersList
+      {this.error && <ErrorInfo>
+        {this.error.message}
+        <ErrorButtonContainer>
+          <ErrorInfoButton
+            onClick={event => {
+              event.preventDefault()
+              this.restartFetch()
+            }}
+          >Reload</ErrorInfoButton>
+        </ErrorButtonContainer>
+      </ErrorInfo>}
+      {!this.error && <IssuersList
         issuers={this.list.map(issuer => issuer)}
-      />
+      />}
+      {this.list.loading && <LoaderFlex/>}
     </PageContainer>
   }
 }

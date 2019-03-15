@@ -17,6 +17,11 @@ const theme = {
       paddingHorizontal: '20px',
     },
   },
+  errorInfo: {
+    border: '#ff0000',
+    background: '#ffffe0',
+    color: '#07082d',
+  },
 }
 
 export default theme
