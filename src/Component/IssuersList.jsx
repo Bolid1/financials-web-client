@@ -13,9 +13,14 @@ const messages = defineMessages(
   },
 )
 
-export default function IssuersList (props) {
+/**
+ * @param {IIssuerEntity[]} issuers
+ * @return {*}
+ * @constructor
+ */
+export default function IssuersList ({issuers}) {
   return <TilesStyled>
-    {props.issuers.map((issuer, key) => <TileStyled key={key}><IssuerView issuer={issuer}/></TileStyled>)}
+    {issuers.map((issuer, key) => <TileStyled key={key}><IssuerView issuer={issuer}/></TileStyled>)}
     <TileStyled><Link to="/issuers/add"><FormattedMessage {...messages.addNew}/></Link></TileStyled>
   </TilesStyled>
 }

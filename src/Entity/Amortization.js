@@ -17,11 +17,11 @@ export default types
        */
       _entityState: EntityStateType,
 
-          /**
-           * @member {number}
-           * @memberOf Amortization#
-           */
-          id: types.identifierNumber,
+      /**
+       * @member {number}
+       * @memberOf Amortization#
+       */
+      id: types.identifierNumber,
 
       /**
        * @description Облигация, по которой происходит погашение

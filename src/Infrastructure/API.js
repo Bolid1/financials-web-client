@@ -16,8 +16,8 @@ const identifiers = {
   bond: 'ISIN',
 }
 
-export default class API {
-  static find (entity, id) {
+class API {
+  find (entity, id) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         const multiple = singleToMultiple[entity]
@@ -39,7 +39,7 @@ export default class API {
     })
   }
 
-  static findBy (entity) {
+  findBy (entity) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         if (entityMap.hasOwnProperty(entity)) {
@@ -51,3 +51,6 @@ export default class API {
     })
   }
 }
+
+const api = new API()
+export default api

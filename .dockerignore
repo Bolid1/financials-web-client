@@ -1,0 +1,11 @@
+**/.idea/
+**/.git/
+**/build/
+**/.gitattributes
+**/.gitignore
+**/.gitmodules
+**/Thumbs.db
+.env*
+*.log
+*.md
+/node_modules/
