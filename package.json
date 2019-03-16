@@ -30,8 +30,8 @@
     "build": "react-app-rewired build",
     "lint": "eslint --fix --report-unused-disable-directives --ext .js,.jsx src",
     "links": "yarn link-domain-model && yarn link-client",
-    "link-client": "rimraf .yalc/bolid1-financials-api-client-ts/ && yalc link \"bolid1-financials-api-client-ts\"",
-    "link-domain-model": "rimraf .yalc/bolid1-financials-domain-model-ts/ && yalc link \"bolid1-financials-domain-model-ts\""
+    "link-client": "yalc link \"bolid1-financials-api-client-ts\"",
+    "link-domain-model": "yalc link \"bolid1-financials-domain-model-ts\""
   },
   "browserslist": [
     ">0.2%",
@@ -44,7 +44,6 @@
     "@types/react": "^16.8.8",
     "@types/react-dom": "^16.8.2",
     "@types/react-event-listener": "^0.4.9",
-    "@types/react-router-dom": "^4.3.1",
-    "rimraf": "^2.6.3"
+    "@types/react-router-dom": "^4.3.1"
   }
 }
