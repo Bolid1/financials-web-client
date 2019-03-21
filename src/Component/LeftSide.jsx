@@ -10,13 +10,13 @@ import LanguageSelector from './LanguageSelector'
 
 const LeftSideStyled = styled.aside`
   height: 100%;
-  background: ${({theme: {layout: {leftSide: {background}}}}) => background};
+  background: ${({theme}) => theme.background};
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
   margin: 0;
   box-sizing: border-box;
-  padding: ${({theme: {layout: {paddingVertical, leftSide: {paddingHorizontal}}}}) => `${paddingVertical} ${paddingHorizontal}`};
+  padding: ${({theme}) => `${theme.paddingVertical} ${theme.paddingHorizontal}`};
   
   .toggle-nav-button {
     display: none;

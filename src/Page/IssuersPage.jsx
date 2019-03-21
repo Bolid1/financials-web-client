@@ -61,10 +61,10 @@ class IssuersPage extends React.Component {
   )
 
   /**
-   * @return {IIssuerList}
+   * @return {IIssuerDomain}
    */
   get list () {
-    return this.props.store.issuer.list
+    return this.props.store.issuer
   }
 
   handleScroll = event => {

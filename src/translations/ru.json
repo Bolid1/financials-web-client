@@ -27,7 +27,7 @@
   "Component.BondEdit.couponsDescription": "Купоны - выплаты держателяем облигаций",
   "Page.IssuerPage.description": "Страница облигации",
   "config.pages.titleIssuer": "Эмитент",
-  "Component.IssuerEdit.nameDescription": "Название облигации",
+  "Component.IssuerEdit.nameDescription": "Название эмитента",
   "Component.IssuerEdit.save": "Сохранить",
   "Component.IssuerEdit.typeDescription": "Тип эмитента",
   "Component.IssuerEdit.typeCorporate": "Компания",

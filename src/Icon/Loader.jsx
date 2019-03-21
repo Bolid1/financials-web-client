@@ -24,7 +24,7 @@ const Stick = styled.div`
     width: ${props => 5 * props.size / 64}px;
     height: ${props => 14 * props.size / 64}px;
     border-radius: 20%;
-    background: #000000;
+    background: ${({theme}) => theme.loader.color};
   }
 
   @keyframes lds-spinner {

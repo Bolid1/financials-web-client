@@ -9,7 +9,7 @@ import Select from '../Element/Select'
 
 const messages = defineMessages(
   {
-    nameDescription: 'Название облигации',
+    nameDescription: 'Название эмитента',
     typeDescription: 'Тип эмитента',
     typeCorporate: 'Компания',
     typeMunicipal: 'Муниципалитет',
