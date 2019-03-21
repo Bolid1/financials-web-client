@@ -2,6 +2,13 @@ const {overrideDevServer, addBabelPlugin, addDecoratorsLegacy, override} = requi
 
 module.exports = {
   webpack: override(
+    config => {
+      Object.assign(config.resolve.alias, {
+        'react-dom': '@hot-loader/react-dom',
+      })
+
+      return config
+    },
     addBabelPlugin('react-hot-loader/babel'),
     addDecoratorsLegacy(),
     addBabelPlugin('@babel/plugin-proposal-optional-chaining'),
