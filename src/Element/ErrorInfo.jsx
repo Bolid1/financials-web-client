@@ -16,6 +16,11 @@ export default styled.div`
 `
 
 export const ErrorInfoButton = styled.button`
+  cursor: pointer;
+  outline: none;
+  &::-moz-focus-inner {
+    border: 0;
+  }
   background: forestgreen;
   color: wheat;
   
