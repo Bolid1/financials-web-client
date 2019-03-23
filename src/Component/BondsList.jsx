@@ -1,7 +1,7 @@
 import * as PropTypes from 'prop-types'
 import React from 'react'
 import { defineMessages, FormattedMessage } from 'react-intl'
-import Link from '../Element/Link'
+import Link from '../Styled/Link'
 import TilesStyled from '../Styled/TilesStyled'
 import TileStyled from '../Styled/TileStyled'
 import BondView from './BondView'

@@ -5,11 +5,11 @@ import React from 'react'
 import { defineMessages, FormattedMessage } from 'react-intl'
 import styled from 'styled-components'
 import BondsList from '../Component/BondsList'
-import ErrorInfo, { ErrorInfoButton } from '../Element/ErrorInfo'
 import LoaderFlex from '../Element/LoaderFlex'
-import PageContainer from '../Element/PageContainer'
+import createScrollStore from '../Store/ScrollStore'
+import ErrorInfo, { ErrorInfoButton } from '../Styled/ErrorInfo'
+import PageContainer from '../Styled/PageContainer'
 import PageHeader from '../Styled/PageHeaderStyled'
-import createScrollStore from '../utils/createScrollStore'
 
 const messages = defineMessages(
   {

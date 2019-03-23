@@ -1,13 +1,7 @@
 import { types } from 'mobx-state-tree'
 
-/**
- * @class IScrollStore
- */
-export default types
+const ScrollStore = types
   .model('ScrollStore', {
-      /**
-       * @memberOf IScrollStore#
-       */
       position: types
         .model({
           x: types.number,
@@ -20,9 +14,6 @@ export default types
           },
         })),
 
-      /**
-       * @memberOf IScrollStore#
-       */
       size: types
         .model({
           width: types.number,
@@ -44,7 +35,6 @@ export default types
   .actions(self => ({
       /**
        * @param {HTMLElement} element
-       * @memberOf IScrollStore#
        */
       onScroll (element) {
         self.position.set(element.scrollLeft + element.offsetWidth, element.scrollTop + element.offsetHeight)
@@ -52,3 +42,16 @@ export default types
       },
     }),
   )
+
+export default function createScrollStore () {
+  return ScrollStore.create({
+    position: {
+      x: 0,
+      y: 0,
+    },
+    size: {
+      width: 0,
+      height: 0,
+    },
+  })
+}
