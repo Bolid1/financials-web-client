@@ -24,16 +24,16 @@ module.exports = {
     ),
     addBabelPlugin(['react-intl', {enforceDescriptions: false}]),
     addBabelPlugin(['react-intl-extractor', {
-      'langFiles': [{
-        'path': './src/translations/ru.json',
-        'cleanUpNewMessages': false,
-      }, {
-        'path': './src/translations/en.json',
-        'cleanUpNewMessages': true,
-      }, {
-        'path': './src/translations/it.json',
-        'cleanUpNewMessages': true,
-      }],
+      'langFiles': [
+        {
+          'path': './src/translations/ru.json',
+          'cleanUpNewMessages': false,
+        },
+        {
+          'path': './src/translations/en.json',
+          'cleanUpNewMessages': true,
+        },
+      ],
     }]),
   ),
   devServer: overrideDevServer(

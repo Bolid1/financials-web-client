@@ -1,5 +1,5 @@
 import { observer, Provider } from 'mobx-react'
-import PropTypes from 'prop-types'
+import * as PropTypes from 'prop-types'
 import React from 'react'
 import { addLocaleData, IntlProvider } from 'react-intl'
 import LanguageStore from '../Store/LanguageStore'

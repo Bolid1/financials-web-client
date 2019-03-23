@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types'
+import * as PropTypes from 'prop-types'
 import React from 'react'
 import { defineMessages, FormattedMessage } from 'react-intl'
 import PageHeader from '../Styled/PageHeaderStyled'
@@ -10,6 +10,7 @@ const messages = defineMessages(
   },
 )
 
+// noinspection JSUnusedGlobalSymbols
 export default function DashboardPage ({title}) {
   return <>
     <PageHeader>{title}</PageHeader>

@@ -19,7 +19,6 @@
     "react": "^16.7.0",
     "react-app-rewired": "^2.0.3",
     "react-dom": "^16.8.4",
-    "react-event-listener": "^0.6.6",
     "react-hot-loader": "^4.6.3",
     "react-intl": "^2.8.0",
     "react-router-dom": "^5.0.0",
@@ -30,7 +29,7 @@
   "scripts": {
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
-    "lint": "eslint --fix --report-unused-disable-directives --ext .js,.jsx src",
+    "lint": "eslint --fix --ext .js,.jsx src",
     "links": "yarn link-domain-model && yarn link-client",
     "link-client": "yalc link \"bolid1-financials-api-client-ts\"",
     "link-domain-model": "yalc link \"bolid1-financials-domain-model-ts\""

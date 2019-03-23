@@ -20,6 +20,9 @@
     "comma-dangle": [
       "warn",
       "always-multiline"
-    ]
+    ],
+    "no-unused-expressions": "warn",
+    "no-unused-vars": "warn",
+    "no-unused-labels": "warn"
   }
 }

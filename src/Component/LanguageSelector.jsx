@@ -1,5 +1,5 @@
 import { inject } from 'mobx-react'
-import PropTypes from 'prop-types'
+import * as PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
 import FlagOfRussia from '../Icon/FlagOfRussia'

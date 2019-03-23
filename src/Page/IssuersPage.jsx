@@ -1,6 +1,6 @@
-import { observable, reaction } from 'mobx'
+import { reaction } from 'mobx'
 import { disposeOnUnmount, inject, observer } from 'mobx-react'
-import PropTypes from 'prop-types'
+import * as PropTypes from 'prop-types'
 import React from 'react'
 import { defineMessages, FormattedMessage } from 'react-intl'
 import styled from 'styled-components'
@@ -23,6 +23,7 @@ const ErrorButtonContainer = styled.div`
   text-align: center;
 `
 
+// noinspection JSUnusedGlobalSymbols
 export default @inject('store') @observer
 class IssuersPage extends React.Component {
   static propTypes = {
@@ -30,10 +31,6 @@ class IssuersPage extends React.Component {
   }
 
   scrollStore = createScrollStore()
-  /**
-   * @member {IErrorModel|undefined}
-   */
-  @observable error
 
   @disposeOnUnmount
   fetchOnBottom = reaction(
@@ -41,21 +38,6 @@ class IssuersPage extends React.Component {
     (isBottom) => {
       if (isBottom) {
         this.list.fetchNext()
-      }
-    },
-  )
-
-  @disposeOnUnmount
-  showError = reaction(
-    () => this.list.error,
-    /**
-     * @param {IErrorModel} error?
-     */
-    (error) => {
-      if (error) {
-        this.error = error
-      } else {
-        this.error = undefined
       }
     },
   )
@@ -77,21 +59,17 @@ class IssuersPage extends React.Component {
   }
 
   componentDidMount () {
-    this.restartFetch()
+    this.list.fetch()
   }
 
   render () {
-    if (!this.list.items) {
-      return <LoaderFlex/>
-    }
-
     return <PageContainer onScroll={this.handleScroll}>
       <PageHeader>{this.props.title}</PageHeader>
       <article>
         <FormattedMessage {...messages.description}/>
       </article>
-      {this.error && <ErrorInfo>
-        {this.error.message}
+      {this.list.error && <ErrorInfo>
+        {this.list.error.message}
         <ErrorButtonContainer>
           <ErrorInfoButton
             onClick={event => {
@@ -101,7 +79,7 @@ class IssuersPage extends React.Component {
           >Reload</ErrorInfoButton>
         </ErrorButtonContainer>
       </ErrorInfo>}
-      {!this.error && <IssuersList
+      {!this.list.error && <IssuersList
         issuers={this.list.map(issuer => issuer)}
       />}
       {this.list.loading && <LoaderFlex/>}
