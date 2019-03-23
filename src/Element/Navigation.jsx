@@ -1,7 +1,7 @@
-import PropTypes from 'prop-types'
+import * as PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
-import Link from './Link'
+import Link from '../Styled/Link'
 
 const NavigationContainer = styled.nav`
   padding: 0;

@@ -1,11 +1,14 @@
-import { inject, observer } from 'mobx-react'
-import PropTypes from 'prop-types'
+import { reaction } from 'mobx'
+import { disposeOnUnmount, inject, observer } from 'mobx-react'
+import * as PropTypes from 'prop-types'
 import React from 'react'
 import { defineMessages, FormattedMessage } from 'react-intl'
+import styled from 'styled-components'
 import BondsList from '../Component/BondsList'
 import LoaderFlex from '../Element/LoaderFlex'
-import PageContainer from '../Element/PageContainer'
-import ObservableMapHelper from '../Helper/ObservableMapHelper'
+import createScrollStore from '../Store/ScrollStore'
+import ErrorInfo, { ErrorInfoButton } from '../Styled/ErrorInfo'
+import PageContainer from '../Styled/PageContainer'
 import PageHeader from '../Styled/PageHeaderStyled'
 
 const messages = defineMessages(
@@ -15,37 +18,69 @@ const messages = defineMessages(
   },
 )
 
-function BondsPage (props) {
-  const domain = props.domain
+const ErrorButtonContainer = styled.div`
+  margin-top: 10px;
+  text-align: center;
+`
 
-  if (!domain.loaded) {
-    return <LoaderFlex/>
+// noinspection JSUnusedGlobalSymbols
+export default @inject('store') @observer
+class BondsPage extends React.Component {
+  static propTypes = {
+    title: PropTypes.object/*instanceOf(FormattedMessage)*/.isRequired,
   }
 
-  return <PageContainer>
-    <PageHeader>{props.title}</PageHeader>
-    <article><FormattedMessage {...messages.description}/></article>
-    <BondsList bonds={ObservableMapHelper.toArray(domain.bonds)}/>
-  </PageContainer>
+  scrollStore = createScrollStore()
+
+  @disposeOnUnmount
+  fetchOnBottom = reaction(
+    () => this.scrollStore.isBottom,
+    (isBottom) => {
+      if (isBottom) {
+        this.list.fetchNext()
+      }
+    },
+  )
+
+  /**
+   * @return {IBondDomain}
+   */
+  get list () {
+    return this.props.store.bond
+  }
+
+  handleScroll = event => {
+    this.scrollStore.onScroll(event.target)
+  }
+
+  restartFetch () {
+    this.list.clear()
+    this.list.fetch()
+  }
+
+  componentDidMount () {
+    this.list.fetch()
+  }
+
+  render () {
+    return <PageContainer onScroll={this.handleScroll}>
+      <PageHeader>{this.props.title}</PageHeader>
+      <article><FormattedMessage {...messages.description}/></article>
+      {this.list.error && <ErrorInfo>
+        {this.list.error.message}
+        <ErrorButtonContainer>
+          <ErrorInfoButton
+            onClick={event => {
+              event.preventDefault()
+              this.restartFetch()
+            }}
+          >Reload</ErrorInfoButton>
+        </ErrorButtonContainer>
+      </ErrorInfo>}
+      {!this.list.error && <BondsList
+        bonds={this.list.map(bond => bond)}
+      />}
+      {this.list.loading && <LoaderFlex/>}
+    </PageContainer>
+  }
 }
-
-BondsPage.propTypes = {
-  title: PropTypes.object/*instanceOf(FormattedMessage)*/.isRequired,
-}
-
-export default inject('domain')(observer(BondsPage))
-
-/*
-<form onSubmit={(event) => event.preventDefault()}>
-  <select multiple={true}>
-    <option>ОФЗ</option>
-    <option>Муниципальные</option>
-    <option>Корпоративные</option>
-  </select>
-  <select multiple={true}>
-    <option>Процентные</option>
-    <option>Дисконтные</option>
-  </select>
-  <button type="submit">Фильтровать</button>
-</form>
-*/

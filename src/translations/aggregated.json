@@ -58,7 +58,7 @@
   },
   {
     "id": "Component.IssuerEdit.nameDescription",
-    "defaultMessage": "Название облигации"
+    "defaultMessage": "Название эмитента"
   },
   {
     "id": "Component.IssuerEdit.save",

@@ -28,39 +28,15 @@ export default [
     showInLeftMenu: true,
   },
   {
-    path: '/accounts',
-    title: <FormattedMessage {...messages.titleAccounts}/>,
-    component: 'AccountsPage',
-    showInLeftMenu: true,
-  },
-  {
-    path: '/stocks',
-    title: <FormattedMessage {...messages.titleStocks}/>,
-    component: 'StocksPage',
-    showInLeftMenu: true,
-  },
-  {
     path: '/bonds',
     title: <FormattedMessage {...messages.titleBonds}/>,
     component: 'BondsPage',
     showInLeftMenu: true,
   },
   {
-    path: '/bonds/:id',
-    title: <FormattedMessage {...messages.titleBond}/>,
-    component: 'BondPage',
-    showInLeftMenu: false,
-  },
-  {
     path: '/issuers',
     title: <FormattedMessage {...messages.titleIssuers}/>,
     component: 'IssuersPage',
     showInLeftMenu: true,
-  },
-  {
-    path: '/issuers/:id',
-    title: <FormattedMessage {...messages.titleIssuer}/>,
-    component: 'IssuerPage',
-    showInLeftMenu: false,
   },
 ]

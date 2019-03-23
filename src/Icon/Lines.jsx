@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types'
+import * as PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
 
@@ -20,7 +20,7 @@ const Container = styled.div`
 `
 
 const Line = styled.span`
-  background-color: white;
+  background-color: ${props => props.color};
   height: 20%;
   display: block;
 `

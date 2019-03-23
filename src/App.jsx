@@ -1,12 +1,12 @@
 import React from 'react'
 import { hot } from 'react-hot-loader'
 import { BrowserRouter } from 'react-router-dom'
-import styled from 'styled-components'
+import styled, { ThemeProvider } from 'styled-components'
 import LeftSide from './Component/LeftSide'
 import pages from './config/pages'
+import theme from './config/theme'
 import EntitiesProvider from './Provider/EntitiesProvider'
 import LanguageProvider from './Provider/LanguageProvider'
-import StyleProvider from './Provider/StyleProvider'
 import Routes from './Routes'
 
 const Application = styled.div`
@@ -14,7 +14,7 @@ const Application = styled.div`
   flex-direction: row;
   height: 100vh;
   overflow: hidden;
-  color: ${(({theme: {layout: {color}}}) => color)};
+  color: ${(({theme}) => theme.color)};
 `
 
 const Content = styled.div`
@@ -22,9 +22,11 @@ const Content = styled.div`
   overflow: auto;
   flex-grow: 1;
   
-  padding: ${({theme: {layout: {paddingVertical, rightSide: {paddingHorizontal}}}}) => `${paddingVertical} ${paddingHorizontal}`};
+  padding: ${({theme}) => `${theme.paddingVertical} ${theme.paddingHorizontal}`};
   box-sizing: border-box;
-  background: ${({theme: {layout: {rightSide: {background}}}}) => background};
+  background: ${({theme}) => theme.background};
+  display: flex;
+  flex-direction: row;
 `
 
 export default hot(module)(
@@ -32,16 +34,20 @@ export default hot(module)(
     return (
       <LanguageProvider>
         <BrowserRouter>
-          <StyleProvider>
+          <ThemeProvider theme={theme}>
             <EntitiesProvider>
               <Application>
-                <LeftSide/>
-                <Content>
-                  <Routes pages={pages}/>
-                </Content>
+                <ThemeProvider theme={theme.leftSide}>
+                  <LeftSide/>
+                </ThemeProvider>
+                <ThemeProvider theme={theme.rightSide}>
+                  <Content>
+                    <Routes pages={pages}/>
+                  </Content>
+                </ThemeProvider>
               </Application>
             </EntitiesProvider>
-          </StyleProvider>
+          </ThemeProvider>
         </BrowserRouter>
       </LanguageProvider>
     )

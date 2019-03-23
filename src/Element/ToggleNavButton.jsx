@@ -9,8 +9,8 @@ const Button = styled.button`
   background: none;
   color: #ffffff;
   margin: 0;
-  width: ${({theme: {layout: {leftSide: {iconToggle: {size}}}}}) => size};
-  height: ${({theme: {layout: {leftSide: {iconToggle: {size}}}}}) => size};
+  width: ${({theme}) => theme.iconToggle.size};
+  height: ${({theme}) => theme.iconToggle.size};
 
   box-sizing: border-box;
   padding: 0;

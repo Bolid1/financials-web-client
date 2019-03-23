@@ -20,6 +20,7 @@ const isLocalhost = Boolean(
   ),
 )
 
+// noinspection JSUnusedGlobalSymbols
 export function register (config) {
   if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
     // The URL constructor is available in all browsers that support SW.
@@ -66,7 +67,7 @@ function registerValidSW (swUrl, config) {
         installingWorker.onstatechange = () => {
           if (installingWorker.state === 'installed') {
             if (navigator.serviceWorker.controller) {
-              // At this point, the updated precached content has been fetched,
+              // At this point, the updated cached content has been fetched,
               // but the previous service worker will still serve the older
               // content until all client tabs are closed.
               console.log(
@@ -79,7 +80,7 @@ function registerValidSW (swUrl, config) {
                 config.onUpdate(registration)
               }
             } else {
-              // At this point, everything has been precached.
+              // At this point, everything has been cached.
               // It's the perfect time to display a
               // "Content is cached for offline use." message.
               console.log('Content is cached for offline use.')
@@ -130,6 +131,7 @@ function checkValidServiceWorker (swUrl, config) {
 export function unregister () {
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.ready.then(registration => {
+      // noinspection JSIgnoredPromiseFromCall
       registration.unregister()
     })
   }
