@@ -1,4 +1,4 @@
-import { reaction } from 'mobx'
+import { observable, reaction } from 'mobx'
 import { disposeOnUnmount, inject, observer } from 'mobx-react'
 import * as PropTypes from 'prop-types'
 import React from 'react'
@@ -30,17 +30,18 @@ class BondsPage extends React.Component {
     title: PropTypes.object/*instanceOf(FormattedMessage)*/.isRequired,
   }
 
+  containerRef = React.createRef()
+
+  @observable loading = false
+
   scrollStore = createScrollStore()
 
-  @disposeOnUnmount
-  fetchOnBottom = reaction(
-    () => this.scrollStore.isBottom,
-    (isBottom) => {
-      if (isBottom) {
-        this.list.fetchNext()
-      }
-    },
-  )
+  /**
+   * @return {ICurrencyDomain}
+   */
+  get currencies () {
+    return this.props.store.currency
+  }
 
   /**
    * @return {IBondDomain}
@@ -49,23 +50,47 @@ class BondsPage extends React.Component {
     return this.props.store.bond
   }
 
-  handleScroll = event => {
-    this.scrollStore.onScroll(event.target)
+  handleScroll = () => {
+    this.scrollStore.onScroll(this.containerRef?.current)
   }
+
+  fetchNext = () => {
+    this.loading = true
+
+    this.list.fetchNext({itemsPerPage: 100})
+      .then(this.handleScroll)
+      .then(() => this.loading = false)
+  }
+
+  @disposeOnUnmount
+  fetchOnBottom = reaction(
+    () => !this.loading
+      && this.scrollStore.isBottom
+      && !this.list.loading
+      && (!this.list.items.size || this.list.items.size < this.list.totalItems),
+    (shouldLoad) => {
+      if (shouldLoad) {
+        this.fetchNext()
+      }
+    },
+  )
 
   restartFetch () {
     this.list.clear()
-    this.list.fetch()
+    this.fetchNext()
   }
 
   componentDidMount () {
-    this.list.fetch()
+    this.currencies.fetch()
+      .then(this.fetchNext)
   }
 
   render () {
-    return <PageContainer onScroll={this.handleScroll}>
+    return <PageContainer onScroll={this.handleScroll} ref={this.containerRef}>
       <PageHeader>{this.props.title}</PageHeader>
-      <article><FormattedMessage {...messages.description}/></article>
+      <article>
+        <FormattedMessage {...messages.description}/>
+      </article>
       {this.list.error && <ErrorInfo>
         {this.list.error.message}
         <ErrorButtonContainer>

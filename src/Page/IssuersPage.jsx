@@ -1,4 +1,4 @@
-import { reaction } from 'mobx'
+import { observable, reaction } from 'mobx'
 import { disposeOnUnmount, inject, observer } from 'mobx-react'
 import * as PropTypes from 'prop-types'
 import React from 'react'
@@ -30,17 +30,11 @@ class IssuersPage extends React.Component {
     title: PropTypes.object/*instanceOf(FormattedMessage)*/.isRequired,
   }
 
-  scrollStore = createScrollStore()
+  containerRef = React.createRef()
 
-  @disposeOnUnmount
-  fetchOnBottom = reaction(
-    () => this.scrollStore.isBottom,
-    (isBottom) => {
-      if (isBottom) {
-        this.list.fetchNext()
-      }
-    },
-  )
+  @observable loading = false
+
+  scrollStore = createScrollStore()
 
   /**
    * @return {IIssuerDomain}
@@ -49,21 +43,42 @@ class IssuersPage extends React.Component {
     return this.props.store.issuer
   }
 
-  handleScroll = event => {
-    this.scrollStore.onScroll(event.target)
+  handleScroll = () => {
+    this.scrollStore.onScroll(this.containerRef?.current)
   }
+
+  fetchNext = () => {
+    this.loading = true
+
+    this.list.fetchNext({itemsPerPage: 100})
+      .then(this.handleScroll)
+      .then(() => this.loading = false)
+  }
+
+  @disposeOnUnmount
+  fetchOnBottom = reaction(
+    () => !this.loading
+      && this.scrollStore.isBottom
+      && !this.list.loading
+      && (!this.list.items.size || this.list.items.size < this.list.totalItems),
+    (shouldLoad) => {
+      if (shouldLoad) {
+        this.fetchNext()
+      }
+    },
+  )
 
   restartFetch () {
     this.list.clear()
-    this.list.fetch()
+    this.fetchNext()
   }
 
   componentDidMount () {
-    this.list.fetch()
+    this.fetchNext()
   }
 
   render () {
-    return <PageContainer onScroll={this.handleScroll}>
+    return <PageContainer onScroll={this.handleScroll} ref={this.containerRef}>
       <PageHeader>{this.props.title}</PageHeader>
       <article>
         <FormattedMessage {...messages.description}/>
