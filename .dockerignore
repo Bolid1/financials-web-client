@@ -9,7 +9,8 @@
 **/.gitmodules
 **/Dockerfile*
 **/Thumbs.db
+**/.idea/
+**/build/
+**/node_modules/
 .env*
-.idea/
-build/
-node_modules/
+Jenkinsfile
